@@ -1,0 +1,58 @@
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.btn-link {
+  text-decoration: none;
+}
+.content-wrapper {
+  background-color: #eef3f1; /* Couleur de fond gris clair de la maquette */
+  min-height: 100vh;
+}
+
+h2 {
+  color: #1a1a1a;
+}
+
+.search-bar-container input {
+  width: 300px;
+  border: 1px solid #ced4da;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='gray' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 95% center;
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+/* Couleurs spécifiques des icônes de la maquette */
+.btn-outline-success { color: #1a5c4c; border-color: #1a5c4c; }
+.btn-outline-success:hover { background-color: #1a5c4c; color: white; }
+
+.btn-outline-secondary { color: #4a5568; border-color: #4a5568; }
+.btn-outline-danger { color: #e53e3e; border-color: #e53e3e; }
+
+/* Bordures légères entre les lignes du tableau */
+.border-bottom-custom {
+  border-bottom: 1px solid #EDF2F7;
+}
+
+/* Modifie l'état "hover" des lignes du tableau pour un effet pro */
+tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+/* Enlever les contours bleus par défaut au focus des champs */
+input:focus, textarea:focus {
+  box-shadow: none !important;
+  border-color: #2F80ED !important;
+}
