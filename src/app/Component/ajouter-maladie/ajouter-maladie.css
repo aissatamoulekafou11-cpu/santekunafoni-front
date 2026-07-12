@@ -1,0 +1,43 @@
+/* Style du contenu du modal */
+.modal-content {
+  border-radius: 15px;
+  padding: 10px;
+}
+
+/* Titre */
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Les labels */
+.form-label {
+  font-weight: 600;
+}
+
+/* Champs de formulaire */
+.form-control {
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* Quand on clique dans un champ */
+.form-control:focus {
+  box-shadow: none;
+}
+
+/* Boutons */
+.btn {
+  border-radius: 8px;
+  padding: 8px 20px;
+}
+
+/* Bouton ajouter */
+.btn-success {
+  font-weight: 500;
+}
+
+/* Bouton annuler */
+.btn-secondary {
+  font-weight: 500;
+}
