@@ -1,0 +1,138 @@
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  background-color: #dfe7e5;
+  overflow: hidden;
+  padding-top: 80px;
+  padding-bottom: 140px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===========================
+   Boutons Connexion / Inscription
+=========================== */
+.btn-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  background-color: #0f3d33;
+  color: #fff;
+  border: none;
+
+  width: 100%;
+  max-width: 430px;
+
+  padding: 22px 30px;
+  font-size: 1.45rem;
+  font-weight: 700;
+
+  border-radius: 8px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.btn-action:hover {
+  background-color: #145c4d;
+  transform: translateY(-3px);
+}
+
+/* Icône du bouton */
+.icon-circle {
+  background: #fff;
+  color: #0f3d33;
+
+  width: 55px;
+  height: 55px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.4rem;
+}
+
+/* ===========================
+   Titre
+=========================== */
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #0f3d33;
+  line-height: 1.2;
+}
+
+/* Sous-titre */
+.hero-subtitle {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+  margin-top: 20px;
+}
+
+/* Texte */
+.hero-text {
+  margin-top: 20px;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+/* Liste */
+.hero-list {
+  margin-top: 25px;
+  font-size: 1.2rem;
+}
+
+.hero-list li {
+  margin-bottom: 12px;
+}
+
+/* Formes décoratives */
+.diagonal-shape {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  z-index: 1;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+@media (max-width: 768px) {
+
+  .hero-title {
+    font-size: 2.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+  }
+
+  .hero-text,
+  .hero-list {
+    font-size: 1.1rem;
+  }
+
+  .btn-action {
+    max-width: 100%;
+    font-size: 1.2rem;
+    padding: 18px 22px;
+  }
+
+  .icon-circle {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+}
