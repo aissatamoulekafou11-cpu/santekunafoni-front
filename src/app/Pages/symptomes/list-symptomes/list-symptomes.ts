@@ -2,7 +2,7 @@ import { Component, computed, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Symptome } from '../../../Models/symptome.model';
-import { SymptomeService } from '../../../Services/symptome.service';
+import { SymptomeService } from '../../../services/symptome.service';
 
 type ModalMode = 'none' | 'form' | 'info' | 'delete';
 
