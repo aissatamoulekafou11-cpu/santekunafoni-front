@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
 import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
+import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
+// 1. Importer le composant Accueil
+import { AccueilComponent } from './Pages/accueil/accueil';
 
 
 /*Awa*/
