@@ -1,0 +1,66 @@
+<app-sidebar></app-sidebar>
+<div class="main">
+        <div class="top">
+            <h1 class="titre">Modifier un traitement</h1>
+        </div>
+
+        <div class="titre2">
+            <h2>Veuillez remplir les informations ci-dessous pour prescrire un traitement à un patient !</h2>
+        </div>
+
+        <div class="id">
+            <h2>Selection du patient</h2>
+            <form action="">
+                <label for="id">id du patient</label><br>
+                <select name="id" id="id">
+                    <option value="1">1</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="select-maladie">
+            <h2>Selection du maladie concernée </h2>
+            <form action="">
+                <label for="id_maladie">id de la maladie</label><br>
+                <select name="id-maladie" id="id_maladie">
+                    <option value="1">1</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="select-traitemet">
+            <h2>Informations du traitements </h2>
+             <form action="" class="form">
+                <div class="left">
+                    <label for="nom">Nom du traitement</label><br>
+                    <input type="text"><br>
+
+                    <label for="date_debut">Date début</label><br>
+                    <input type="date">
+                </div>
+
+                <div class="right">
+                    <label for="desc">Description</label><br>
+                    <input type="text"><br>
+
+                    <label for="date_fin">Date fin</label><br>
+                    <input type="date">
+                </div>
+            </form>
+        </div>
+
+        <div class="select-agent">
+            <h2>Section Agent de santé</h2>
+            <form action="">
+                <label for="id_agent">id de la maladie</label><br>
+                <select name="id-agent" id="id_agent">
+                    <option value="1">1</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="btn1">
+            <button class="annuler">Annuler</button>
+            <button class="ajouter">Modifier</button>
+        </div>
+</div>
