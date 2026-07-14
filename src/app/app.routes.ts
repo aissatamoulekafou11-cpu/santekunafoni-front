@@ -9,6 +9,7 @@ import { AccueilComponent } from './Pages/accueil/accueil';
 import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
 import { Header } from './Component/header/header';
+import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
 /*Awa*/
 
 export const routes: Routes = [
@@ -25,5 +26,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'connexion', pathMatch: 'full' },
 
   // pour visualiser le composant navbar de l'administrateur
-  {path: '', component: Header}
+  {path: 'navbar', component: Header},
+
+  {path: 'agents', component: AgentSanteListe}
 ];

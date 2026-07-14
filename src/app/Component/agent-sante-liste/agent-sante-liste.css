@@ -1,0 +1,61 @@
+.body{
+    background-color: #E9EFEC;
+}
+
+.agents-container{
+    position: relative;
+    display: flex;
+    margin-top: 80px;
+    padding: 30px;
+    background-color: #E9EFEC;
+    box-sizing: border-box;
+}
+
+.add-btn{
+        width: 200px;
+        height: px;
+        background-color: #16423C;
+        color: white;
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        border-radius: 7px;
+        border: none;
+    }
+
+.add-btn:hover{
+    background-color: white;
+    color: #16423C;
+    border: black solid 2px;
+}
+
+.table{
+    /* background-color: #E9EFEC; */
+}
+
+.agent-table{
+    /* background-color: #E9EFEC; */
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.agent-table th{
+    background-color: #E9EFEC;
+    padding: 15px 10px;
+    color: #16423C;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    font-size: 24px;
+}
+
+.agent-table td{
+    padding: 15px 10px;
+    color: black;
+    border-bottom: 1px solid black;
+    font-size: 16px;
+}
+.agent-table tbody tr:hover {
+    background-color: #f9fbfb;
+}

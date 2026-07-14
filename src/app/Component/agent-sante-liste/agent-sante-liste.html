@@ -1,0 +1,29 @@
+<div class="body">
+<app-sidebar></app-sidebar>
+<app-header></app-header>
+<div class="agents-container">
+    
+        <button class="add-btn"> Ajouter un agent</button>
+
+    <div class="table">
+        <table class="agent-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Spécialité</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let agent of listAgent">
+                    <td>{{ agent.id }}</td>
+                    <td>{{ agent.nom}}</td>
+                    <td>{{ agent.prenom}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
