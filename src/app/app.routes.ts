@@ -8,6 +8,8 @@ import { AccueilComponent } from './Pages/accueil/accueil';
 /*Awa*/
 import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
+import { MaladiesComponent } from './Pages/maladies/liste-maladie/liste-maladie';
+import { Sidebar } from './Component/sidebar/sidebar';
 /*Awa*/
 
 export const routes: Routes = [
@@ -21,5 +23,14 @@ export const routes: Routes = [
   { path: 'inscription', component: Inscription },
   
   // 4. LIGNE UNIQUE DE REDIRECTION : Si l'adresse est vide, on va vers la connexion
-  { path: '', redirectTo: 'connexion', pathMatch: 'full' }
+  { path: '', redirectTo: 'connexion', pathMatch: 'full' }, 
+
+  // 5. Maladie
+  { path: 'maladies',  component: MaladiesComponent },
+
+  //sidebar
+  { path: 'sidebar',  component: Sidebar }
+
+
+
 ];
