@@ -12,18 +12,13 @@ import { Header } from './Component/header/header';
 /*Awa*/
 
 export const routes: Routes = [
-  // 1. Quand on tape /symptomes, on affiche la liste des symptômes
-  { path: 'symptomes', component: ListSymptomesComponent },
+  // Redirection par défaut vers 'accueil' au lieu de 'connexion'
+  { path: '', redirectTo: 'accueil', pathMatch: 'full' },
 
-  // 2. Quand on tape /connexion, on affiche la page de Connexion
+  // Définition des routes
+  { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
-  
-  // 3. Quand on tape /inscription, on affiche la page d'Inscription
   { path: 'inscription', component: Inscription },
-  
-  // 4. LIGNE UNIQUE DE REDIRECTION : Si l'adresse est vide, on va vers la connexion
-  { path: '', redirectTo: 'connexion', pathMatch: 'full' },
-
-  // pour visualiser le composant navbar de l'administrateur
-  {path: '', component: Header}
+  { path: 'symptomes', component: ListSymptomesComponent },
+  { path: 'notifications', component: ListNotificationsComponent }
 ];
