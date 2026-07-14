@@ -12,6 +12,12 @@ nav a{
     border-radius: 8px;
     transition: 0.3s;
     text-decoration: none;
+    align-items: center;
+    gap: 15px;
+}
+nav a fa-icon {
+    width: 20px;
+    font-size: 18px;
 }
 nav a:hover{
     background-color: #16423C;
@@ -19,6 +25,14 @@ nav a:hover{
 }
 .active{
     background-color: white;
-    color: #16423C !important;
+    color: #16423C;
     font-weight: bold;
+}
+.logo{
+    margin-bottom:40px;
+    text-align:center;
+}
+
+.logo img{
+    width:140px;
 }
