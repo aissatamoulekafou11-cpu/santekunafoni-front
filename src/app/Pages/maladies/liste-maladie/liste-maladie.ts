@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Maladie } from '../../../Models/maladie.model';
-
 @Component({
   selector: 'app-maladies',
   standalone: true,
