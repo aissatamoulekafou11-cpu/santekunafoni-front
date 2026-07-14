@@ -1,22 +1,12 @@
-import { Component, inject, NgModule, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from './Pages/sidebar-component/sidebar-component';
-import { RouterModule } from '@angular/router';
-import { ServiceTraitement } from './Services/TraitementService/service-traitement';
+import { Header } from "./Component/header/header";
 
 @Component({
   selector: 'app-root',
-  // imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterOutlet, Header],
   templateUrl: './app.html',
-  imports: [RouterOutlet, SidebarComponent, RouterModule],
-  styleUrl: './app.css',
+  styleUrl: './app.css'
 })
-export class App {
-  traitement: any;
-  serviceTraitement = inject(ServiceTraitement);
-  protected readonly title = signal('santekunafoni-front');
-
-  constructor() {
-    this.traitement = this.serviceTraitement.getAllTraitement();
-  }
-}
+export class AppComponent {} // <-- Le nom exact attendu par Angular
