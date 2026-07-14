@@ -1,0 +1,120 @@
+/* Arrière-plan assombri (Overlay) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.45); /* Effet grisé */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px); /* Optionnel : léger flou d'arrière-plan */
+}
+
+/* Boîte blanche de la modal */
+.modal-content {
+  background-color: #f1f4f4; /* Fond gris très clair */
+  width: 90%;
+  max-width: 680px;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.modal-title {
+  color: #103d34;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Bouton de fermeture (Croix) */
+.close-btn {
+  position: absolute;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #000000;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.close-btn:hover {
+  transform: scale(1.15);
+}
+
+/* Ligne de séparation verte */
+.separator {
+  border: none;
+  border-top: 2.5px solid #103d34;
+  margin: 15px 0 35px 0;
+}
+
+/* Corps de la modal et Grille */
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.row {
+  display: flex;
+  gap: 40px;
+}
+
+.col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Libellés/Titres des champs */
+.field-label {
+  color: #103d34;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Valeur brute de l'ID */
+.id-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #103d34;
+  padding: 10px 0;
+}
+
+/* Encadrés type Input en lecture seule */
+.field-input {
+  background-color: #ffffff;
+  border: 1px solid #103d34;
+  border-radius: 6px;
+  padding: 10px 15px;
+  color: #103d34;
+  font-size: 1rem;
+  min-height: 22px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Gérer le texte trop long */
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -10,6 +10,7 @@ import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
 import { MaladiesComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 import { Sidebar } from './Component/sidebar/sidebar';
+import { DetailsMaladieComponent } from './Pages/maladies/detail-maladie/detail';
 /*Awa*/
 
 export const routes: Routes = [
@@ -29,7 +30,10 @@ export const routes: Routes = [
   { path: 'maladies',  component: MaladiesComponent },
 
   //sidebar
-  { path: 'sidebar',  component: Sidebar }
+  { path: 'sidebar',  component: Sidebar },
+
+  //detail maladie
+  { path: 'detail-maladie',  component: DetailsMaladieComponent}
 
 
 
