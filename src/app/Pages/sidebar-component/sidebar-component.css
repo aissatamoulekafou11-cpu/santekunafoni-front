@@ -14,7 +14,7 @@
 }
 .nav li {
     list-style: none;
-    margin: 50px 0px 0px 55px;
+    margin: 35px 0px 0px 55px;
 }
 
 .image{
@@ -42,4 +42,9 @@ h1{
 .side-nav{
     text-decoration: none;
     color: #ffff;
+}
+i{
+    position: relative;
+    color: #fff;
+    right: 20px;
 }

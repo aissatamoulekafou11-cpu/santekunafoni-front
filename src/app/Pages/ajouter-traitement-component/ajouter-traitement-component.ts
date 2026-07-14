@@ -3,10 +3,11 @@ import { Traitement } from '../../Models/traitement.model'; // Ajuste les ../ se
 import { ServiceTraitement } from '../../Services/TraitementService/service-traitement';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SidebarComponent } from "../sidebar-component/sidebar-component";
 
 @Component({
   selector: 'app-ajouter-traitement-component',
-  imports: [FormsModule],
+  imports: [FormsModule, SidebarComponent],
   templateUrl: './ajouter-traitement-component.html',
   styleUrl: './ajouter-traitement-component.css',
 })

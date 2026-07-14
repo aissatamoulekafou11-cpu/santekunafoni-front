@@ -1,12 +1,12 @@
-import { Component, OnInit, signal } from '@angular/core'; // 👈 On importe 'signal'
-import { Router, RouterLink } from '@angular/router';
+import { Component, OnInit, signal } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Traitement } from '../../Models/traitement.model';
 import { ServiceTraitement } from '../../Services/TraitementService/service-traitement';
-
+import { SidebarComponent } from '../sidebar-component/sidebar-component';
 @Component({
   selector: 'app-traitement',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, SidebarComponent],
   templateUrl: './traitement-component.html',
   styleUrl: './traitement-component.css',
 })

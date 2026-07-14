@@ -9,6 +9,9 @@ import { AccueilComponent } from './Pages/accueil/accueil';
 import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
 import { Header } from './Component/header/header';
+import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
+import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
+import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
 /*Awa*/
 
 export const routes: Routes = [
@@ -25,5 +28,17 @@ export const routes: Routes = [
   { path: '', redirectTo: 'connexion', pathMatch: 'full' },
 
   // pour visualiser le composant navbar de l'administrateur
-  {path: '', component: Header}
+  {path: '', component: Header},
+
+  {
+    path: 'liste-traitement', component: ListeTraitement
+  },
+
+  {
+    path: 'ajouter-tratement', component: AjouterTraitementComponent
+  },
+
+  {
+    path: 'modifier-traitement', component: ModifierTraitementComponent
+  }
 ];
