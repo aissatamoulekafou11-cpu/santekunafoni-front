@@ -8,10 +8,5 @@ export interface Notification {
     idUtilisateur: number;
     nom?: string;
     prenom?: string;
-  };
-}
-
-export enum TypeNotification {
-  ORDINAIRE = 'ORDINAIRE',   
-  EPIDEMIE  = 'EPIDEMIE'    
+  } | null;
 }

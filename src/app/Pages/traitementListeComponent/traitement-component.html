@@ -1,0 +1,65 @@
+<app-sidebar></app-sidebar>
+<div class="b">
+    <input type="search" name="search" id="search" placeholder="Rechercher un traitement">
+    <a routerLink="/ajouter-tratement" class="b-ajout">ajouter</a>
+</div>
+
+<div class="tableau table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom du traitement</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            @for (t of traitements(); track t.idTraitement) {
+            <tr>
+              <td>{{ t.idTraitement }}</td>
+              <td>{{ t.nomTraitement }}</td>
+              <td>{{ t.description }}</td>
+              <td>{{ t.datefin }}</td>
+              <td>
+                <span class="modiff"><i class="fa-solid fa-pencil"></i></span>
+                <span class="supp"><i class="fa-solid fa-trash"></i></span>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="5">Aucun traitement trouvé.</td>
+            </tr>
+            }
+            </tbody>
+            <div>
+                <nav aria-label="Pagainations des traitement">
+                    <ul class="pagination ms-auto">
+                        <li class="page-item">
+                            <a href="" class="page-link">
+                                Précedent
+                            </a>
+                        </li>
+
+                        <li class="page-item active">
+                            <a href="" class="page-link">1</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a href="" class="page-link">2</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a href="" class="page-link">3</a>
+                        </li>
+
+                        <li class="page-item">
+                            <a href="" class="page-link">Suivant</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </table>
+    </div>

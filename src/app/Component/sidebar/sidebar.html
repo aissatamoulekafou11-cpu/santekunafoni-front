@@ -1,43 +1,30 @@
-<nav>
-<h3>
-    Santekunafoni
-</h3>
-<a routerLink="/dashboard"
-routerLinkActive="active">
-    Tableau de bord
-</a>
-<a routerLink="/agents"  
-routerLinkActive="active">
-    Agents de santé
-</a>
-<a routerLink="/patients"
- routerLinkActive="active">
-    Patients
-</a>
-<a routerLink="/symptomes"
- routerLinkActive="active">
-    Symptômes
-</a>
+<aside class="sidebar">
 
-<a routerLink="/maladies"
- routerLinkActive="active">
-    Maladies détectées
-</a>
-<a routerLink="/traitements"
- routerLinkActive="active">
-    Traitements
-</a>
-<a routerLink="/notifications"
- routerLinkActive="active">
-    Notifications
-</a>
-<a routerLink="/profil"
- routerLinkActive="active">
-    Profil
-</a>
-<a routerLink="/login"
- routerLinkActive="active">
-    Déconnexion
-</a>
-</nav>
+  <!-- Logo -->
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="SantéKunafoni">
+  </div>
 
+  <!-- Menu -->
+  <nav>
+
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <fa-icon [icon]="faGaugeHigh"></fa-icon>
+      <span>Tableau de bord</span>
+    </a>
+
+    <a routerLink="/agents" routerLinkActive="active">
+      <fa-icon [icon]="faUserNurse"></fa-icon>
+      <span>Agents de santé</span>
+    </a>
+
+    <a routerLink="/patients" routerLinkActive="active">
+      <fa-icon [icon]="faUsers"></fa-icon>
+      <span>Patients</span>
+    </a>
+
+    <!-- les autres menus -->
+
+  </nav>
+
+</aside>

@@ -1,0 +1,41 @@
+.b{
+    position: relative;
+    margin-left: 18vw;
+    padding: 20px;
+    a{
+        text-align: center;
+    }
+}
+
+input {
+    width: 16vw;
+    border-radius: 5px;
+}
+
+.b-ajout{
+    width: 183px;
+    height: 28px;
+    position: absolute;
+    left: 65vw;
+    background-color: #2273EE;
+    border-radius: 5px;
+    color: #ffff;
+    text-decoration: none;
+}
+
+.tableau{
+    margin-top: 45px;
+    margin-left: 18vw;
+    padding: 20px;
+    width: 82vw;
+}
+
+.modiff i{
+    color: #2273EE;
+    margin-left: 2px;
+}
+
+.supp i{
+    margin-left: 18px;
+    color: red;
+}
