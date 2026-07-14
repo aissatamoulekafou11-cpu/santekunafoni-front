@@ -8,6 +8,7 @@ import { AccueilComponent } from './Pages/accueil/accueil';
 /*Awa*/
 import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
+import { Header } from './Component/header/header';
 /*Awa*/
 
 export const routes: Routes = [
@@ -21,5 +22,8 @@ export const routes: Routes = [
   { path: 'inscription', component: Inscription },
   
   // 4. LIGNE UNIQUE DE REDIRECTION : Si l'adresse est vide, on va vers la connexion
-  { path: '', redirectTo: 'connexion', pathMatch: 'full' }
+  { path: '', redirectTo: 'connexion', pathMatch: 'full' },
+
+  // pour visualiser le composant navbar de l'administrateur
+  {path: '', component: Header}
 ];
