@@ -8,43 +8,45 @@ import { Notification } from '../Models/notification.model';
 })
 export class NotificationService {
 
+  // Correspond exactement à @RequestMapping("/api/notification")
   private apiUrl = 'http://localhost:8080/api/notification';
 
   constructor(private http: HttpClient) {}
 
-  // ── NOTIFICATIONS ORDINAIRES ──────────────────────────
-
-  // GET toutes les notifications
+  // GET /api/notification
   getAllNotifications(): Observable<Notification[]> {
     return this.http.get<Notification[]>(this.apiUrl);
   }
 
-  // GET notifications d'un utilisateur précis
+  // GET /api/notification/utilisateur/{userId}
   getByUtilisateur(userId: number): Observable<Notification[]> {
     return this.http.get<Notification[]>(
       `${this.apiUrl}/utilisateur/${userId}`
     );
   }
 
-  // POST envoyer une notification ordinaire
+  // POST /api/notification
+  // Notification ordinaire — envoyée manuellement
   envoyerNotification(notification: Notification): Observable<Notification> {
     return this.http.post<Notification>(this.apiUrl, notification);
   }
 
-  // PUT marquer une notification comme lue
+  // PUT /api/notification/{id}/lue
   marquerCommeLue(id: number): Observable<string> {
-    return this.http.put<string>(`${this.apiUrl}/${id}/lue`, {});
+    return this.http.put(
+      `${this.apiUrl}/${id}/lue`,
+      {},
+      { responseType: 'text' }
+    );
   }
 
-  // ── ALERTE ÉPIDÉMIE AUTOMATIQUE ───────────────────────
-
-  // POST déclenche la vérification du seuil (30 cas / 7 jours)
-  // Si seuil dépassé → Spring Boot crée automatiquement une notification
+  // POST /api/notification/verifier-epidemie/{idMaladie}
+  // Notification automatique — créée par Spring Boot si seuil dépassé
   verifierEpidemie(idMaladie: number): Observable<string> {
-    return this.http.post<string>(
+    return this.http.post(
       `${this.apiUrl}/verifier-epidemie/${idMaladie}`,
       {},
-      { responseType: 'text' as 'json' }
+      { responseType: 'text' }
     );
   }
 }

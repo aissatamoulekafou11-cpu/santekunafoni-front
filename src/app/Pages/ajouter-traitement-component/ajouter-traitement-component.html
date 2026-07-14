@@ -1,0 +1,66 @@
+<app-sidebar></app-sidebar>
+<div class="main">
+  <div class="top">
+    <h1 class="titre">Ajouter un traitement</h1>
+  </div>
+
+  <div class="titre2">
+    <h2>Veuillez remplir les informations ci-dessous pour prescrire un traitement à un patient !</h2>
+  </div>
+
+  <div class="id">
+    <h2>Sélection du patient</h2>
+  <form>
+    <label for="id_patient">id du patient</label><br>
+    <select id="id_patient" [(ngModel)]="traitement.id_patient" name="id_patient">
+      <option [value]="1">1</option>
+    </select>
+  </form>
+  </div>
+
+  <div class="select-maladie">
+    <h2>Sélection de la maladie concernée </h2>
+  <form>
+    <label for="id_maladie">id de la maladie</label><br>
+    <select id="id_maladie" [(ngModel)]="traitement.id_maladie" name="id_maladie">
+      <option [value]="1">1</option>
+    </select>
+  </form>
+  </div>
+
+  <div class="select-traitemet">
+    <h2>Informations du traitement </h2>
+    <form>
+      <div class="left">
+        <label for="nom">Nom du traitement</label><br>
+        <input type="text" id="nom" [(ngModel)]="traitement.nomTraitement" name="nomTraitement"><br>
+
+        <label for="date_debut">Date début</label><br>
+        <input type="date" id="date_debut" [(ngModel)]="traitement.datedebut" name="date_debut">
+      </div>
+
+      <div class="right">
+        <label for="desc">Description</label><br>
+        <input type="text" id="desc" [(ngModel)]="traitement.description" name="description"><br>
+
+        <label for="date_fin">Date fin</label><br>
+        <input type="date" id="date_fin" [(ngModel)]="traitement.datefin" name="date_fin">
+      </div>
+    </form>
+  </div>
+
+  <div class="select-agent">
+    <h2>Section Agent de santé</h2>
+  <form>
+    <label for="id_agent">id de l'agent de santé</label><br>
+    <select id="id_agent" [(ngModel)]="traitement.id_agent_sante" name="id_agent">
+      <option [value]="">1</option>
+    </select>
+  </form>
+  </div>
+
+  <div class="btn1">
+    <button type="button" class="annuler" (click)="onAnnuler()">Annuler</button>
+    <button type="button" class="ajouter" (click)="onSubmit()">Ajouter</button>
+  </div>
+</div>
