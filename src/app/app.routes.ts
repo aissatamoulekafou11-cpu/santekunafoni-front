@@ -39,7 +39,7 @@ export const routes: Routes = [
 
   {
     path: 'modifier-traitement', component: ModifierTraitementComponent
-  }
+  },
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent }
 ];
