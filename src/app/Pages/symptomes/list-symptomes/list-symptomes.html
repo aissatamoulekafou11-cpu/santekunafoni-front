@@ -1,6 +1,15 @@
-<div class="p-5">
+<!-- 1. Ton composant Sidebar autonome (fixé à gauche grâce à son CSS) -->
+<div class="left-right">
+  <app-sidebar></app-sidebar>
+<app-sidebar></app-sidebar>
+
+
+<!-- 2. Ton contenu principal (décalé à droite grâce au CSS) -->
+<div class="p-5 content-with-sidebar">
+
   <h1 class="fw-bold mb-4" style="color: #000000; font-size: 2.3rem;">Gestion des Symptomes</h1>
 
+  <!-- Recherche et Bouton Ajouter -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <div class="position-relative shadow-sm rounded-pill bg-white d-flex align-items-center px-3" style="width: 350px; height: 45px;">
       <input 
@@ -16,19 +25,30 @@
       </svg>
     </div>
     
-    <button class="btn text-white rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" 
-            style="background-color: #2F80ED; border: none; height: 45px;" 
-            (click)="openAddModal()">
-      <span class="fs-5">+</span> Ajouter
-    </button>
+    <div class="d-flex gap-2">
+      <!-- Bouton Modal Personnalisée -->
+      <button class="btn btn-outline-primary rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" 
+              style="height: 45px;" 
+              (click)="openCustomModal()">
+        Option Spéciale
+      </button>
+
+      <!-- Bouton Ajouter -->
+      <button class="btn text-white rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" 
+              style="background-color: #2F80ED; border: none; height: 45px;" 
+              (click)="openAddModal()">
+        <span class="fs-5">+</span> Ajouter
+      </button>
+    </div>
   </div>
 
+  <!-- Tableau de données -->
   <div class="bg-white rounded-4 p-4 shadow-sm">
     <table class="table table-borderless align-middle mb-0 text-center">
       <thead>
         <tr class="text-secondary border-bottom" style="font-size: 1.05rem;">
           <th class="pb-3" style="width: 80px;">ID</th>
-          <th class="pb-3 text-start">Nom du symtome</th>
+          <th class="pb-3 text-start">Nom du symptome</th>
           <th class="pb-3 text-start">Description</th>
           <th class="pb-3">Date de creation</th>
           <th class="pb-3" style="width: 150px;">Actions</th>
@@ -42,7 +62,7 @@
           <td class="py-3 text-muted">{{ s.dateCreation }}</td>
           <td>
             <div class="d-flex justify-content-center gap-3">
-              <!-- BOUTON DETAILS (Info) -->
+              <!-- BOUTON DETAILS -->
               <button class="btn p-0 border-0 bg-transparent text-success" (click)="openInfoModal(s)" title="Détails">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="bi">
                   <circle cx="12" cy="12" r="10"></circle>
@@ -100,8 +120,10 @@
   </div>
 </div>
 
-<!-- ================= MODAL 1 : FORMULAIRE (AJOUT / MODIFICATION) ================= -->
-<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'form'" style="background: rgba(0,0,0,0.5);">
+<!-- ================= MODALS ================= -->
+
+<!-- 1. Modal AJOUTER / MODIFIER -->
+<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'form'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 rounded-4 shadow">
       <div class="modal-header border-0 bg-light rounded-top-4">
@@ -126,8 +148,8 @@
   </div>
 </div>
 
-<!-- ================= MODAL 2 : DETAILS (INFO) ================= -->
-<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'info'" style="background: rgba(0,0,0,0.5);">
+<!-- 2. Modal DETAILS (INFO) -->
+<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'info'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 rounded-4 shadow">
       <div class="modal-header border-0 bg-success text-white rounded-top-4">
@@ -138,9 +160,7 @@
         <p><strong>ID :</strong> {{ selectedSymptome()?.id }}</p>
         <p><strong>Nom du symptôme :</strong> {{ selectedSymptome()?.nom }}</p>
         <p><strong>Description complète :</strong></p>
-        <div class="p-3 bg-light rounded-3 text-muted">
-          {{ selectedSymptome()?.description }}
-        </div>
+        <div class="p-3 bg-light rounded-3 text-muted">{{ selectedSymptome()?.description }}</div>
         <p class="mt-3"><small class="text-muted">Créé le : {{ selectedSymptome()?.dateCreation }}</small></p>
       </div>
       <div class="modal-footer border-0">
@@ -150,8 +170,8 @@
   </div>
 </div>
 
-<!-- ================= MODAL 3 : SUPPRESSION (CONFIRMATION) ================= -->
-<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'delete'" style="background: rgba(0,0,0,0.5);">
+<!-- 3. Modal SUPPRESSION -->
+<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'delete'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
   <div class="modal-dialog modal-dialog-centered modal-sm">
     <div class="modal-content border-0 rounded-4 shadow">
       <div class="modal-body text-center p-4">
@@ -170,4 +190,24 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- 4. Modal PERSONNALISÉE (Réintégrée ici !) -->
+<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'custom'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow">
+      <div class="modal-header border-0 bg-primary text-white rounded-top-4">
+        <h5 class="modal-title fw-bold">Option Spéciale</h5>
+        <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body p-4 text-center">
+        <h6 class="fw-bold mb-3">Fonctionnalité personnalisée en cours...</h6>
+        <p class="text-muted">Cette section te permettra d'ajouter des filtres avancés, d'exporter tes symptômes, ou toute autre action sur mesure !</p>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary rounded-pill px-4" (click)="closeModal()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>

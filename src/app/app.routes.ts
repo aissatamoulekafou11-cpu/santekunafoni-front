@@ -4,7 +4,6 @@ import { ListNotificationsComponent } from './Pages/notifications/list-notificat
 // 1. Importer le composant Accueil
 import { AccueilComponent } from './Pages/accueil/accueil';
 
-
 /*Awa*/
 import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
@@ -31,25 +30,27 @@ export const routes: Routes = [
   { path: '', redirectTo: 'connexion', pathMatch: 'full' },
 
   // pour visualiser le composant navbar de l'administrateur
-  {path: 'navbar', component: Header},
-
-  {path: 'agents', component: AgentSanteListe},
-  {path: '', component: Header},
+  { path: '', component: Header },
 
   {
-    path: 'liste-traitement', component: ListeTraitement
+    path: 'liste-traitement',
+    component: ListeTraitement,
   },
 
   {
-    path: 'ajouter-tratement', component: AjouterTraitementComponent
+    path: 'ajouter-tratement',
+    component: AjouterTraitementComponent,
   },
   {
     path: 'sidebar-component', component:  SidebarComponent
   },
 
   {
-    path: 'modifier-traitement', component: ModifierTraitementComponent
+    path: 'modifier-traitement',
+    component: ModifierTraitementComponent,
   },
+
   { path: 'symptomes', component: ListSymptomesComponent },
-  { path: 'notifications', component: ListNotificationsComponent }
+  { path: 'notifications', component: ListNotificationsComponent },
 ];
+
