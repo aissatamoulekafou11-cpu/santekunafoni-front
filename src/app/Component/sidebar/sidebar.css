@@ -4,7 +4,6 @@
 
 nav {
     font-family: "Poppins", sans-serif;
-  
     width: 20vw;
     height: 100vh;
     background-color: #16423C;
@@ -16,49 +15,53 @@ nav {
 nav a{
     position: relative;
     display: block;
-    
-margin-bottom: 30px;
+    margin-bottom: 30px;
+    margin-left: 10px;
     color: white;
-    top: 50px;
+    text-decoration: none;
+    top: 80px;
     border-radius: 5px;
-    transition: 0.1s;
-    align-items: center;
+    transition: 0.1s;align-content: center;
+   
    
 }
 span{
-     text-decoration: none; 
-      font-weight: 500;
+    text-decoration: none; 
+    font-weight: 500;
 }
 
 nav a i{
     width: 20px;
     margin:  0px 15px 0px 25px;
-    margin-bottom: 10px;
     font-size: 16px;
-    
+   
 }
 nav a:hover{
-    background-color: white;
+   
+    background-color: #E9EFEC;
     color: #16423C;
     width: 21vw;
-    margin-left: 30px;
+    
+    height: 40px;
+     
+    
   
    
 }
-.active{
+/* .active{
     background-color: white;
     color: #16423C;
     font-weight: bold;
-}
+} */
 .logo{
     position: relative;
     top: 35px;
-    left: 25px;
+    left: 35px;
     background-color: #ffff;
     width: 200px;
     height: 50px;
     border-radius: 5px;
-    align-items: center;
+  
 }
 
 .logo img{
@@ -69,8 +72,11 @@ nav a:hover{
 
 h1{
     position: relative;
-    left: 85px;
+    left: 100px;
   font-weight: 600;
     font-size: 16px;
     color:  #16423C;
 }
+
+
+ 

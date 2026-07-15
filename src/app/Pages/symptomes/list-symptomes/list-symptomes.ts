@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Symptome } from '../../../Models/symptome.model';
 import { SymptomeService } from '../../../Services/symptome.service';
+import { Sidebar } from '../../../Component/sidebar/sidebar';
 
-type ModalMode = 'none' | 'form' | 'info' | 'delete';
+type ModalMode = 'none' | 'form' | 'info' | 'delete' ;
 
 @Component({
   selector: 'app-list-symptomes',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Sidebar],
   templateUrl: './list-symptomes.html',
   styleUrl: './list-symptomes.css'
 })
@@ -18,31 +18,34 @@ export class ListSymptomesComponent {
   symptomes = this.symptomeService.symptomes;
 
   searchTerm = signal('');
-  
+
   filteredSymptomes = computed(() => {
     const term = this.searchTerm().trim().toLowerCase();
+
     if (!term) return this.symptomes();
-    return this.symptomes().filter((s: Symptome) => 
-      s.nom.toLowerCase().includes(term) || 
-      s.description.toLowerCase().includes(term)
+
+    return this.symptomes().filter((s: Symptome) =>
+      s.nom.toLowerCase().includes(term) ||
+      s.description.toLowerCase().includes(term) ||
+      s.id.toString().includes(term)
     );
   });
 
   // Gestion des Modals
   currentMode = signal<ModalMode>('none');
   selectedSymptome = signal<Symptome | null>(null);
-  
+
   // Modèle lié aux champs de saisie du formulaire
   formModel = { id: 0, nom: '', description: '', dateCreation: '' };
 
   // 1. ACTION : Ouvrir en mode Ajout
   openAddModal() {
     this.selectedSymptome.set(null);
-    this.formModel = { 
-      id: this.symptomes().length > 0 ? Math.max(...this.symptomes().map(s => s.id)) + 1 : 1, 
-      nom: '', 
-      description: '', 
-      dateCreation: '11/07/2026' 
+    this.formModel = {
+      id: this.symptomes().length > 0 ? Math.max(...this.symptomes().map(s => s.id)) + 1 : 1,
+      nom: '',
+      description: '',
+      dateCreation: '11/07/2026'
     };
     this.currentMode.set('form');
   }
@@ -63,12 +66,12 @@ export class ListSymptomesComponent {
   // Enregistrement de l'Ajout ou de la Modification
   sauvegarder() {
     if (!this.formModel.nom.trim() || !this.formModel.description.trim()) {
-      alert("Veuillez remplir tous les champs !");
+      alert('Veuillez remplir tous les champs !');
       return;
     }
 
     const index = this.symptomes().findIndex((s: Symptome) => s.id === this.formModel.id);
-    
+
     if (index !== -1) {
       // Mode Modification
       this.symptomes.update(list => {
@@ -79,6 +82,7 @@ export class ListSymptomesComponent {
       // Mode Ajout
       this.symptomes.update(list => [...list, { ...this.formModel }]);
     }
+
     this.closeModal();
   }
 
@@ -100,4 +104,7 @@ export class ListSymptomesComponent {
     this.currentMode.set('none');
     this.selectedSymptome.set(null);
   }
+
+ 
 }
+
