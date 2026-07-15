@@ -7,7 +7,7 @@ import { faGaugeHigh, faUserNurse, faUsers } from '@fortawesome/free-solid-svg-i
   standalone: true,
   imports: [FontAwesomeModule],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.css',
+  styleUrl: './sidebar.css'
 })
 export class Sidebar {
   // 4. Déclarer les variables pour qu'elles soient utilisables dans le HTML
