@@ -18,6 +18,7 @@ nav a{
     margin-bottom: 30px;
     margin-left: 10px;
     color: white;
+    text-decoration: none;
     top: 80px;
     border-radius: 5px;
     transition: 0.1s;align-content: center;
@@ -25,8 +26,8 @@ nav a{
    
 }
 span{
-     text-decoration: none; 
-      font-weight: 500;
+    text-decoration: none; 
+    font-weight: 500;
 }
 
 nav a i{
@@ -47,11 +48,11 @@ nav a:hover{
   
    
 }
-.active{
+/* .active{
     background-color: white;
     color: #16423C;
     font-weight: bold;
-}
+} */
 .logo{
     position: relative;
     top: 35px;
