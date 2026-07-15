@@ -15,6 +15,7 @@ import { ModifierTraitementComponent } from './Pages/modifier-traitement-compone
 import { Sidebar } from './Component/sidebar/sidebar';
 import { SidebarComponent } from './Pages/sidebar-component/sidebar-component';
 /*Awa*/
+import { AgentDashboard } from './Pages/agent-dashboard/agent-dashboard';
 
 export const routes: Routes = [
   // Redirection par défaut vers 'accueil' au lieu de 'connexion'
@@ -47,5 +48,10 @@ export const routes: Routes = [
     path: 'modifier-traitement', component: ModifierTraitementComponent
   },
   { path: 'symptomes', component: ListSymptomesComponent },
-  { path: 'notifications', component: ListNotificationsComponent }
+  { path: 'notifications', component: ListNotificationsComponent },
+  {
+  path: 'agent-dashboard',
+  component: AgentDashboard
+}
+  
 ];
