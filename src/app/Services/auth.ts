@@ -30,7 +30,7 @@ export class AuthService {
   connexion(tel: string, motpass: string): Observable<any> {
     const identifiants = { tel, motpass };
     
-    return this.http.post<any>(`${this.baseUrl}/connexion`, identifiants).pipe(
+    return this.http.post<any>(`${this.baseUrl}/login`, identifiants).pipe(
       tap(reponse => {
         // IMPORTANT : Sauvegarde automatique du Token JWT retourné par le backend
         if (reponse && reponse.token) {
