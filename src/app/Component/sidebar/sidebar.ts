@@ -1,11 +1,22 @@
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  faGaugeHigh,
+  faUserNurse,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
+
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [],
+  standalone: true,
+  imports: [FontAwesomeModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-
+  faGaugeHigh = faGaugeHigh;
+  faUserNurse = faUserNurse;
+  faUsers = faUsers;
 }
+
