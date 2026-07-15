@@ -5,7 +5,7 @@ import { Symptome } from '../../../Models/symptome.model';
 import { SymptomeService } from '../../../Services/symptome.service';
 import { Sidebar } from '../../../Component/sidebar/sidebar';
 
-type ModalMode = 'none' | 'form' | 'info' | 'delete' | 'custom';
+type ModalMode = 'none' | 'form' | 'info' | 'delete' ;
 
 @Component({
   selector: 'app-list-symptomes',
@@ -106,9 +106,6 @@ export class ListSymptomesComponent {
     this.selectedSymptome.set(null);
   }
 
-  // 5. ACTION : Ouvrir ma modal personnalisée
-  openCustomModal() {
-    this.currentMode.set('custom');
-  }
+ 
 }
 
