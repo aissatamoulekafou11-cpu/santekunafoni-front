@@ -23,15 +23,9 @@ export const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
-<<<<<<< HEAD
-
-=======
   { path: 'sidebar', component: Sidebar },
   
->>>>>>> 36f68e070f1d9ddadb7cacf7c9e92ae49099e9b7
-  // 4. LIGNE UNIQUE DE REDIRECTION : Si l'adresse est vide, on va vers la connexion
-  { path: '', redirectTo: 'connexion', pathMatch: 'full' },
-
+ 
   // pour visualiser le composant navbar de l'administrateur
   { path: '', component: Header },
 
@@ -49,15 +43,8 @@ export const routes: Routes = [
   },
 
   {
-<<<<<<< HEAD
-    path: 'modifier-traitement',
-    component: ModifierTraitementComponent,
-  },
-
-=======
     path: 'modifier-traitement', component: ModifierTraitementComponent
   },
->>>>>>> 36f68e070f1d9ddadb7cacf7c9e92ae49099e9b7
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
 ];
