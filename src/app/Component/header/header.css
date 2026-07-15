@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 80%;
     height: 99px;
     background-color: #ffffff;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
@@ -11,6 +11,10 @@
     justify-content: right;
     box-sizing: border-box;
     padding: 0 50px;
+    border-radius: 7;
+    border: 2 solid #E9EFEC;
+    margin-top: 0.3%;
+    margin-left: 20%;
 }
 
 .navbar{
