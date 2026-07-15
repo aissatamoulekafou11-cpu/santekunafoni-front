@@ -13,6 +13,8 @@ import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
+import { Sidebar } from './Component/sidebar/sidebar';
+import { SidebarComponent } from './Pages/sidebar-component/sidebar-component';
 /*Awa*/
 
 export const routes: Routes = [
@@ -23,6 +25,7 @@ export const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
+  { path: 'sidebar', component: Sidebar },
   
   // 4. LIGNE UNIQUE DE REDIRECTION : Si l'adresse est vide, on va vers la connexion
   { path: '', redirectTo: 'connexion', pathMatch: 'full' },
@@ -39,6 +42,9 @@ export const routes: Routes = [
 
   {
     path: 'ajouter-tratement', component: AjouterTraitementComponent
+  },
+  {
+    path: 'sidebar-component', component:  SidebarComponent
   },
 
   {
