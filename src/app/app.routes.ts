@@ -8,6 +8,7 @@ import { AccueilComponent } from './Pages/accueil/accueil';
 import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
 import { Header } from './Component/header/header';
+import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
@@ -23,12 +24,8 @@ export const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
-<<<<<<< HEAD
-
-=======
   { path: 'sidebar', component: Sidebar },
   
->>>>>>> 36f68e070f1d9ddadb7cacf7c9e92ae49099e9b7
   // 4. LIGNE UNIQUE DE REDIRECTION : Si l'adresse est vide, on va vers la connexion
   { path: '', redirectTo: 'connexion', pathMatch: 'full' },
 
@@ -49,15 +46,10 @@ export const routes: Routes = [
   },
 
   {
-<<<<<<< HEAD
     path: 'modifier-traitement',
     component: ModifierTraitementComponent,
   },
 
-=======
-    path: 'modifier-traitement', component: ModifierTraitementComponent
-  },
->>>>>>> 36f68e070f1d9ddadb7cacf7c9e92ae49099e9b7
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
 ];
