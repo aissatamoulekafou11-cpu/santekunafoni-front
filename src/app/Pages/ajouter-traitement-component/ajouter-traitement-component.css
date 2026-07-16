@@ -1,3 +1,6 @@
+.body{
+    background-color: #E9EFEC;
+}
 .main{
     position: relative;
     display: flex;
@@ -10,12 +13,10 @@
 .top{
     margin-left: 18vw;
     position: relative;
-    top: 0;
-    width: 81.8%;
-    height: 12vh;
-    background-color: aquamarine;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    top: 5px;
+    width: 81.2%;
+    height: 13vh;
+    background-color: #fff;
 }
 
 .titre{
@@ -25,7 +26,7 @@
 }
 .titre2{
     margin-left: 22vw;
-    border: 1px solid black;
+    background-color: #fff;
     width: 75vw;
     height: 10vh;
     border-radius: 5px;
@@ -39,7 +40,7 @@
 
 .id{
     margin-left: 22vw;
-    border: 1px solid black;
+    background-color: #fff;
     width: 75vw;
     height: 18vh;
     border-radius: 5px;
@@ -56,7 +57,7 @@
     select{
         width: 30vw;
         height: 5vh;
-        border: 1px solid black;
+        background-color: #fff;
         margin-top: 5px;
         margin-left: 10vw;
         border-radius: 5px;
@@ -65,7 +66,7 @@
 
 .select-maladie{
     margin-left: 22vw;
-    border: 1px solid black;
+    background-color: #fff;
     width: 75vw;
     height: 18vh;
     border-radius: 5px;
@@ -92,7 +93,8 @@
 
 .select-traitemet{
     margin-left: 22vw;
-    border: 1px solid black;    width: 75vw;
+    background-color: #fff;  
+    width: 75vw;
     height: 28vh;
     border-radius: 5px;
 
@@ -128,7 +130,7 @@
     width: 75vw;
     height: 16vh;
     border-radius: 5px;
-    border: 1px solid black;
+    background-color: #fff;
 
 
      h2{
@@ -153,7 +155,7 @@
     display: flex;
     gap: 5px;
 }
-.btn1 button{
+.btn1 input{
     position: relative;
     left: 76vw;
     width: 10vw;

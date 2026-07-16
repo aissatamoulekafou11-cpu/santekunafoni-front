@@ -1,12 +1,10 @@
 <!-- 1. Ton composant Sidebar autonome (fixé à gauche grâce à son CSS) -->
 <div class="left-right">
   <app-sidebar></app-sidebar>
-<app-sidebar></app-sidebar>
 
 
 <!-- 2. Ton contenu principal (décalé à droite grâce au CSS) -->
 <div class="p-5 content-with-sidebar">
-
   <h1 class="fw-bold mb-4" style="color: #000000; font-size: 2.3rem;">Gestion des Symptomes</h1>
 
   <!-- Recherche et Bouton Ajouter -->
@@ -26,12 +24,7 @@
     </div>
     
     <div class="d-flex gap-2">
-      <!-- Bouton Modal Personnalisée -->
-      <button class="btn btn-outline-primary rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" 
-              style="height: 45px;" 
-              (click)="openCustomModal()">
-        Option Spéciale
-      </button>
+     
 
       <!-- Bouton Ajouter -->
       <button class="btn text-white rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" 
@@ -59,7 +52,7 @@
           <td class="py-3 fw-bold text-dark">{{ s.id }}</td>
           <td class="py-3 text-start fw-bold" style="color: #2D3748;">{{ s.nom }}</td>
           <td class="py-3 text-start text-muted text-truncate" style="max-width: 320px;">{{ s.description }}</td>
-          <td class="py-3 text-muted">{{ s.dateCreation }}</td>
+          <td class="py-3 text-muted">{{ s.dateCreation | date:'dd/MM/yyyy HH:mm' }}</td>
           <td>
             <div class="d-flex justify-content-center gap-3">
               <!-- BOUTON DETAILS -->
@@ -128,7 +121,7 @@
     <div class="modal-content border-0 rounded-4 shadow">
       <div class="modal-header border-0 bg-light rounded-top-4">
         <h5 class="modal-title fw-bold">{{ selectedSymptome() ? 'Modifier' : 'Ajouter' }} un Symptôme</h5>
-        <button type="button" class="btn-close" (click)="closeModal()"></button>
+        <!-- <button type="button" class="btn-close" (click)="closeModal()"></button> -->
       </div>
       <div class="modal-body p-4">
         <div class="mb-3">
@@ -138,6 +131,11 @@
         <div class="mb-3">
           <label class="form-label fw-bold">Description</label>
           <textarea class="form-control rounded-3" rows="3" [(ngModel)]="formModel.description" placeholder="Description du symptôme..."></textarea>
+        </div>
+        <!-- Champ Date de création -->
+        <div class="mb-3">
+          <label class="form-label fw-bold">Date de création</label>
+         <input type="datetime-local" class="form-control rounded-3" [(ngModel)]="formModel.dateCreation">
         </div>
       </div>
       <div class="modal-footer border-0">
@@ -154,14 +152,14 @@
     <div class="modal-content border-0 rounded-4 shadow">
       <div class="modal-header border-0 bg-success text-white rounded-top-4">
         <h5 class="modal-title fw-bold">Détails du Symptôme</h5>
-        <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
+        <!-- <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button> -->
       </div>
       <div class="modal-body p-4">
         <p><strong>ID :</strong> {{ selectedSymptome()?.id }}</p>
         <p><strong>Nom du symptôme :</strong> {{ selectedSymptome()?.nom }}</p>
         <p><strong>Description complète :</strong></p>
         <div class="p-3 bg-light rounded-3 text-muted">{{ selectedSymptome()?.description }}</div>
-        <p class="mt-3"><small class="text-muted">Créé le : {{ selectedSymptome()?.dateCreation }}</small></p>
+        <p class="mt-3"><small class="text-muted">Créé le : {{ selectedSymptome()?.dateCreation | date:'dd/MM/yyyy HH:mm' }}</small></p>
       </div>
       <div class="modal-footer border-0">
         <button type="button" class="btn btn-secondary rounded-pill px-4" (click)="closeModal()">Fermer</button>
@@ -192,22 +190,6 @@
   </div>
 </div>
 
-<!-- 4. Modal PERSONNALISÉE (Réintégrée ici !) -->
-<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'custom'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0 rounded-4 shadow">
-      <div class="modal-header border-0 bg-primary text-white rounded-top-4">
-        <h5 class="modal-title fw-bold">Option Spéciale</h5>
-        <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button>
-      </div>
-      <div class="modal-body p-4 text-center">
-        <h6 class="fw-bold mb-3">Fonctionnalité personnalisée en cours...</h6>
-        <p class="text-muted">Cette section te permettra d'ajouter des filtres avancés, d'exporter tes symptômes, ou toute autre action sur mesure !</p>
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary rounded-pill px-4" (click)="closeModal()">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+
 </div>

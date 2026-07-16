@@ -129,7 +129,7 @@ app-sidebar {
 .content-with-sidebar {
   margin-left: 260px; 
   min-height: 100vh;
-  background-color: #f8f9fa; /* Un fond gris très clair pour faire ressortir tes cartes blanches */
+  background-color: #E9EFEC; /* Un fond gris très clair pour faire ressortir tes cartes blanches */
   width: calc(100% - 260px);
   box-sizing: border-box;
 }

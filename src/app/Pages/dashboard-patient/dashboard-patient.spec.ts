@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Map } from './map';
+import { DashboardPatient } from './dashboard-patient';
 
-describe('Map', () => {
-  let component: Map;
-  let fixture: ComponentFixture<Map>;
+describe('DashboardPatient', () => {
+  let component: DashboardPatient;
+  let fixture: ComponentFixture<DashboardPatient>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Map]
-    })
-    .compileComponents();
+      imports: [DashboardPatient],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(Map);
+    fixture = TestBed.createComponent(DashboardPatient);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

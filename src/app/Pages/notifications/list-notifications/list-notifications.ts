@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-// Import du module FontAwesome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-// Import des icônes nécessaires
 import { 
   faBell, 
   faTriangleExclamation, 
-  faEnvelope, 
-  faCheck, 
   faPlus, 
+  faCheck, 
+  faEnvelope, 
   faMagnifyingGlass, 
   faClock 
 } from '@fortawesome/free-solid-svg-icons';
-
 import { NotificationService } from '../../../Services/notification.service';
 import { Notification } from '../../../Models/notification.model';
 import { Sidebar } from "../../../Component/sidebar/sidebar";
@@ -21,173 +18,188 @@ import { Sidebar } from "../../../Component/sidebar/sidebar";
 @Component({
   selector: 'app-list-notifications',
   standalone: true,
-  // Ajout de FontAwesomeModule aux imports
   imports: [CommonModule, FormsModule, FontAwesomeModule, Sidebar],
   templateUrl: './list-notifications.html',
-  styleUrls: ['./list-notifications.css']
+  styleUrl: './list-notifications.css'
 })
 export class ListNotificationsComponent implements OnInit {
-
-  // Déclaration des icônes pour le HTML
+  // Icônes FontAwesome
   faBell = faBell;
   faTriangleExclamation = faTriangleExclamation;
-  faEnvelope = faEnvelope;
-  faCheck = faCheck;
   faPlus = faPlus;
+  faCheck = faCheck;
+  faEnvelope = faEnvelope;
   faMagnifyingGlass = faMagnifyingGlass;
   faClock = faClock;
 
-  // ── Données ─────────────────────────────────────────
+  // Variables d'état
   notifications: Notification[] = [];
   notificationsFiltrees: Notification[] = [];
+  notificationsPaginees: Notification[] = [];
+  
+  nombreNonLues: number = 0;
+  nombreAlertes: number = 0;
+  isLoading: boolean = false;
+  
+  successMessage: string = '';
+  errorMessage: string = '';
 
-  // ── États UI ────────────────────────────────────────
-  isLoading = false;
-  successMessage = '';
-  errorMessage = '';
-
-  // ── Nouvelle notification ordinaire ─────────────────
-  showFormulaire = false;
-  nouvelleNotification: Notification = {
+  // Formulaires
+  showFormulaire: boolean = false;
+  showVerifEpidemie: boolean = false;
+  idMaladieVerif?: number;
+  
+  nouvelleNotification: Partial<Notification> = {
     titre: '',
-    message: '',
-    lue: false,
-    utilisateur: { idUtilisateur: 1 }
+    message: ''
   };
 
-  // ── Alerte épidémie ─────────────────────────────────
-  idMaladieVerif = 1;
-  showVerifEpidemie = false;
+  // Filtres et Pagination
+  filtreTexte: string = '';
+  filtreLue: string = 'toutes';
+  pageActuelle: number = 1;
+  taillePage: number = 5;
+  totalPages: number = 1;
+  pages: number[] = [];
 
-  // ── Filtre ──────────────────────────────────────────
-  filtreTexte = '';
-  filtreLue = 'toutes';
-
-  // ── Pagination ──────────────────────────────────────
-  pageActuelle = 1;
-  parPage = 5;
-
-  constructor(private notifService: NotificationService) {}
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.chargerNotifications();
   }
 
-  // ── Chargement ──────────────────────────────────────
-  chargerNotifications(): void {
+chargerNotifications(): void {
     this.isLoading = true;
-    this.notifService.getAllNotifications().subscribe({
-      next: (data) => {
+    this.notificationService.getAllNotifications().subscribe({
+      next: (data: Notification[]) => {
         this.notifications = data;
         this.appliquerFiltres();
-        this.isLoading = false;
+        this.mettreAJourStatistiques();
+        this.isLoading = false; // Arrête le chargement en cas de succès
       },
-      error: () => {
-        this.errorMessage = 'Impossible de charger les notifications.';
-        this.isLoading = false;
+      error: (err: any) => {
+        console.error("Erreur lors de la récupération des notifications :", err);
+        this.errorMessage = "Impossible de charger les notifications.";
+        this.isLoading = false; // TRÈS IMPORTANT : On arrête aussi le chargement ici pour faire disparaître le spinner !
       }
     });
   }
 
-  // ── Filtres ─────────────────────────────────────────
+
+
+  mettreAJourStatistiques(): void {
+    this.nombreNonLues = this.notifications.filter(n => !n.lue).length;
+    this.nombreAlertes = this.notifications.filter(n => this.estAlerte(n)).length;
+  }
+
   appliquerFiltres(): void {
-    let result = [...this.notifications];
+    this.notificationsFiltrees = this.notifications.filter(n => {
+      const correspondTexte = !this.filtreTexte || 
+        n.titre.toLowerCase().includes(this.filtreTexte.toLowerCase()) ||
+        n.message.toLowerCase().includes(this.filtreTexte.toLowerCase());
 
-    if (this.filtreTexte.trim()) {
-      const texte = this.filtreTexte.toLowerCase();
-      result = result.filter(n =>
-        n.titre.toLowerCase().includes(texte) ||
-        n.message.toLowerCase().includes(texte)
-      );
-    }
+      const correspondStatut = this.filtreLue === 'toutes' ||
+        (this.filtreLue === 'lues' && n.lue) ||
+        (this.filtreLue === 'non-lues' && !n.lue);
 
-    if (this.filtreLue === 'lues') {
-      result = result.filter(n => n.lue);
-    } else if (this.filtreLue === 'non-lues') {
-      result = result.filter(n => !n.lue);
-    }
+      return correspondTexte && correspondStatut;
+    });
 
-    this.notificationsFiltrees = result;
     this.pageActuelle = 1;
+    this.calculerPagination();
   }
 
-  // ── Pagination ──────────────────────────────────────
-  get notificationsPaginees(): Notification[] {
-    const debut = (this.pageActuelle - 1) * this.parPage;
-    return this.notificationsFiltrees.slice(debut, debut + this.parPage);
+  calculerPagination(): void {
+    this.totalPages = Math.ceil(this.notificationsFiltrees.length / this.taillePage);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    this.mettreAJourPage();
   }
 
-  get totalPages(): number {
-    return Math.ceil(this.notificationsFiltrees.length / this.parPage);
-  }
-
-  get pages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  mettreAJourPage(): void {
+    const debut = (this.pageActuelle - 1) * this.taillePage;
+    const fin = debut + this.taillePage;
+    this.notificationsPaginees = this.notificationsFiltrees.slice(debut, fin);
   }
 
   changerPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.pageActuelle = page;
+      this.mettreAJourPage();
     }
   }
 
-  // ── Compteurs ───────────────────────────────────────
-  get nombreNonLues(): number {
-    return this.notifications.filter(n => !n.lue).length;
-  }
-
-  get nombreAlertes(): number {
-    return this.notifications.filter(n =>
-      n.titre?.toLowerCase().includes('épidémie') ||
-      n.titre?.toLowerCase().includes('alerte')
-    ).length;
-  }
-
-  // ── Actions ─────────────────────────────────────────
   toggleFormulaire(): void {
     this.showFormulaire = !this.showFormulaire;
+    if (this.showFormulaire) this.showVerifEpidemie = false;
   }
 
   toggleVerifEpidemie(): void {
     this.showVerifEpidemie = !this.showVerifEpidemie;
-  }
-
-  estAlerte(notif: Notification): boolean {
-    return notif.titre?.toLowerCase().includes('épidémie') ||
-           notif.titre?.toLowerCase().includes('alerte') || false;
-  }
-
-  marquerLue(id: number): void {
-    this.notifService.marquerCommeLue(id).subscribe({
-      next: () => {
-        this.afficherSucces('Notification marquée comme lue.');
-        this.chargerNotifications();
-      }
-    });
+    if (this.showVerifEpidemie) this.showFormulaire = false;
   }
 
   envoyerNotification(): void {
-    this.notifService.envoyerNotification(this.nouvelleNotification).subscribe({
-      next: () => {
-        this.afficherSucces('Notification envoyée !');
+    if (!this.nouvelleNotification.titre || !this.nouvelleNotification.message) {
+      this.errorMessage = "Veuillez remplir tous les champs obligatoires (*).";
+      return;
+    }
+
+    this.isLoading = true;
+    // Modification : Utilisation de envoyerNotification() et typage de 'nouvelle'
+    this.notificationService.envoyerNotification(this.nouvelleNotification as Notification).subscribe({
+      next: (nouvelle: Notification) => {
+        this.notifications.unshift(nouvelle);
+        this.appliquerFiltres();
+        this.mettreAJourStatistiques();
+        this.successMessage = "Notification envoyée avec succès !";
+        this.nouvelleNotification = { titre: '', message: '' };
         this.showFormulaire = false;
-        this.chargerNotifications();
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        this.errorMessage = "Erreur lors de l'envoi de la notification.";
+        this.isLoading = false;
       }
     });
   }
 
   verifierEpidemie(): void {
-    this.notifService.verifierEpidemie(this.idMaladieVerif).subscribe({
-      next: (msg) => {
-        this.afficherSucces(msg);
-        this.showVerifEpidemie = false;
+    if (!this.idMaladieVerif) {
+      this.errorMessage = "Veuillez renseigner un ID de maladie valide.";
+      return;
+    }
+
+    this.isLoading = true;
+    this.notificationService.verifierEpidemie(this.idMaladieVerif).subscribe({
+      next: (messageAlerte: string) => {
+        this.successMessage = messageAlerte || "Vérification effectuée. Aucune alerte à signaler.";
         this.chargerNotifications();
+        this.showVerifEpidemie = false;
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        this.errorMessage = "Une erreur est survenue lors de la vérification de l'épidémie.";
+        this.isLoading = false;
       }
     });
   }
 
-  afficherSucces(message: string): void {
-    this.successMessage = message;
-    setTimeout(() => this.successMessage = '', 4000);
+  marquerLue(id: number): void {
+    this.notificationService.marquerCommeLue(id).subscribe({
+      next: () => {
+        const index = this.notifications.findIndex(n => n.id === id);
+        if (index !== -1) {
+          this.notifications[index].lue = true;
+          this.appliquerFiltres();
+          this.mettreAJourStatistiques();
+        }
+      }
+    });
+  }
+
+  estAlerte(notif: Notification): boolean {
+    return notif.titre.toLowerCase().includes('alerte') || 
+           notif.message.toLowerCase().includes('épidémie') || 
+           notif.message.toLowerCase().includes('urgent');
   }
 }
