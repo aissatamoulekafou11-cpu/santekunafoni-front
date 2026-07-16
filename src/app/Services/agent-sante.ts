@@ -19,12 +19,12 @@ export class AgentSanteService {
     }
 
     // Fonction pour afficher tout les agents de santé
-    getAllAgents(): Observable<any[]>{
-        return this.http.get<any[]>(this.apiUrl);
+    getAllAgents(): Observable<AgentSante[]>{
+        return this.http.get<AgentSante[]>(this.apiUrl);
     }
 
     // Fonction pour afficher un agent à travers son id
-    getAgentById(id: number): Observable<any>{
+    getAgentById(id: number): Observable<AgentSante>{
         return this.http.get<any>(`${this.apiUrl}/${id}`);
     }
 

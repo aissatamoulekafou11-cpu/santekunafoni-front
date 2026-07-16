@@ -236,3 +236,141 @@ input:focus, textarea:focus {
   background-color: #2e8b57; /* vert légèrement plus clair au passage */
   color: white;
 }
+
+input{
+  border-color: #16423C;
+  border-radius: 5;
+}
+
+textarea{
+   border-color: #16423C;
+  border-radius: 5;
+  text-decoration: black;
+}
+
+
+
+/*Pour details maladie */
+
+
+/* Conteneur principal de la modale */
+.maladie-modal-dialog {
+  width: 100%;
+  max-width: 650px; /* Largeur pour correspondre à l'image */
+  font-family: 'Arial', sans-serif; /* Police sans-serif standard */
+  margin: 0; /* Centrage géré par le flex parent de la modale */
+}
+
+/* Contenu de la modale */
+.maladie-modal-content {
+  background-color: #EBF1EF; /* Fond blanc cassé/vert très clair */
+  border: none;
+  border-radius: 4px; /* Arrondis très légers */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Légère ombre */
+}
+
+/* Header de la modale */
+.maladie-modal-header {
+  border-bottom: none; /* !!! CETTE LIGNE SUPPRIME LA LIGNE DE SÉPARATION !!! */
+  padding: 20px 25px 0 25px; /* Padding pour aligner le titre */
+  display: flex;
+  justify-content: center; /* Centre le titre */
+  align-items: center;
+  position: relative; /* Pour positionner le bouton de fermeture */
+}
+
+/* Titre de la modale */
+.maladie-modal-title {
+  color: #1F4D42; /* Vert très foncé */
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Bouton de fermeture 'x' textuel */
+.maladie-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #1F4D42;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.maladie-close-btn:hover {
+  color: #000;
+}
+
+/* Body de la modale */
+.maladie-modal-body {
+  padding: 0 25px 30px 25px; /* Espacement intérieur */
+}
+
+/* Mise en page des lignes de données */
+.maladie-data-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px; /* Espace important entre les lignes, comme sur l'image */
+}
+
+/* Groupe de données (label + valeur) */
+.maladie-data-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Largeurs spécifiques des colonnes pour correspondre à l'image */
+.col-id   { width: 15%; }
+.col-name { width: 75%; }
+.col-desc { width: 45%; }
+.col-date { width: 45%; }
+
+/* Style des labels */
+.maladie-label {
+  color: #1F4D42; /* Vert foncé */
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 5px; /* Petit espace sous le label */
+}
+
+/* Style de la valeur ID (texte simple en gras) */
+.maladie-value-id {
+  color: #1F4D42;
+  font-weight: 700;
+  font-size: 1rem;
+  padding-left: 2px; /* Léger décalage pour aligner avec les labels */
+}
+
+/* Style des champs de texte "input field" */
+.maladie-input-field {
+  background-color: transparent;
+  border: 1px solid #B0C4BF; /* Bordure gris-vert clair */
+  border-radius: 4px;
+  color: #1F4D42; /* Texte vert foncé */
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  width: 100%;
+  box-sizing: border-box; /* Inclut le padding dans la largeur */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Style spécifique pour la description pour gérer le texte long */
+.maladie-description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Style de la nouvelle ligne séparatrice */
+.maladie-divider {
+  border: 0;
+  border-top: 3px solid ; /* Même couleur gris-vert que la bordure des inputs */
+  margin: 25px 0; /* Espacement équilibré au-dessus et en-dessous */
+  opacity: 1; /* Évite que Bootstrap ne rende la ligne semi-transparente */
+  height: 2px;
+}
