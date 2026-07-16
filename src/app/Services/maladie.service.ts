@@ -15,8 +15,7 @@ export class MaladieService {
 
     constructor(private http: HttpClient) { }
 
-
-
+    /* Recuperation de la liste des maladies  */
     getMaladies() {
 
         this.http.get<Maladie[]>(this.apiUrl)
@@ -37,7 +36,6 @@ export class MaladieService {
             });
 
     }
-
     // AJOUT D'UNE MALADIE
     createMaladie(maladie: Maladie) {
 
@@ -46,8 +44,6 @@ export class MaladieService {
             maladie
         );
     }
-
-
         //Modification d'une maladie 
 
         updateMaladie(id: number, maladie: Maladie){

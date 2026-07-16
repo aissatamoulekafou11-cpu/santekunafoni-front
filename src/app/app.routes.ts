@@ -12,13 +12,26 @@ import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 
 
+// 1. Importer le composant Accueil
 export const routes: Routes = [
-  // Redirection par défaut vers 'accueil' au lieu de 'connexion'
+  // Redirection par défaut vers 'accueil'
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
   // Définition des routes
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
+  
+  {
+    path: 'liste-traitement', component: ListeTraitement
+  },
+  {
+    path: 'ajouter-tratement', component: AjouterTraitementComponent
+  },
+
+  {
+    path: 'modifier-traitement', component: ModifierTraitementComponent
+  },
+  
   { path: 'liste-traitement', component: ListeTraitement},
   { path: 'admin-dashboard', component: AdminDashboard},
   { path: 'ajouter-tratement', component: AjouterTraitementComponent},

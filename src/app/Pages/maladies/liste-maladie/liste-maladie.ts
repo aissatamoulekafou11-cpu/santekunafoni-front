@@ -176,8 +176,6 @@ export class ListeMaladieComponent implements OnInit {
   // =========================
   // DETAILS
   // =========================
-
-
   openInfoModal(maladie: Maladie) {
 
 
@@ -187,145 +185,108 @@ export class ListeMaladieComponent implements OnInit {
     this.currentMode.set('info');
 
   }
- // =========================
-// SAUVEGARDE
-// =========================
+  // =========================
+  // SAUVEGARDE
+  // =========================
 
-sauvegarder() {
+  sauvegarder() {
+    if (
+      !this.formModel.nom.trim() ||
+      !this.formModel.description.trim()
+    ) {
+
+      alert("Veuillez remplir tous les champs !");
+
+      return;
+
+    }
+    // =========================
+    // CAS MODIFICATION
+    // =========================
+
+    if (this.selectedMaladie()) {
 
 
-  if (
-    !this.formModel.nom.trim() ||
-    !this.formModel.description.trim()
-  ) {
+      this.maladieService
+        .updateMaladie(
+          this.formModel.idMaladie!,
+          this.formModel
+        )
+        .subscribe({
 
-    alert("Veuillez remplir tous les champs !");
+          next: (maladieModifiee) => {
 
-    return;
 
+            this.maladies.update(
+              (liste) =>
+
+                liste.map((maladie) =>
+
+                  maladie.idMaladie === maladieModifiee.idMaladie
+                    ? maladieModifiee
+                    : maladie
+
+                )
+
+            );
+            this.closeModal();
+
+          },
+          error: (err) => {
+
+            console.log(err);
+            alert("Erreur lors de la modification");
+          }
+        });
+
+
+    }
+
+
+
+    // =========================
+    // CAS AJOUT
+    // =========================
+
+    else {
+
+
+      this.maladieService
+        .createMaladie(this.formModel)
+        .subscribe({
+
+          next: (nouvelleMaladie) => {
+
+
+            this.maladies.update(
+              (liste) => [
+                ...liste,
+                nouvelleMaladie
+              ]
+            );
+
+
+            this.closeModal();
+
+          },
+          error: (err) => {
+            console.log(err);
+            alert("Erreur lors de l'ajout");
+
+          }
+        });
+      }
   }
-
-
-
-  // =========================
-  // CAS MODIFICATION
-  // =========================
-
-  if (this.selectedMaladie()) {
-
-
-    this.maladieService
-      .updateMaladie(
-        this.formModel.idMaladie!,
-        this.formModel
-      )
-      .subscribe({
-
-        next: (maladieModifiee) => {
-
-
-          this.maladies.update(
-            (liste) =>
-
-              liste.map((maladie) =>
-
-                maladie.idMaladie === maladieModifiee.idMaladie
-                  ? maladieModifiee
-                  : maladie
-
-              )
-
-          );
-
-
-          this.closeModal();
-
-        },
-
-
-        error: (err) => {
-
-          console.log(err);
-          alert("Erreur lors de la modification");
-
-        }
-
-      });
-
-
-  }
-
-
-
-  // =========================
-  // CAS AJOUT
-  // =========================
-
-  else {
-
-
-    this.maladieService
-      .createMaladie(this.formModel)
-      .subscribe({
-
-        next: (nouvelleMaladie) => {
-
-
-          this.maladies.update(
-            (liste) => [
-              ...liste,
-              nouvelleMaladie
-            ]
-          );
-
-
-          this.closeModal();
-
-        },
-
-
-        error: (err) => {
-
-          console.log(err);
-          alert("Erreur lors de l'ajout");
-
-        }
-
-      });
-
-
-  }
-
-
-}
   // =========================
   // SUPPRESSION
   // =========================
-
-
   openDeleteModal(maladie: Maladie) {
-
-
     this.selectedMaladie.set(maladie);
-
-
     this.currentMode.set('delete');
-
   }
-
-
-
-
   confirmerSuppression() {
-
-
     const maladie = this.selectedMaladie();
-
-
-
-    if (maladie) {
-
-
+     if (maladie) {
       this.maladies.update(
         (liste) =>
 
@@ -338,32 +299,13 @@ sauvegarder() {
 
     }
 
-
-
     this.closeModal();
-
   }
-
-
-
-
-
-
   // =========================
   // FERMER MODAL
   // =========================
-
-
   closeModal() {
-
-
     this.currentMode.set('none');
-
-
     this.selectedMaladie.set(null);
-
-
   }
-
-
 }

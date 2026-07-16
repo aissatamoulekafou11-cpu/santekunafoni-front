@@ -46,16 +46,11 @@
     <div class="card-body">
       <div class="mb-3">
         <label class="form-label fw-bold">Titre *</label>
-        <input type="text" class="form-control"
-          [(ngModel)]="nouvelleNotification.titre"
-          placeholder="Titre" maxlength="100">
+        <input type="text" class="form-control" [(ngModel)]="nouvelleNotification.titre" placeholder="Titre" maxlength="100">
       </div>
       <div class="mb-3">
         <label class="form-label fw-bold">Message *</label>
-        <textarea class="form-control"
-          [(ngModel)]="nouvelleNotification.message"
-          placeholder="Contenu" rows="3">
-        </textarea>
+        <textarea class="form-control" [(ngModel)]="nouvelleNotification.message" placeholder="Contenu" rows="3"></textarea>
       </div>
       <div class="d-flex gap-2">
         <button class="btn btn-primary" (click)="envoyerNotification()">Envoyer</button>
@@ -67,9 +62,7 @@
   <!-- ── FORMULAIRE VÉRIFICATION ÉPIDÉMIE ──────────── -->
   <div *ngIf="showVerifEpidemie" class="card mb-4 border-warning">
     <div class="card-header bg-warning text-dark">
-      <h5 class="mb-0">
-        <fa-icon [icon]="faTriangleExclamation"></fa-icon> Vérification automatique
-      </h5>
+      <h5 class="mb-0"><fa-icon [icon]="faTriangleExclamation"></fa-icon> Vérification automatique</h5>
     </div>
     <div class="card-body">
       <div class="mb-3">
@@ -89,19 +82,12 @@
       <div class="row g-3">
         <div class="col-md-8">
           <div class="input-group">
-            <span class="input-group-text">
-              <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-            </span>
-            <input type="text" class="form-control"
-              [(ngModel)]="filtreTexte"
-              (ngModelChange)="appliquerFiltres()"
-              placeholder="Rechercher...">
+            <span class="input-group-text"><fa-icon [icon]="faMagnifyingGlass"></fa-icon></span>
+            <input type="text" class="form-control" [(ngModel)]="filtreTexte" (ngModelChange)="appliquerFiltres()" placeholder="Rechercher...">
           </div>
         </div>
         <div class="col-md-4">
-          <select class="form-select"
-            [(ngModel)]="filtreLue"
-            (ngModelChange)="appliquerFiltres()">
+          <select class="form-select" [(ngModel)]="filtreLue" (ngModelChange)="appliquerFiltres()">
             <option value="toutes">Toutes</option>
             <option value="non-lues">Non lues</option>
             <option value="lues">Lues</option>
@@ -141,20 +127,16 @@
             <span *ngIf="!estAlerte(notif)" class="badge bg-primary me-2">
               <fa-icon [icon]="faEnvelope"></fa-icon> Ordinaire
             </span>
-            <span class="badge ms-1"
-              [ngClass]="notif.lue ? 'bg-secondary' : 'bg-success'">
+            <span class="badge ms-1" [ngClass]="notif.lue ? 'bg-secondary' : 'bg-success'">
               {{ notif.lue ? '✔ Lue' : '● Non lue' }}
             </span>
             <h5 class="mt-2">{{ notif.titre }}</h5>
             <p class="text-muted">{{ notif.message }}</p>
             <small class="text-muted">
-              <fa-icon [icon]="faClock"></fa-icon>
-              {{ notif.datePublication | date:'dd/MM/yyyy HH:mm' }}
+              <fa-icon [icon]="faClock"></fa-icon> {{ notif.datePublication | date:'dd/MM/yyyy HH:mm' }}
             </small>
           </div>
-          <button *ngIf="!notif.lue"
-            class="btn btn-sm btn-outline-success align-self-start"
-            (click)="marquerLue(notif.id!)">
+          <button *ngIf="!notif.lue" class="btn btn-sm btn-outline-success align-self-start" (click)="marquerLue(notif.id!)">
             <fa-icon [icon]="faCheck"></fa-icon> Lue
           </button>
         </div>

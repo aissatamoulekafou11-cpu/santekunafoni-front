@@ -1,3 +1,4 @@
+<div class="body">
 <app-sidebar></app-sidebar>
 <div class="main">
   <div class="top">
@@ -13,7 +14,10 @@
   <form>
     <label for="id_patient">id du patient</label><br>
     <select id="id_patient" [(ngModel)]="traitement.id_patient" name="id_patient">
-      <option [value]="1">1</option>
+      @for(idenPatient of idPatients(); track $index){
+        <option [value]="idenPatient.nom">{{idenPatient.nom}}</option>
+      }
+      
     </select>
   </form>
   </div>
@@ -23,14 +27,17 @@
   <form>
     <label for="id_maladie">id de la maladie</label><br>
     <select id="id_maladie" [(ngModel)]="traitement.id_maladie" name="id_maladie">
-      <option [value]="1">1</option>
+      @for (identifiant of idMaladie(); track $index) {
+        <option [value]="identifiant.nom">{{ `${identifiant.idMaladie} ${identifiant.nom} ` }}</option>
+      }
+      
     </select>
   </form>
   </div>
 
   <div class="select-traitemet">
     <h2>Informations du traitement </h2>
-    <form>
+    <form id="formbutton">
       <div class="left">
         <label for="nom">Nom du traitement</label><br>
         <input type="text" id="nom" [(ngModel)]="traitement.nomTraitement" name="nomTraitement"><br>
@@ -53,14 +60,18 @@
     <h2>Section Agent de santé</h2>
   <form>
     <label for="id_agent">id de l'agent de santé</label><br>
-    <select id="id_agent" [(ngModel)]="traitement.id_agent_sante" name="id_agent">
-      <option [value]="">1</option>
-    </select>
+    <input type="text" list="id_agent" id="id_agent" [(ngModel)]="traitement.id_agent_sante" name="id_agent">
+    <datalist id="id_agent">
+      @for (idenAgent of idAgent(); track $index) {
+        <option [value]="idenAgent.nom">{{ idenAgent.nom }}</option>
+      }
+    </datalist>
   </form>
   </div>
 
   <div class="btn1">
-    <button type="button" class="annuler" (click)="onAnnuler()">Annuler</button>
-    <button type="button" class="ajouter" (click)="onSubmit()">Ajouter</button>
+    <input type="reset" class="annuler" (click)="onAnnuler()" form="formbutton" value="Annuler">
+    <input type="submit" class="ajouter" (click)="onSubmit()" form="formbutton" value="Ajouter">
   </div>
+</div>
 </div>
