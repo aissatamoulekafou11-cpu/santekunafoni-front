@@ -13,23 +13,16 @@ import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 
 // 1. Importer le composant Accueil
 export const routes: Routes = [
-  // Redirection par défaut vers 'accueil' au lieu de 'connexion'
+  // Redirection par défaut vers 'accueil'
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
   // Définition des routes
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
   
-  // 4. LIGNE UNIQUE DE REDIRECTION : Si l'adresse est vide, on va vers la connexion
-  { path: '', redirectTo: 'connexion', pathMatch: 'full' },
-
-  // pour visualiser le composant navbar de l'administrateur
-  {path: '', component: Header},
-
   {
     path: 'liste-traitement', component: ListeTraitement
   },
-
   {
     path: 'ajouter-tratement', component: AjouterTraitementComponent
   },
