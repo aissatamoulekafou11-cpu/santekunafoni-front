@@ -1,19 +1,68 @@
-<div class="container-fluid dashboard">
+<div class="dashboard-container">
 
-  <div class="row">
+    <div class="dashboard-content">
+    <app-header></app-header>
 
-    <div class="col-12">
+<div class="main-content">
+  <app-sidebar></app-sidebar>
 
-      <h2 class="dashboard-title">
-        Tableau de bord
-      </h2>
 
-      <p class="dashboard-subtitle">
-        Bienvenue sur le tableau de bord administrateur.
-      </p>
+
+     
+
+        <div class="row cards-row">
+
+          <!-- Carte Agents -->
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="stat-card1">
+
+              <div class="card-header">
+                <span>Nombre Agents</span>
+                <i class="bi bi-person-badge-fill"></i>
+              </div>
+
+              <div class="card-body">
+                <h2>128</h2>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Carte Patients -->
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="stat-card2">
+
+              <div class="card-header">
+                <span>Nombre Patients</span>
+                <i class="bi bi-people-fill"></i>
+              </div>
+
+              <div class="card-body">
+                <h2>1542</h2>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Carte Alertes -->
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="stat-card2">
+
+              <div class="card-header">
+                <span>Nombre Alertes</span>
+                <i class="bi bi-exclamation-triangle-fill"></i>
+              </div>
+
+              <div class="card-body">
+                <h2>23</h2>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
-
-  </div>
-
-</div>
+    </div>
