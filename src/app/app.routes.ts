@@ -11,6 +11,7 @@ import { ModifierTraitementComponent } from './Pages/modifier-traitement-compone
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 
 
+// 1. Importer le composant Accueil
 export const routes: Routes = [
   // Redirection par défaut vers 'accueil' au lieu de 'connexion'
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },

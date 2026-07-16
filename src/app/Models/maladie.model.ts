@@ -1,5 +1,5 @@
 export interface Maladie {
-  id: number;
+  idMaladie: number;
   nom: string;
   description: string;
   dateDeclaration: string;
