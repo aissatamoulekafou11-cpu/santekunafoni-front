@@ -1,4 +1,23 @@
 import { Routes } from '@angular/router';
+import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
+import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
+
+
+//DICKO
+import { DashboardPatient } from './Pages/dashboard-patient/dashboard-patient';
+import { ListPatients } from './Pages/list-patients/list-patients';
+import { Placeholder } from './Pages/placeholder/placeholder';
+
+
+
+// 1. Importer le composant Accueil
+import { AccueilComponent } from './Pages/accueil/accueil';
+
+
+
+
+
+/*Awa*/
 // 1. Importer le composant Accueil
 import { AccueilComponent } from './Pages/accueil/accueil';
 import { Connexion } from './Pages/connexion/connexion';
@@ -38,6 +57,17 @@ export const routes: Routes = [
   { path: 'modifier-traitement', component: ModifierTraitementComponent},
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
+
+  //DICKO
+  { path: 'dashboard', component: DashboardPatient },
+      { path: 'patients',  component: ListPatients },
+
+      { path: 'symptomes',     component: Placeholder, data: { titre: 'Symptômes' } },
+      { path: 'maladies',      component: Placeholder, data: { titre: 'Maladies détectées' } },
+      { path: 'traitements',   component: Placeholder, data: { titre: 'Traitements' } },
+      { path: 'notifications', component: Placeholder, data: { titre: 'Notifications' } },
+      { path: 'profil',        component: Placeholder, data: { titre: 'Profil' }},
+];
   { path: 'maladies', component: ListeMaladieComponent},
 
 ];
