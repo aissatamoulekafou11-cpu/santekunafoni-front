@@ -1,68 +1,97 @@
+<head><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet"></head>
+
 <div class="dashboard-container">
+   <!-- les composants -->
+<app-header></app-header>
+<app-sidebar></app-sidebar>
 
-    <div class="dashboard-content">
-    <app-header></app-header>
+ 
+  <!-- le contenu -->
 
-<div class="main-content">
-  <app-sidebar></app-sidebar>
+  <div class="main-content">
+      <div class="card">
+      <!-- Carte Agents -->
+      
+        <div class="stat-cardAgent">
 
+          <div class="card-header">
 
+            <span>Nombre  de  Agent de santé</span>
 
-     
+           <i class="fa-solid fa-user-nurse"></i>
 
-        <div class="row cards-row">
-
-          <!-- Carte Agents -->
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="stat-card1">
-
-              <div class="card-header">
-                <span>Nombre Agents</span>
-                <i class="bi bi-person-badge-fill"></i>
-              </div>
-
-              <div class="card-body">
-                <h2>128</h2>
-              </div>
-
-            </div>
           </div>
 
-          <!-- Carte Patients -->
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="stat-card2">
+          <div class="card-body">
 
-              <div class="card-header">
-                <span>Nombre Patients</span>
-                <i class="bi bi-people-fill"></i>
-              </div>
+            <h2>108</h2>
 
-              <div class="card-body">
-                <h2>1542</h2>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Carte Alertes -->
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="stat-card2">
-
-              <div class="card-header">
-                <span>Nombre Alertes</span>
-                <i class="bi bi-exclamation-triangle-fill"></i>
-              </div>
-
-              <div class="card-body">
-                <h2>23</h2>
-              </div>
-
-            </div>
           </div>
 
         </div>
 
+
+         <!-- Carte patients -->
+        <div class="stat-cardFull">
+
+          <div class="card-header">
+
+            <span>Nombre  de  Patient</span>
+
+            <i class="fa-solid fa-user"></i>
+
+          </div>
+
+          <div class="card-body">
+
+            <h2>1408</h2>
+
+          </div>
+
+        </div>
+
+
+         <!-- Carte Alerte -->
+        <div class="stat-cardFull">
+
+          <div class="card-header">
+
+            <span>Nombre  de  Alerte</span>
+
+            <i class="bi bi-exclamation-triangle-fill"></i>
+
+          </div>
+
+          <div class="card-body">
+
+            <h2>15</h2>
+
+          </div>
+
+        </div>
+        </div>
+
+        
+
+<!-- Graphe des alertes -->
+
+  <div class="chart-card">
+
+        <div class="chart-header">
+          <h4>Graphe des alertes</h4>
+        </div>
+
+        <div class="chart-body">
+          <!-- Le graphique sera ajouté ici -->
+          <canvas id="dashboardChart"></canvas>
+        </div>
+
+      </div>
+    
       </div>
 
     </div>
-    </div>
+   
+
