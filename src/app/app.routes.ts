@@ -9,6 +9,7 @@ import { ListeTraitement } from './Pages/traitementListeComponent/traitement-com
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
+import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 
 
 export const routes: Routes = [
@@ -24,5 +25,7 @@ export const routes: Routes = [
   { path: 'modifier-traitement', component: ModifierTraitementComponent},
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
+  { path: 'maladies', component: ListeMaladieComponent},
+
 ];
 
