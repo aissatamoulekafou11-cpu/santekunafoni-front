@@ -16,12 +16,12 @@ import {
 
 import { NotificationService } from '../../../Services/notification.service';
 import { Notification } from '../../../Models/notification.model';
+import { Sidebar } from "../../../Component/sidebar/sidebar";
 
 @Component({
   selector: 'app-list-notifications',
   standalone: true,
-  // Ajout de FontAwesomeModule aux imports
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, Sidebar],
   templateUrl: './list-notifications.html',
   styleUrls: ['./list-notifications.css']
 })

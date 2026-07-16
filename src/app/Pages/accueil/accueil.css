@@ -1,3 +1,16 @@
+/*desactiver l'animation par défaut des icônes dans les boutons */
+.btn-action i.fa-fade,
+.btn-action i.fa-float {
+  animation: none !important;
+}
+
+.btn-action:hover i.fa-fade {
+  animation: fa-fade 1.5s infinite !important;
+}
+
+.btn-action:hover i.fa-float {
+  animation: fa-float 2s ease-in-out infinite !important;
+}
 .hero-section {
   position: relative;
   min-height: 100vh;
@@ -94,6 +107,8 @@
 
 .hero-list li {
   margin-bottom: 12px;
+  text-decoration: none;
+  list-style-type: none;
 }
 
 /* Formes décoratives */

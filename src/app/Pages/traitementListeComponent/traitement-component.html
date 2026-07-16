@@ -1,7 +1,7 @@
 <app-sidebar></app-sidebar>
 <div class="b">
     <input type="search" name="search" id="search" placeholder="Rechercher un traitement">
-    <a routerLink="/ajouter-traitement" class="b-ajout">ajouter</a>
+    <a routerLink="/ajouter-tratement" class="b-ajout">ajouter</a>
 </div>
 
 <div class="tableau table-responsive">
@@ -24,7 +24,8 @@
               <td>{{ t.description }}</td>
               <td>{{ t.datefin }}</td>
               <td>
-                <i class="bi bi-trash"></i>
+                <span class="modiff"><i class="fa-solid fa-pencil"></i></span>
+                <span class="supp"><i class="fa-solid fa-trash"></i></span>
               </td>
             </tr>
             } @empty {
