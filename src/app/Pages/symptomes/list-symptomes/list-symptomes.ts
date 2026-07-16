@@ -54,20 +54,20 @@ export class ListSymptomesComponent implements OnInit {
   currentMode = signal<ModalMode>('none');
   selectedSymptome = signal<Symptome | null>(null);
 
-  formModel: Symptome = {
-    nom: '',
-    description: '',
-    dateCreation: ''
-  };
+ formModel: Symptome = {
+  nom: '',
+  description: '',
+  dateCreation: ''
+};
 
   openAddModal() {
     this.selectedSymptome.set(null);
 
     this.formModel = {
-      nom: '',
-      description: '',
-      dateCreation: new Date().toISOString()
-    };
+ nom:'',
+ description:'',
+ dateCreation:new Date().toISOString()
+};
 
     this.currentMode.set('form');
   }
