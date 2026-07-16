@@ -1,13 +1,14 @@
 <app-sidebar></app-sidebar>
 <div class="b">
-    <input type="search" name="search" id="search" placeholder="Rechercher un traitement">
+    <input type="search" name="search" id="search" placeholder="Rechercher un traitement" [(ngModel)]="searchTerm"
+    (input)="filtrer()">
     <a routerLink="/ajouter-tratement" class="b-ajout">ajouter</a>
 </div>
 
 <div class="tableau table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
-                <tr>
+                <tr *ngFor="let t of traitementsFiltres">
                     <th>ID</th>
                     <th>Nom du traitement</th>
                     <th>Description</th>
@@ -18,7 +19,7 @@
 
             <tbody>
             @for (t of traitements(); track t.idTraitement) {
-            <tr>
+            <tr *ngFor="let t of traitementsFiltres">
               <td>{{ t.idTraitement }}</td>
               <td>{{ t.nomTraitement }}</td>
               <td>{{ t.description }}</td>
@@ -28,11 +29,13 @@
                 <span class="supp"><i class="fa-solid fa-trash"></i></span>
               </td>
             </tr>
-            } @empty {
-            <tr>
-              <td colspan="5">Aucun traitement trouvé.</td>
+
+            <tr *ngIf="traitementsFiltres.length === 0">
+                <td colspan="3" class="no-result">
+                    <i class="fa-solid fa-circle-info"></i> Aucun traitement ne correspond à votre recherche.
+                </td>
             </tr>
-            }
+            } 
             </tbody>
             <div>
                 <nav aria-label="Pagainations des traitement">

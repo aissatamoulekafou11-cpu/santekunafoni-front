@@ -41,9 +41,13 @@ export class Connexion implements OnInit {
     // Envoi des identifiants au service
     this.authService.connexion(tel, motpass).subscribe({
       next: (reponse) => {
-        console.log('Connexion réussie ! Data reçue :', reponse);
+        console.log('Connexion réussie ! Data reçue du backend :', reponse);
         
+        // Sécurité/Débogage : On vérifie si le token a bien été enregistré dans le localStorage
+        console.log('Token stocké avec succès ? ', this.authService.getToken() ? 'OUI ✅' : 'NON ❌');
+
         // Redirection intelligente selon le rôle renvoyé par Spring Boot
+        // (Vérifiez bien dans votre console si le champ s'appelle "role" ou "roles")
         if (reponse.role === 'ADMIN') {
           this.router.navigate(['/admin/dashboard']);
         } else if (reponse.role === 'AGENT_SANTE') {
@@ -53,7 +57,7 @@ export class Connexion implements OnInit {
         }
       },
       error: (err) => {
-        console.error('Erreur de connexion', err);
+        console.error('Erreur de connexion détaillée :', err);
         this.errorMessage = "Téléphone ou mot de passe incorrect.";
       }
     });

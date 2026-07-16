@@ -16,7 +16,6 @@
     list-style: none;
     margin: 35px 0px 0px 55px;
 }
-
 .image{
     position: relative;
     top: 35px;
@@ -47,4 +46,9 @@ i{
     position: relative;
     color: #fff;
     right: 20px;
+}
+
+a:hover{
+    background-color: #16423C;
+    color: white;
 }

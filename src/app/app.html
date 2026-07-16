@@ -1,12 +1,1 @@
-<!-- Avec sidebar — pages internes (dashboard, notifications...) -->
-<div class="app-container" *ngIf="showSidebar">
-  <app-sidebar></app-sidebar>
-  <div class="main-content">
-    <router-outlet></router-outlet>
-  </div>
-</div>
-
-<!-- Sans sidebar — pages publiques (accueil, connexion, inscription) -->
-<div *ngIf="!showSidebar">
-  <router-outlet></router-outlet>
-</div>
+<router-outlet></router-outlet>
