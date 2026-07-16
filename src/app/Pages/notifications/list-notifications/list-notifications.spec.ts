@@ -1,19 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListNotifications } from './list-notifications';
+import { ListNotificationsComponent } from './list-notifications'; 
 
-describe('ListNotifications', () => {
-  let component: ListNotifications;
-  let fixture: ComponentFixture<ListNotifications>;
+describe('ListNotificationsComponent', () => {
+  let component: ListNotificationsComponent;
+  let fixture: ComponentFixture<ListNotificationsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListNotifications],
+    
+      imports: [ListNotificationsComponent], 
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ListNotifications);
+    fixture = TestBed.createComponent(ListNotificationsComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
