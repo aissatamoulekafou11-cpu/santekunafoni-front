@@ -64,4 +64,26 @@ export class ListeTraitement implements OnInit {
 );
     }
   }
+
+  supprimerTraitement(id: number) {
+  if (confirm("Voulez-vous vraiment supprimer ce traitement ?")) {
+    this.serviceTraitement.deleteTraitement(id).subscribe({
+      next: () => {
+        console.log("Traitement supprimé avec succès !");
+        
+        // 🟢 On filtre notre tableau local pour retirer le traitement supprimé
+        // Si tu utilises un Signal pour ta liste (ex: traitements = signal<any[]>([])) :
+        this.traitements.update(liste => liste.filter(t => t.idTraitement !== id));
+        alert("traitement supprimé avec succès !!!!!");
+        
+        // Si tu utilises une variable classique (ex: traitements: any[] = []) :
+        // this.traitements = this.traitements.filter(t => t.idTraitement !== id);
+      },
+      error: (err) => {
+        console.error("Erreur lors de la suppression :", err);
+        alert("Impossible de supprimer le traitement.");
+      }
+    });
+  }
+}
 }

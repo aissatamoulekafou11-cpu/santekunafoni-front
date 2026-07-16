@@ -28,7 +28,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'modifier-traitement', component: ModifierTraitementComponent
+    path: 'modifier-traitement/:id', component: ModifierTraitementComponent
   },
   
   { path: 'liste-traitement', component: ListeTraitement},
