@@ -13,11 +13,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { NotificationService } from '../../../Services/notification.service';
 import { Notification } from '../../../Models/notification.model';
+import { Sidebar } from "../../../Component/sidebar/sidebar";
 
 @Component({
   selector: 'app-list-notifications',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, Sidebar],
   templateUrl: './list-notifications.html',
   styleUrl: './list-notifications.css'
 })
