@@ -1,9 +1,11 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { Sidebar } from "../../Component/sidebar/sidebar";
+import { SidebarComponent } from '../sidebar-component/sidebar-component';
 
 @Component({
   selector: 'app-dashboard-patient',
-  imports: [],
+  imports: [SidebarComponent],
   templateUrl: './dashboard-patient.html',
   styleUrl: './dashboard-patient.css'
 })

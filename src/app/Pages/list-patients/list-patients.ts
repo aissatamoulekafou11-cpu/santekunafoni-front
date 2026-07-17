@@ -2,12 +2,13 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Patient, EtatPatient } from '../../Models/patient';
 import { PatientService } from '../../Services/patient';
+import { SidebarComponent } from '../sidebar-component/sidebar-component'; 
 // La PAGE s'appelle ListPatients, mais le SERVICE reste PatientService :
 // il est nommé d'après la donnée, pas d'après une page.
 
 @Component({
   selector: 'app-list-patients',
-  imports: [FormsModule],
+  imports: [FormsModule, SidebarComponent],
   templateUrl: './list-patients.html',
   styleUrl: './list-patients.css'
 })
