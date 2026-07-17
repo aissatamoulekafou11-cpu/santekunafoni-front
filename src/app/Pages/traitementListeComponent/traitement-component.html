@@ -1,14 +1,19 @@
 <app-sidebar></app-sidebar>
-<div class="b">
-    <input type="search" name="search" id="search" placeholder="Rechercher un traitement" [(ngModel)]="searchTerm"
-    (input)="filtrer()">
-    <a routerLink="/ajouter-tratement" class="b-ajout">ajouter</a>
-</div>
 
-<div class="tableau table-responsive">
+<!-- Conteneur principal pour appliquer les marges proprement -->
+<div class="content-wrapper">
+    
+    <!-- BARRE DE RECHERCHE & BOUTON AJOUTER -->
+    <div class="b">
+        <input type="search" name="search" id="search" placeholder="Rechercher un traitement" [(ngModel)]="searchTerm" (input)="filtrer()">
+        <a routerLink="/ajouter-tratement" class="b-ajout">Ajouter</a>
+    </div>
+
+    <!-- TABLEAU DES TRAITEMENTS -->
+    <div class="tableau table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
-                <tr *ngFor="let t of traitementsFiltres">
+                <tr>
                     <th>ID</th>
                     <th>Nom du traitement</th>
                     <th>Description</th>
@@ -18,51 +23,54 @@
             </thead>
 
             <tbody>
-            @for (t of traitements(); track t.idTraitement) {
-            <tr *ngFor="let t of traitementsFiltres">
-              <td>{{ t.idTraitement }}</td>
-              <td>{{ t.nomTraitement }}</td>
-              <td>{{ t.description }}</td>
-              <td>{{ t.datefin }}</td>
-              <td>
-                <span class="modiff"><a routerLink="/modifier-traitement"><i class="fa-solid fa-pencil"></i></a></span>
-                <span class="supp"><i class="fa-solid fa-trash"></i></span>
-              </td>
-            </tr>
-
-            <tr *ngIf="traitementsFiltres.length === 0">
-                <td colspan="3" class="no-result">
-                    <i class="fa-solid fa-circle-info"></i> Aucun traitement ne correspond à votre recherche.
-                </td>
-            </tr>
-            } 
+                @for (t of traitementsFiltres; track t.idTraitement) {
+                    <tr>
+                        <td>{{ t.idTraitement }}</td>
+                        <td>{{ t.nomTraitement }}</td>
+                        <td>{{ t.description }}</td>
+                        <td>{{ t.datefin }}</td>
+                        <td>
+                            <span class="modiff">
+                                <a [routerLink]="['/modifier-traitement', t.idTraitement]">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                            </span>
+                            <span class="supp">
+                                <a href="javascript:void(0)" (click)="supprimerTraitement(t.idTraitement)">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="5" class="no-result" style="text-align: center;">
+                            <i class="fa-solid fa-circle-info"></i> Aucun traitement ne correspond à votre recherche.
+                        </td>
+                    </tr>
+                }
             </tbody>
-            <div>
-                <nav aria-label="Pagainations des traitement">
-                    <ul class="pagination ms-auto">
-                        <li class="page-item">
-                            <a href="" class="page-link">
-                                Précedent
-                            </a>
-                        </li>
-
-                        <li class="page-item active">
-                            <a href="" class="page-link">1</a>
-                        </li>
-
-                        <li class="page-item">
-                            <a href="" class="page-link">2</a>
-                        </li>
-
-                        <li class="page-item">
-                            <a href="" class="page-link">3</a>
-                        </li>
-
-                        <li class="page-item">
-                            <a href="" class="page-link">Suivant</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
         </table>
+
+        <!-- PAGINATION -->
+        <nav aria-label="Pagination des traitements">
+            <ul class="pagination ms-auto">
+                <li class="page-item">
+                    <a href="javascript:void(0)" class="page-link">Précédent</a>
+                </li>
+                <li class="page-item active">
+                    <a href="javascript:void(0)" class="page-link">1</a>
+                </li>
+                <li class="page-item">
+                    <a href="javascript:void(0)" class="page-link">2</a>
+                </li>
+                <li class="page-item">
+                    <a href="javascript:void(0)" class="page-link">3</a>
+                </li>
+                <li class="page-item">
+                    <a href="javascript:void(0)" class="page-link">Suivant</a>
+                </li>
+            </ul>
+        </nav>
     </div>
+</div>
