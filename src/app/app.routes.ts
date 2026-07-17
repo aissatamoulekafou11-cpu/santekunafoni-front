@@ -1,41 +1,31 @@
 import { Routes } from '@angular/router';
-// 1. Importer le composant Accueil
 import { AccueilComponent } from './Pages/accueil/accueil';
 import { Connexion } from './Pages/connexion/connexion';
+import { Inscription } from './Pages/inscription/inscription';
 import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
 import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
-import { Inscription } from './Pages/inscription/inscription';
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 
-
-// 1. Importer le composant Accueil
 export const routes: Routes = [
-  // Redirection par défaut vers 'accueil'
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
-  // Définition des routes
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
-  
-  {
-    path: 'liste-traitement', component: ListeTraitement
-  },
-  {
-    path: 'ajouter-tratement', component: AjouterTraitementComponent
-  },
-
-  {
-    path: 'modifier-traitement', component: ModifierTraitementComponent
-  },
-  
-  { path: 'liste-traitement', component: ListeTraitement},
-  { path: 'admin-dashboard', component: AdminDashboard},
-  { path: 'ajouter-tratement', component: AjouterTraitementComponent},
-  { path: 'modifier-traitement', component: ModifierTraitementComponent},
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
+  { path: 'liste-traitement', component: ListeTraitement },
+  { path: 'traitements', component: ListeTraitement },
+  { path: 'ajouter-traitement', component: AjouterTraitementComponent },
+  { path: 'modifier-traitement', component: ModifierTraitementComponent },
+  { path: 'dashboard', component: AdminDashboard },
+  { path: 'admin-dashboard', component: AdminDashboard },
+  // Routes temporaires — à remplacer par les vrais composants quand ils seront créés
+  { path: 'patients', component: AdminDashboard },
+  { path: 'agents', component: AdminDashboard },
+  { path: 'maladies', component: AdminDashboard },
+  { path: 'profil', component: AdminDashboard },
+  { path: '**', redirectTo: 'accueil' }
 ];
-
