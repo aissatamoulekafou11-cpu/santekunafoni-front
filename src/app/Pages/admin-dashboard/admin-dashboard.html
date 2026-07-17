@@ -1,97 +1,148 @@
-<head><link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet"></head>
-
 <div class="dashboard-container">
-   <!-- les composants -->
-<app-header></app-header>
-<app-sidebar></app-sidebar>
 
- 
-  <!-- le contenu -->
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+  
+    <!-- Header -->
+    <app-header></app-header>
 
+  <!-- Contenu principal -->
   <div class="main-content">
-      <div class="card">
-      <!-- Carte Agents -->
-      
-        <div class="stat-cardAgent">
-
-          <div class="card-header">
-
-            <span>Nombre  de  Agent de santé</span>
-
-           <i class="fa-solid fa-user-nurse"></i>
-
-          </div>
-
-          <div class="card-body">
-
-            <h2>108</h2>
-
-          </div>
-
-        </div>
 
 
-         <!-- Carte patients -->
-        <div class="stat-cardFull">
+    <!-- Contenu du dashboard -->
+    <div class="dashboard-content">
 
-          <div class="card-header">
+      <!-- Cartes -->
+      <div class="row g-4">
 
-            <span>Nombre  de  Patient</span>
+        <!-- Agents -->
+        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
 
-            <i class="fa-solid fa-user"></i>
+          <div class="stat-cardAgent">
 
-          </div>
+            <div class="card-header">
 
-          <div class="card-body">
+              <span>Nombre de Agent de santé</span>
 
-            <h2>1408</h2>
+              <i class="fa-solid fa-user-nurse"></i>
+
+            </div>
+
+            <div class="card-body">
+
+              <h2>108</h2>
+
+            </div>
 
           </div>
 
         </div>
 
+        <!-- Patients -->
 
-         <!-- Carte Alerte -->
-        <div class="stat-cardFull">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
 
-          <div class="card-header">
+          <div class="stat-cardFull">
 
-            <span>Nombre  de  Alerte</span>
+            <div class="card-header">
 
-            <i class="bi bi-exclamation-triangle-fill"></i>
+              <span>Nombre de Patient</span>
+
+              <i class="fa-solid fa-user"></i>
+
+            </div>
+
+            <div class="card-body">
+
+              <h2>1408</h2>
+
+            </div>
 
           </div>
 
-          <div class="card-body">
+        </div>
 
-            <h2>15</h2>
+        <!-- Alertes -->
+
+        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+
+          <div class="stat-cardFull">
+
+            <div class="card-header">
+
+              <span>Nombre d'Alerte</span>
+
+              <i class="bi bi-exclamation-triangle-fill"></i>
+
+            </div>
+
+            <div class="card-body">
+
+              <h2>15</h2>
+
+            </div>
 
           </div>
 
-        </div>
-        </div>
-
-        
-
-<!-- Graphe des alertes -->
-
-  <div class="chart-card">
-
-        <div class="chart-header">
-          <h4>Graphe des alertes</h4>
-        </div>
-
-        <div class="chart-body">
-          <!-- Le graphique sera ajouté ici -->
-          <canvas id="dashboardChart"></canvas>
         </div>
 
       </div>
-    
+
+      <!-- Graphique -->
+
+      <div class="row mt-4">
+
+        <div class="col-12">
+
+          <div class="chart-card">
+
+            <div class="chart-header">
+
+              <h4>Graphe des alertes</h4>
+
+            </div>
+
+            <div class="chart-body">
+
+              <canvas id="dashboardChart"></canvas>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Google Maps -->
+
+      <div class="row mt-4">
+
+        <div class="col-12">
+
+          <div class="map-card">
+
+            <div class="map-header">
+
+              <h4>Carte géographique</h4>
+
+            </div>
+
+            <div class="map-body">
+
+             <div id="map"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
     </div>
-   
 
+  </div>
+
+</div>
