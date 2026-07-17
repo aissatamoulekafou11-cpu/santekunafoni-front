@@ -27,8 +27,14 @@ import { Inscription } from './Pages/inscription/inscription';
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
+
+import { SidebarComponent } from './Pages/sidebar-component/sidebar-component';
+/*Awa*/
+import { AgentDashboard } from './Pages/agent-dashboard/agent-dashboard';
+
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
-import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
+
+
 
 
 // 1. Importer le composant Accueil
@@ -57,18 +63,6 @@ export const routes: Routes = [
   { path: 'modifier-traitement', component: ModifierTraitementComponent},
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
-
-  //DICKO
-  { path: 'dashboard', component: DashboardPatient },
-      { path: 'patients',  component: ListPatients },
-
-      { path: 'symptomes',     component: Placeholder, data: { titre: 'Symptômes' } },
-      { path: 'maladies',      component: Placeholder, data: { titre: 'Maladies détectées' } },
-      { path: 'traitements',   component: Placeholder, data: { titre: 'Traitements' } },
-      { path: 'notifications', component: Placeholder, data: { titre: 'Notifications' } },
-      { path: 'profil',        component: Placeholder, data: { titre: 'Profil' }},
+  {path: 'agent-dashboard',component: AgentDashboard}
+  
 ];
-  { path: 'maladies', component: ListeMaladieComponent},
-
-];
-
