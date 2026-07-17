@@ -3,7 +3,6 @@
 .dashboard-container{
     display:flex;
     min-height:100vh;  
-    border: 4px  blue solid;
 }
 
 .main-content{
@@ -11,11 +10,11 @@
     display: flex;
     flex-direction:column;
     width: 80%;
-    border: 4px  red solid;
     right: 0;
     min-height:100vh; 
     top: 115px;
     background-color: #E9EFEC;
+    justify-content: space-between;
 
     font-family: "Montserrat";
     font-size: 20px;
@@ -27,8 +26,7 @@
     flex-direction: row;
     background-color: #E9EFEC;
     justify-content: space-between;
-    padding: 0% 5%;
-    border: 2px  palevioletred solid;
+    padding: 0% 3%; 
     }
         .stat-cardAgent{
             align-items: center;
@@ -40,10 +38,9 @@
             background-color: white;
             color: #16423C;
             padding: 20px;
-            margin: 10px;
         }
 
-        .stat-cardFull{ position: relative;
+        .stat-cardFull{
             justify-content:space-between;
             height: 130px;
             width: 300px; 
@@ -51,7 +48,6 @@
             background-color:#16423C ;
             padding: 20px;
             color: white;
-            margin: 10px;
         }
 
             .card-header{
@@ -60,9 +56,8 @@
                 justify-content: space-between;
             }
                 .card-header i{
-                    
                     width: 100px;
-                    height: 45px;
+                    height: 45%px;
 
                 }
             .card-body{
@@ -70,17 +65,18 @@
             }
                 .card-body h2{
                     text-align:right;
-                    border: 2px  palevioletred solid;
-                    
-            
                 }
-        
+
+
+/* Graphe des altertes */
         .chart-card{
+            position: absolute;
             background:white;
             border-radius:10px;
             padding:20px;
-            margin-bottom:30px;
-             border: 3px  green solid;
+            width: 900px;
+            right: 3%; 
+            
         }
 
         .chart-header{
@@ -96,4 +92,5 @@
                 .chart-body{
                     height:400px;
                 }
+                
 
