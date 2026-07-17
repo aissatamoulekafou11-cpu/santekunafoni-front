@@ -39,37 +39,48 @@ export class Inscription implements OnInit {
     });
   }
 
-  // La méthode qui sera appelée lors de la soumission du formulaire HTML
-  onSubmit(): void {
-    if (this.inscriptionForm.invalid) {
-      this.errorMessage = "Veuillez remplir correctement tous les champs obligatoires.";
-      return;
-    }
+ 
 
-    const { motpass, confirmerMotpass } = this.inscriptionForm.value;
-    if (motpass !== confirmerMotpass) {
-      this.errorMessage = "Les mots de passe ne correspondent pas.";
-      return;
-    }
-
-    // On sépare confirmerMotpass des autres données pour Spring Boot
-    const { confirmerMotpass: _, ...donneesFormulaire } = this.inscriptionForm.value;
     
-    const nouveauPatient: Patient = {
-      ...donneesFormulaire,
-      role: Role.PATIENT // Le rôle est injecté automatiquement en arrière-plan
-    };
-
-    // On envoie le tout au service
-    this.authService.inscriptionPatient(nouveauPatient).subscribe({
-      next: (reponse) => {
-        console.log('Inscription réussie !', reponse);
-        this.router.navigate(['/connexion']); // Redirection vers la page de connexion
-      },
-      error: (err) => {
-        console.error('Erreur lors de l\'inscription', err);
-        this.errorMessage = "Une erreur est survenue. Le numéro de téléphone est peut-être déjà utilisé.";
+onSubmit(): void {
+  console.log("Tentative d'inscription...");
+  console.log("Le formulaire est-il valide ?", this.inscriptionForm.valid);
+  
+  if (this.inscriptionForm.invalid) {
+    this.errorMessage = "Veuillez remplir correctement tous les champs obligatoires.";
+    
+    // Ce code va lister précisément dans votre console F12 quel champ pose problème :
+    Object.keys(this.inscriptionForm.controls).forEach(key => {
+      const controlErrors = this.inscriptionForm.get(key)?.errors;
+      if (controlErrors != null) {
+        console.warn(`Le champ [${key}] est invalide. Erreurs :`, controlErrors);
       }
     });
+    return;
   }
+
+  const { motpass, confirmerMotpass } = this.inscriptionForm.value;
+  if (motpass !== confirmerMotpass) {
+    this.errorMessage = "Les mots de passe ne correspondent pas.";
+    return;
+  }
+
+  const { confirmerMotpass: _, ...donneesFormulaire } = this.inscriptionForm.value;
+  
+  const nouveauPatient: Patient = {
+    ...donneesFormulaire,
+    role: Role.PATIENT
+  };
+
+  this.authService.inscriptionPatient(nouveauPatient).subscribe({
+    next: (reponse) => {
+      console.log('Inscription réussie ! Réponse du serveur :', reponse);
+      this.router.navigate(['/connexion']);
+    },
+    error: (err) => {
+      console.error('Erreur retournée par le serveur Spring Boot :', err);
+      this.errorMessage = "Une erreur est survenue. Ce numéro de téléphone est probablement déjà utilisé.";
+    }
+  });
 }
+  }

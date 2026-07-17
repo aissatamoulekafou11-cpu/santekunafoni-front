@@ -1,3 +1,23 @@
+/* ==========================================================================
+   1. INTEGRATION ET DECALAGE DE LA PAGE AVEC LE SIDEBAR FIXED
+   ========================================================================== */
+
+.content-with-sidebar {
+  margin-left: 18vw;               /* Décale tout le contenu pour laisser la place au sidebar fixe */
+  width: calc(100vw - 18vw);       /* Prend exactement le reste de la largeur de l'écran */
+  min-height: 100vh;
+  background-color: #eef3f1;       /* Ta couleur de fond gris clair */
+  box-sizing: border-box;
+}
+.left-right {
+  display: flex;
+  justify-content: space-between;       /* Aligne le sidebar à gauche et le contenu à droite */
+}
+
+/* ==========================================================================
+   2. TES STYLES DE TABLEAU ET ELEMENTS CONSERVÉS
+   ========================================================================== */
+
 .text-truncate {
   white-space: nowrap;
   overflow: hidden;
@@ -8,15 +28,12 @@
 .btn-link {
   text-decoration: none;
 }
-.content-wrapper {
-  background-color: #eef3f1; /* Couleur de fond gris clair de la maquette */
-  min-height: 100vh;
-}
 
 h2 {
   color: #1a1a1a;
 }
 
+/* Barre de recherche */
 .search-bar-container input {
   width: 300px;
   border: 1px solid #ced4da;
@@ -34,25 +51,91 @@ h2 {
   padding: 0;
 }
 
-/* Couleurs spécifiques des icônes de la maquette */
-.btn-outline-success { color: #1a5c4c; border-color: #1a5c4c; }
-.btn-outline-success:hover { background-color: #1a5c4c; color: white; }
+/* Couleurs spécifiques des icônes d'action */
+.btn-outline-success { 
+  color: #1a5c4c; 
+  border-color: #1a5c4c; 
+}
+.btn-outline-success:hover { 
+  background-color: #1a5c4c; 
+  color: white; 
+}
 
-.btn-outline-secondary { color: #4a5568; border-color: #4a5568; }
-.btn-outline-danger { color: #e53e3e; border-color: #e53e3e; }
+.btn-outline-secondary { 
+  color: #4a5568; 
+  border-color: #4a5568; 
+}
 
-/* Bordures légères entre les lignes du tableau */
+.btn-outline-danger { 
+  color: #e53e3e; 
+  border-color: #e53e3e; 
+}
+
+/* Bordures légères entre les lignes */
 .border-bottom-custom {
   border-bottom: 1px solid #EDF2F7;
 }
 
-/* Modifie l'état "hover" des lignes du tableau pour un effet pro */
+/* Effet hover des lignes du tableau */
 tbody tr:hover {
   background-color: #F8FAFC;
 }
 
-/* Enlever les contours bleus par défaut au focus des champs */
+/* Enlever les contours bleus au focus */
 input:focus, textarea:focus {
   box-shadow: none !important;
   border-color: #2F80ED !important;
+}
+
+/* ==========================================================================
+   3. STYLES DES MODALS
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* S'assure que le modal s'ouvre par-dessus le sidebar fixe */
+}
+
+.modal-box {
+  width: 450px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,.3);
+}
+
+/* Positionne la sidebar de manière fixe sur toute la hauteur à gauche */
+
+app-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px; /* Aligne cette largeur sur celle définie dans ton composant Sidebar */
+  height: 100vh;
+  z-index: 100;
+  background-color: #ffffff; /* Ou la couleur de ta sidebar */
+  border-right: 1px solid #e0e0e0;
+}
+
+/* Décale le contenu principal de 260px vers la droite pour éviter qu'il ne passe sous la sidebar */
+.content-with-sidebar {
+  margin-left: 260px; 
+  min-height: 100vh;
+  background-color: #E9EFEC; /* Un fond gris très clair pour faire ressortir tes cartes blanches */
+  width: calc(100% - 260px);
+  box-sizing: border-box;
+}
+
+/* Style optionnel pour assurer une jolie transition si besoin */
+body {
+  margin: 0;
+  background-color: #f8f9fa;
 }
