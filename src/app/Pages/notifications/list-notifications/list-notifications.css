@@ -1,44 +1,33 @@
-.notifications-page {
-  width: 100%;
-}
-
 .page-title {
-  color: #16423C; /* Vert sombre de l'application */
+  color: #1a3c5e;
   font-weight: 700;
 }
 
-/* Cartes de notification */
-.card {
-  transition: box-shadow 0.2s ease, transform 0.1s ease;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-}
-
-.card:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  transform: translateY(-1px);
-}
-
-/* Alerte épidémie */
 .notif-alerte {
   border-left: 5px solid #dc3545 !important;
   background-color: #fff5f5;
 }
 
-/* Notification ordinaire */
 .notif-ordinaire {
   border-left: 5px solid #0d6efd !important;
-  background-color: #ffffff;
 }
 
-/* Opacité si déjà consultée */
 .notif-lue {
-  opacity: 0.7;
+  opacity: 0.65;
+}
+
+.card {
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
+  border-radius: 10px;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
 }
 
 .badge {
   font-size: 0.75rem;
-  padding: 6px 12px;
+  padding: 5px 10px;
   border-radius: 20px;
 }

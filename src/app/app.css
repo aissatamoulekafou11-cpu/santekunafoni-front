@@ -9,14 +9,15 @@ body {
   background-color: #f4f6f4;
 }
 
-.active-menu {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-top-right-radius: 0px !important;
-  border-bottom-right-radius: 0px !important;
-  margin-right: -16px;
-  background-color: #EEF3F1 !important;
+/* Layout avec sidebar */
+.app-container {
+  display: flex;
+  min-height: 100vh;
 }
-*{
-  background-color: #1ea160;
+
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #f4f6f4;
 }
