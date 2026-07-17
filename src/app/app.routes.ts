@@ -6,7 +6,7 @@ import { ListNotificationsComponent } from './Pages/notifications/list-notificat
 //DICKO
 import { DashboardPatient } from './Pages/dashboard-patient/dashboard-patient';
 import { ListPatients } from './Pages/list-patients/list-patients';
-import { Placeholder } from './Pages/placeholder/placeholder';
+//import { Placeholder } from './Pages/placeholder/placeholder';
 
 
 
@@ -65,9 +65,4 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardPatient },
       { path: 'patients',  component: ListPatients },
 
-      { path: 'symptomes',     component: Placeholder, data: { titre: 'Symptômes' } },
-      { path: 'maladies',      component: Placeholder, data: { titre: 'Maladies détectées' } },
-      { path: 'traitements',   component: Placeholder, data: { titre: 'Traitements' } },
-      { path: 'notifications', component: Placeholder, data: { titre: 'Notifications' } },
-      { path: 'profil',        component: Placeholder, data: { titre: 'Profil' }},
 ];
