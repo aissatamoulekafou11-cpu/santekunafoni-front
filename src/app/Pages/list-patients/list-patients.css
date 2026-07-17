@@ -1,0 +1,50 @@
+.titre-page { color: #1E4B3B; font-weight: 800; }
+.avatar-photo {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background-color: #F1C40F;
+}
+
+.btn-vert { background-color: #1E4B3B; color: #fff; font-weight: 600; }
+.btn-vert:hover { background-color: #163a2d; color: #fff; }
+
+.barre-recherche { max-width: 420px; }
+.barre-recherche .form-control { border-right: none; }
+.barre-recherche .input-group-text { border-left: none; }
+
+.entete-tableau th {
+  color: #1E4B3B;
+  font-weight: 700;
+  border-bottom: 2px solid #1E4B3B;
+}
+.ligne-grise { background-color: #EFF3F0; }
+.actions i { cursor: pointer; margin-left: 12px; font-size: 1rem; }
+.actions i:hover { opacity: 0.7; }
+
+.etat-stable   { color: #1a1a1a; }
+.etat-instable { color: #B7791F; font-weight: 600; }
+.etat-critique { color: #C0392B; font-weight: 600; }
+.etat-grave    { color: #8E0000; font-weight: 800; }
+
+.carte-modal {
+  background-color: #E9EFEA;
+  border-radius: 14px;
+  border: none;
+}
+.carte-modal hr { border-color: #1E4B3B; opacity: 0.6; }
+
+.label-champ {
+  color: #1E4B3B;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: block;
+  text-align: center;
+  margin-bottom: 6px;
+}
+.champ {
+  background: #fff;
+  border: 1px solid #1E4B3B;
+  border-radius: 8px;
+  text-align: center;
+}
+.champ-lecture { min-height: 38px; }
