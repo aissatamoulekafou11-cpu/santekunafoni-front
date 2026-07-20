@@ -1,220 +1,233 @@
 <div class="body">
-    <div class="right-left">
-        <app-sidebar class="left"></app-sidebar>
+  <div class="right-left">
+    
+    <div class="agents-container">
+      <app-header></app-header>
+      
+      <!-- Bouton Action -->
+      <button class="add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Ajouter un agent
+      </button>
 
-        <div class="agents-container">
-            <app-header></app-header>
-                <button class="add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"> Ajouter un agent</button>
+      <!-- Tableau d'affichage -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+            <th scope="col">Spécialité</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let agent of listAgent; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ agent.nom }}</td>
+            <td>{{ agent.prenom }}</td>
+            <td>{{ agent.specialite }}</td>
+            <td>
+              <button class="btn edit" data-bs-toggle="modal" data-bs-target="#modifModal">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+            </td>
+            <td>
+              <button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="infoAgent(agent.idUtilisateur)">
+                <i class="bi bi-info-circle"></i>
+              </button>
+            </td>
+            <td>
+              <button class="btn del" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="supprimerAgent()">
+                <i class="bi bi-trash3"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Prénom</th>
-                    <th scope="col">Spécialité</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let agent of listAgent; let i = index">
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ agent.nom}}</td>
-                        <td>{{ agent.prenom}}</td>
-                        <td>{{ agent.specialite}}</td>
-                        <td><button class="btn edit" data-bs-toggle="modal" data-bs-target="#modifModal"><i class="bi bi-pencil-fill"></i></button></td>
-                        <td><button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="infoAgent(agent.idUtilisateur)"><i class="bi bi-info-circle"></i></button></td>
-                        <td><button class="btn del" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="preparerSuppression(agent.idUtilisateur)"><i class="bi bi-trash3"></i></button></td>
-                    </tr>
-                </tbody>
-            </table>
-            
-
-            <!-- Modal Ajout d'un agent de santé-->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un agent de santé</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                   <form [formGroup]="addAgentForm" (ngSubmit)="ajoutAgent()">
-                    <div class="row p-2">
-                        <div class="col">
-                             <label for="nom"> Nom</label>
-                            <input type="text" id="nom" name="nom" class="form-control" aria-label="nom" formControlName="nom">
-                            </div>
-                            <div class="col">
-                                 <label for="prenom"> Prenom</label>
-                                <input type="text" id="prenom" name="prenom" class="form-control"  aria-label="prenom" formControlName="prenom">
-                            </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col">
-                            <label for="telephone"> Telephone</label>
-                            <input type="tel" id="telephone" name="telephone" class="form-control"  aria-label="telephone" formControlName="telephone">
-                            </div>
-                            <div class="col">
-                                 <label for="email"> Email</label>
-                                <input type="email" id="email" name="email" class="form-control"  aria-label="email" formControlName="email">
-                            </div>
-                    </div>
-                    <div class="row g-3 p-2">
-                        <div class="col-sm-4">
-                             <label for="password"> Mot de passe</label>
-                            <input type="password" id="password" name="password" class="form-control"  aria-label="password" formControlName="password">
-                        </div>
-                        <div class="col-sm-4">
-                             <label for="specialite"> Specialite</label>
-                            <input type="text" id="specialite" name="specialite" class="form-control"  aria-label="Specialite" formControlName="specialite">
-                        </div>
-                        <div class="col-sm-4">
-                             <label for="centre"> Centre</label>
-                            <input type="text" id="centre" name="centre" class="form-control"  aria-label="centre" formControlName="centre">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-success">Enregistrer</button>
-                </div>
-                   </form>
-                </div>
-               
-                </div>
-            </div>
-            </div>
-            <!-- Modal Modifié un agent de santé-->
-            <div class="modal fade" id="modifModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier un agent de santé</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                   <form [formGroup]="editAgentForm" (ngSubmit)="modifAgent()">
-                    <div class="row p-2">
-                        <div class="col">
-                             <label for="nom"> Nom</label>
-                            <input type="text" id="nom" name="nom" class="form-control" aria-label="nom" formControlName="nom">
-                            </div>
-                            <div class="col">
-                                 <label for="prenom"> Prenom</label>
-                                <input type="text" id="prenom" name="prenom" class="form-control"  aria-label="prenom" formControlName="prenom">
-                            </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col">
-                            <label for="telephone"> Telephone</label>
-                            <input type="tel" id="telephone" name="telephone" class="form-control"  aria-label="telephone" formControlName="telephone">
-                            </div>
-                            <div class="col">
-                                 <label for="email"> Email</label>
-                                <input type="email" id="email" name="email" class="form-control"  aria-label="email" formControlName="email">
-                            </div>
-                    </div>
-                    <div class="row g-3 p-2">
-                        <div class="col-sm-4">
-                             <label for="password"> Mot de passe</label>
-                            <input type="password" id="password" name="password" class="form-control"  aria-label="password" formControlName="password">
-                        </div>
-                        <div class="col-sm-4">
-                             <label for="specialite"> Specialite</label>
-                            <input type="text" id="specialite" name="specialite" class="form-control"  aria-label="Specialite" formControlName="specialite">
-                        </div>
-                        <div class="col-sm-4">
-                             <label for="centre"> Centre</label>
-                            <input type="text" id="centre" name="centre" class="form-control"  aria-label="centre" formControlName="centre">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
-                    <button type="submit" class="btn btn-success">Enregistrer</button>
-                </div>
-                   </form>
-                </div>
-               
-                </div>
-            </div>
-            </div>
-
-            <!-- // Modal info d'un agent de santé -->
-            <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier un agent de santé</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                   <form [formGroup]="infoAgentForm">
-                    <div class="row p-2">
-                        <div class="col">
-                             <label for="nom"> Nom</label>
-                            <input type="text" id="nom" name="nom" class="form-control" aria-label="nom" formControlName="nom">
-                            </div>
-                            <div class="col">
-                                 <label for="prenom"> Prenom</label>
-                                <input type="text" id="prenom" name="prenom" class="form-control"  aria-label="prenom" formControlName="prenom">
-                            </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col">
-                            <label for="telephone"> Telephone</label>
-                            <input type="tel" id="telephone" name="telephone" class="form-control"  aria-label="telephone" formControlName="telephone">
-                            </div>
-                            <div class="col">
-                                 <label for="email"> Email</label>
-                                <input type="email" id="email" name="email" class="form-control"  aria-label="email" formControlName="email">
-                            </div>
-                    </div>
-                    <div class="row g-3 p-2">
-                        <div class="col-sm-4">
-                             <label for="password"> Mot de passe</label>
-                            <input type="password" id="password" name="password" class="form-control"  aria-label="password" formControlName="password">
-                        </div>
-                        <div class="col-sm-4">
-                             <label for="specialite"> Specialite</label>
-                            <input type="text" id="specialite" name="specialite" class="form-control"  aria-label="Specialite" formControlName="specialite">
-                        </div>
-                        <div class="col-sm-4">
-                             <label for="centre"> Centre</label>
-                            <input type="text" id="centre" name="centre" class="form-control"  aria-label="centre" formControlName="centre">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
-                </div>
-                   </form>
-                </div>
-               
-                </div>
-            </div>
-            </div>
-
-            <!-- modal pour supprimer un agent de sante -->
-        <!-- Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- ── MODAL : AJOUT D'UN AGENT ───────────────────────────────────── -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+          <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer un agent de santé</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter un agent de santé</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h1>Attention</h1>
-                <p>Voulez-vous vraiment effectuer la suppression ?</p>
+              <form [formGroup]="addAgentForm" (ngSubmit)="ajoutAgent()">
+                <div class="row p-2">
+                  <div class="col">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" class="form-control" formControlName="nom">
+                  </div>
+                  <div class="col">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" class="form-control" formControlName="prenom">
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col">
+                    <label for="telephone">Téléphone</label>
+                    <input type="tel" id="telephone" class="form-control" formControlName="telephone">
+                  </div>
+                  <div class="col">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" formControlName="email">
+                  </div>
+                </div>
+                <div class="row g-3 p-2">
+                  <div class="col-sm-4">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" class="form-control" formControlName="password">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="specialite">Spécialité</label>
+                    <input type="text" id="specialite" class="form-control" formControlName="specialite">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="centre">Centre</label>
+                    <input type="text" id="centre" class="form-control" formControlName="centre">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                  <button type="submit" class="btn btn-success">Enregistrer</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MODAL : MODIFIER UN AGENT ─────────────────────────────────── -->
+      <div class="modal fade" id="modifModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Modifier un agent de santé</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="editAgentForm" (ngSubmit)="modifAgent()">
+                <div class="row p-2">
+                  <div class="col">
+                    <label for="nomModif">Nom</label>
+                    <input type="text" id="nomModif" class="form-control" formControlName="nom">
+                  </div>
+                  <div class="col">
+                    <label for="prenomModif">Prénom</label>
+                    <input type="text" id="prenomModif" class="form-control" formControlName="prenom">
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col">
+                    <label for="telephoneModif">Téléphone</label>
+                    <input type="tel" id="telephoneModif" class="form-control" formControlName="telephone">
+                  </div>
+                  <div class="col">
+                    <label for="emailModif">Email</label>
+                    <input type="email" id="emailModif" class="form-control" formControlName="email">
+                  </div>
+                </div>
+                <div class="row g-3 p-2">
+                  <div class="col-sm-4">
+                    <label for="passwordModif">Mot de passe</label>
+                    <input type="password" id="passwordModif" class="form-control" formControlName="password">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="specialiteModif">Spécialité</label>
+                    <input type="text" id="specialiteModif" class="form-control" formControlName="specialite">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="centreModif">Centre</label>
+                    <input type="text" id="centreModif" class="form-control" formControlName="centre">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                  <button type="submit" class="btn btn-success">Enregistrer</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MODAL : INFOS D'UN AGENT ────────────────────────────────────── -->
+      <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Détails de l'agent de santé</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="infoAgentForm">
+                <div class="row p-2">
+                  <div class="col">
+                    <label for="nomInfo">Nom</label>
+                    <input type="text" id="nomInfo" class="form-control" formControlName="nom" readonly>
+                  </div>
+                  <div class="col">
+                    <label for="prenomInfo">Prénom</label>
+                    <input type="text" id="prenomInfo" class="form-control" formControlName="prenom" readonly>
+                  </div>
+                </div>
+                <div class="row p-2">
+                  <div class="col">
+                    <label for="telephoneInfo">Téléphone</label>
+                    <input type="tel" id="telephoneInfo" class="form-control" formControlName="telephone" readonly>
+                  </div>
+                  <div class="col">
+                    <label for="emailInfo">Email</label>
+                    <input type="email" id="emailInfo" class="form-control" formControlName="email" readonly>
+                  </div>
+                </div>
+                <div class="row g-3 p-2">
+                  <div class="col-sm-4">
+                    <label for="passwordInfo">Mot de passe</label>
+                    <input type="password" id="passwordInfo" class="form-control" formControlName="password" readonly>
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="specialiteInfo">Spécialité</label>
+                    <input type="text" id="specialiteInfo" class="form-control" formControlName="specialite" readonly>
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="centreInfo">Centre</label>
+                    <input type="text" id="centreInfo" class="form-control" formControlName="centre" readonly>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── MODAL : SUPPRIMER UN AGENT ─────────────────────────────────── -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Supprimer un agent de santé</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+              <h3 class="text-danger fw-bold">⚠️ Attention</h3>
+              <p class="mb-0">Voulez-vous vraiment effectuer la suppression ?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="supprimerAgent()">Supprimer</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Supprimer</button>
             </div>
-            </div>
+          </div>
         </div>
-        </div>
-        </div>
+      </div>
+
     </div>
+  </div>
 </div>
