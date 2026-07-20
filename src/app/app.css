@@ -1,21 +1,23 @@
-.sidebar .nav-link {
-  font-size: 1.05rem;
-  transition: all 0.2s ease;
-  border-radius: 4px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.sidebar .nav-link:hover:not(.active-menu) {
-  background-color: rgba(255, 255, 255, 0.1);
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f6f4;
 }
 
-.active-menu {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-top-right-radius: 0px !important;
-  border-bottom-right-radius: 0px !important;
-  margin-right: -16px;
-  background-color: #EEF3F1 !important;
+/* Layout avec sidebar */
+.app-container {
+  display: flex;
+  min-height: 100vh;
 }
-*{
-  background-color: #1ea160;
+
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #f4f6f4;
 }

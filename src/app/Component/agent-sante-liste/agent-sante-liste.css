@@ -40,32 +40,29 @@
     border: black solid 2px;
 }
 
-.table{
-    
-}
-
-.agent-table{
-    /* background-color: #E9EFEC; */
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-}
-
-.agent-table th{
+.table th{
     background-color: #E9EFEC;
-    padding: 15px 10px;
-    color: #16423C;
-    font-weight: bold;
-    border-bottom: 2px solid black;
-    font-size: 24px;
+    border-bottom: 2px solid #16423C;
 }
 
-.agent-table td{
-    padding: 15px 10px;
-    color: black;
-    border-bottom: 1px solid black;
-    font-size: 16px;
+.table td{
+    background-color: #E9EFEC;
+    border-bottom: 1px solid #16423C;
 }
-.agent-table tbody tr:hover {
-    background-color: #f9fbfb;
+
+/* .btn{
+    background-color: #E9EFEC;
+    border: none;
+} */
+
+.edit{
+    color: #16423C;
+}
+
+.info{
+    color: #16423C;
+}
+
+.del{
+    color: #980202;
 }
