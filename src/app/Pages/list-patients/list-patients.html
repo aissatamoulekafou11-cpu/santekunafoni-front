@@ -27,6 +27,19 @@
   </button>
 </div>
 
+<!-- État de la connexion à l'API -->
+@if (chargement) {
+  <tr *ngIf="!chargement && patients.length === 0">
+    <td colspan="5">Aucun patient trouvé.</td>
+</tr>
+}
+@if (erreur) {
+  <div class="alert alert-danger d-flex justify-content-between align-items-center">
+    {{ erreur }}
+    <button class="btn btn-sm btn-outline-danger" (click)="chargerPatients()">Réessayer</button>
+  </div>
+}
+
 <div class="table-responsive">
   <table class="table align-middle">
     <thead>

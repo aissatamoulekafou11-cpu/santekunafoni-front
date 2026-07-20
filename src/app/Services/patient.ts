@@ -1,48 +1,54 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Patient } from '../Models/patient';
 
 @Injectable({
-  providedIn: 'root'   // une seule instance, partagée dans toute l'app
+  providedIn: 'root'
 })
 export class PatientService {
+  private http = inject(HttpClient);                        // l'outil d'appels réseau
+  private apiUrl = 'http://localhost:8080/api/patients';    // les URLs de TON controller
 
-  private patients: Patient[] = [
-    { idUtilisateur: 1,  nom: 'MOULEKAFOU', prenom: 'Aïcha',        age: 25, sexe: 'F', motpass: '********', tel: '70000001', role: 'PATIENT', periode: '2026-07-01T08:00', etat: 'Stable',   localite: 'Bamako' },
-    { idUtilisateur: 2,  nom: 'KANADJI',    prenom: 'Oumar',        age: 40, sexe: 'M', motpass: '********', tel: '70000002', role: 'PATIENT', periode: '2026-07-02T09:30', etat: 'Instable', localite: 'Kayes' },
-    { idUtilisateur: 3,  nom: 'DOUYON',     prenom: 'Issaka',       age: 33, sexe: 'M', motpass: '********', tel: '70000003', role: 'PATIENT', periode: '2026-07-03T10:00', etat: 'Critique', localite: 'Koro' },
-    { idUtilisateur: 4,  nom: 'DIALLO',     prenom: 'Hamathi',      age: 28, sexe: 'M', motpass: '********', tel: '70000004', role: 'PATIENT', periode: '2026-07-04T11:15', etat: 'Stable',   localite: 'Hyppodrome' },
-    { idUtilisateur: 5,  nom: 'DICKO',      prenom: 'Aliou',        age: 51, sexe: 'M', motpass: '********', tel: '70000005', role: 'PATIENT', periode: '2026-07-05T08:45', etat: 'Stable',   localite: 'Gao' },
-    { idUtilisateur: 6,  nom: 'BERTHE',     prenom: 'Sidi Mohamed', age: 30, sexe: 'M', motpass: '********', tel: '77777777', role: 'PATIENT', periode: '2026-07-06T14:00', etat: 'Critique', localite: 'Sikasso' },
-    { idUtilisateur: 7,  nom: 'SAMAKE',     prenom: 'Safiatou',     age: 22, sexe: 'F', motpass: '********', tel: '70000007', role: 'PATIENT', periode: '2026-07-07T15:30', etat: 'Instable', localite: 'Bamako' },
-    { idUtilisateur: 8,  nom: 'Maiga',      prenom: 'Alhabibou',    age: 45, sexe: 'M', motpass: '********', tel: '70000008', role: 'PATIENT', periode: '2026-07-08T16:00', etat: 'Critique', localite: 'Kidal' },
-    { idUtilisateur: 9,  nom: 'MAHAMADOU',  prenom: 'Abdoul Aziz',  age: 60, sexe: 'M', motpass: '********', tel: '70000009', role: 'PATIENT', periode: '2026-07-09T09:00', etat: 'Grave',    localite: 'Gao' },
-    { idUtilisateur: 10, nom: 'DAGNO',      prenom: 'Awa',          age: 35, sexe: 'F', motpass: '********', tel: '70000010', role: 'PATIENT', periode: '2026-07-10T10:30', etat: 'Instable', localite: 'Koulikoro' },
-    { idUtilisateur: 11, nom: 'SISSOKO',    prenom: 'Famory',       age: 29, sexe: 'M', motpass: '********', tel: '70000011', role: 'PATIENT', periode: '2026-07-11T11:00', etat: 'Stable',   localite: 'Kayes' },
-  ];
-
-  getPatients(): Patient[] {
-    return this.patients;
+  /** GET /api/patients : toute la liste depuis MySQL */
+  getPatients(): Observable<Patient[]> {
+    return this.http.get<Patient[]>(this.apiUrl);
   }
 
-  getPatientById(id: number): Patient | undefined {
-    return this.patients.find(p => p.idUtilisateur === id);
+  /** GET /api/patients/{id} */
+  getPatientById(id: number): Observable<Patient> {
+    return this.http.get<Patient>(`${this.apiUrl}/${id}`);
   }
 
-  addPatient(patient: Omit<Patient, 'idUtilisateur'>): void {
-    const nouvelId = this.patients.length > 0
-      ? Math.max(...this.patients.map(p => p.idUtilisateur!)) + 1
-      : 1;
-    this.patients.push({ ...patient, idUtilisateur: nouvelId, role: 'PATIENT' });
+  /** POST /api/patients : le back attend un PatientDTO
+      (pas d'id ni de role : il force Role.PATIENT lui-même) */
+  addPatient(patient: Omit<Patient, 'idUtilisateur'>): Observable<Patient> {
+    return this.http.post<Patient>(this.apiUrl, this.preparerEnvoi(patient));
   }
 
-  updatePatient(patientModifie: Patient): void {
-    const index = this.patients.findIndex(p => p.idUtilisateur === patientModifie.idUtilisateur);
-    if (index !== -1) {
-      this.patients[index] = { ...patientModifie };
-    }
+  /** PUT /api/patients/{id} : le back attend l'entité complète */
+  updatePatient(patient: Patient): Observable<Patient> {
+    return this.http.put<Patient>(
+      `${this.apiUrl}/${patient.idUtilisateur}`,
+      this.preparerEnvoi(patient)
+    );
   }
 
-  deletePatient(id: number): void {
-    this.patients = this.patients.filter(p => p.idUtilisateur !== id);
+  /** DELETE /api/patients/{id} */
+  deletePatient(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  /**
+   * Prépare l'objet avant envoi au back.
+   * `periode` est un java.util.Date côté Java : il veut un format ISO COMPLET.
+   * Notre input datetime-local produit "2026-07-01T08:00" (incomplet)
+   * → on le convertit en "2026-07-01T08:00:00.000Z".
+   */
+  private preparerEnvoi(patient: any): any {
+    return {
+      ...patient,
+      periode: patient.periode ? new Date(patient.periode).toISOString() : null
+    };
   }
 }
