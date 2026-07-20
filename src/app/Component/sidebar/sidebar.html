@@ -1,68 +1,58 @@
 <aside class="sidebar">
-
- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <!-- Menu -->
-
-  <nav>
-     <!-- Logo -->
+  <!-- Logo -->
   <div class="logo">
-    <img src="assets/images/Logo.svg" alt="SantéKunafoni">
+    <img src="assets/images/Logo.png" alt="SantéKunafoni">
+    <span class="logo-text">SANTEKUNAFONI</span>
   </div>
 
-<h1>Santekunafoni</h1>
-    <a routerLink="/dashboard" routerLinkActive="active">
+  <!-- Liens de Navigation -->
+  <nav>
+    <a routerLink="/dashboard" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-solid fa-home"></i>
       <span>Tableau de bord</span>
     </a>
 
-    <a routerLink="/agents" routerLinkActive="active">
-   <i class="fa-solid fa-user-nurse"></i>
+    <a routerLink="/agents" routerLinkActive="active-menu" class="nav-link">
+      <i class="fa-solid fa-user-nurse"></i>
       <span>Agents de santé</span>
     </a>
 
-    <a routerLink="/patients" routerLinkActive="active">
-     <i class="fa-solid fa-user"></i>
+    <a routerLink="/patients" routerLinkActive="active-menu" class="nav-link">
+      <i class="fa-solid fa-user"></i>
       <span>Patients</span>
     </a>
 
-    <a routerLink="/symptomes" routerLinkActive="active">
+    <a routerLink="/symptomes" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-solid fa-disease"></i>
       <span>Symptômes</span>
     </a>
 
-     <a routerLink="/maladies" routerLinkActive="active">
-     <i class="fa-solid fa-head-side-cough"></i>
+    <a routerLink="/maladies" routerLinkActive="active-menu" class="nav-link">
+      <i class="fa-solid fa-head-side-cough"></i>
       <span>Maladies détectées</span>
-      </a>
+    </a>
 
-      <a routerLink="/traitements" routerLinkActive="active">
-     <i class="fa-solid fa-briefcase-medical"></i>
+    <a routerLink="/traitements" routerLinkActive="active-menu" class="nav-link">
+      <i class="fa-solid fa-briefcase-medical"></i>
       <span>Traitements</span>
-      </a>
+    </a>
 
-       <a routerLink="/notifications" routerLinkActive="active">
+    <a routerLink="/notifications" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-regular fa-bell"></i>
       <span>Notifications</span>
-      </a>
+    </a>
 
-       <a routerLink="/profil" routerLinkActive="active">
-  <i class="fa-solid fa-user-gear"></i>
+    <a routerLink="/profil" routerLinkActive="active-menu" class="nav-link">
+      <i class="fa-solid fa-user-gear"></i>
       <span>Profil</span>
-      </a>
-      
-    <div>
-       <a routerLink="/deconnexion" routerLinkActive="active">
-     <i class="fa-solid fa-right-from-bracket"></i>
-      <span>Déconnexion</span>
-      </a>
-   </div>
-    
+    </a>
 
-    
-
+    <!-- Conteneur Déconnexion poussé vers le bas -->
+    <div class="logout-container">
+      <a routerLink="/deconnexion" routerLinkActive="active-menu" class="nav-link">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Déconnexion</span>
+      </a>
+    </div>
   </nav>
-
 </aside>

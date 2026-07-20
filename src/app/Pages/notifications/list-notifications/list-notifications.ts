@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-// Import du module FontAwesome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-// Import des icônes nécessaires
-import { 
-  faBell, 
-  faTriangleExclamation, 
-  faEnvelope, 
-  faCheck, 
-  faPlus, 
-  faMagnifyingGlass, 
-  faClock 
+import {
+  faBell,
+  faTriangleExclamation,
+  faPlus,
+  faCheck,
+  faEnvelope,
+  faMagnifyingGlass,
+  faClock
 } from '@fortawesome/free-solid-svg-icons';
-
 import { NotificationService } from '../../../Services/notification.service';
 import { Notification } from '../../../Models/notification.model';
 import { Sidebar } from "../../../Component/sidebar/sidebar";
@@ -21,65 +18,59 @@ import { Sidebar } from "../../../Component/sidebar/sidebar";
 @Component({
   selector: 'app-list-notifications',
   standalone: true,
-  // Ajout de FontAwesomeModule aux imports
   imports: [CommonModule, FormsModule, FontAwesomeModule, Sidebar],
   templateUrl: './list-notifications.html',
-  styleUrls: ['./list-notifications.css']
+  styleUrl: './list-notifications.css'
 })
 export class ListNotificationsComponent implements OnInit {
 
-  // Déclaration des icônes pour le HTML
   faBell = faBell;
   faTriangleExclamation = faTriangleExclamation;
-  faEnvelope = faEnvelope;
-  faCheck = faCheck;
   faPlus = faPlus;
+  faCheck = faCheck;
+  faEnvelope = faEnvelope;
   faMagnifyingGlass = faMagnifyingGlass;
   faClock = faClock;
 
-  // ── Données ─────────────────────────────────────────
   notifications: Notification[] = [];
   notificationsFiltrees: Notification[] = [];
+  notificationsPaginees: Notification[] = [];
 
-  // ── États UI ────────────────────────────────────────
+  nombreNonLues = 0;
+  nombreAlertes = 0;
   isLoading = false;
   successMessage = '';
   errorMessage = '';
 
-  // ── Nouvelle notification ordinaire ─────────────────
   showFormulaire = false;
-  nouvelleNotification: Notification = {
+  showVerifEpidemie = false;
+  idMaladieVerif = 1;
+
+  nouvelleNotification: Partial<Notification> = {
     titre: '',
-    message: '',
-    lue: false,
-    utilisateur: { idUtilisateur: 1 }
+    message: ''
   };
 
-  // ── Alerte épidémie ─────────────────────────────────
-  idMaladieVerif = 1;
-  showVerifEpidemie = false;
-
-  // ── Filtre ──────────────────────────────────────────
   filtreTexte = '';
   filtreLue = 'toutes';
-
-  // ── Pagination ──────────────────────────────────────
   pageActuelle = 1;
-  parPage = 5;
+  taillePage = 5;
+  totalPages = 1;
+  pages: number[] = [];
 
-  constructor(private notifService: NotificationService) {}
+  constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.chargerNotifications();
   }
 
-  // ── Chargement ──────────────────────────────────────
   chargerNotifications(): void {
     this.isLoading = true;
-    this.notifService.getAllNotifications().subscribe({
-      next: (data) => {
+    this.notificationService.getAllNotifications().subscribe({
+      next: (data: Notification[]) => {
         this.notifications = data;
         this.appliquerFiltres();
+        this.mettreAJourStatistiques();
         this.isLoading = false;
       },
       error: () => {
@@ -89,105 +80,118 @@ export class ListNotificationsComponent implements OnInit {
     });
   }
 
-  // ── Filtres ─────────────────────────────────────────
+  mettreAJourStatistiques(): void {
+    this.nombreNonLues = this.notifications.filter(n => !n.lue).length;
+    this.nombreAlertes = this.notifications.filter(n => this.estAlerte(n)).length;
+  }
+
   appliquerFiltres(): void {
-    let result = [...this.notifications];
+    this.notificationsFiltrees = this.notifications.filter(n => {
+      const correspondTexte = !this.filtreTexte ||
+        n.titre.toLowerCase().includes(this.filtreTexte.toLowerCase()) ||
+        n.message.toLowerCase().includes(this.filtreTexte.toLowerCase());
 
-    if (this.filtreTexte.trim()) {
-      const texte = this.filtreTexte.toLowerCase();
-      result = result.filter(n =>
-        n.titre.toLowerCase().includes(texte) ||
-        n.message.toLowerCase().includes(texte)
-      );
-    }
+      const correspondStatut = this.filtreLue === 'toutes' ||
+        (this.filtreLue === 'lues' && n.lue) ||
+        (this.filtreLue === 'non-lues' && !n.lue);
 
-    if (this.filtreLue === 'lues') {
-      result = result.filter(n => n.lue);
-    } else if (this.filtreLue === 'non-lues') {
-      result = result.filter(n => !n.lue);
-    }
+      return correspondTexte && correspondStatut;
+    });
 
-    this.notificationsFiltrees = result;
     this.pageActuelle = 1;
+    this.calculerPagination();
   }
 
-  // ── Pagination ──────────────────────────────────────
-  get notificationsPaginees(): Notification[] {
-    const debut = (this.pageActuelle - 1) * this.parPage;
-    return this.notificationsFiltrees.slice(debut, debut + this.parPage);
+  calculerPagination(): void {
+    this.totalPages = Math.ceil(this.notificationsFiltrees.length / this.taillePage);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    this.mettreAJourPage();
   }
 
-  get totalPages(): number {
-    return Math.ceil(this.notificationsFiltrees.length / this.parPage);
-  }
-
-  get pages(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  mettreAJourPage(): void {
+    const debut = (this.pageActuelle - 1) * this.taillePage;
+    this.notificationsPaginees = this.notificationsFiltrees.slice(debut, debut + this.taillePage);
   }
 
   changerPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.pageActuelle = page;
+      this.mettreAJourPage();
     }
   }
 
-  // ── Compteurs ───────────────────────────────────────
-  get nombreNonLues(): number {
-    return this.notifications.filter(n => !n.lue).length;
-  }
-
-  get nombreAlertes(): number {
-    return this.notifications.filter(n =>
-      n.titre?.toLowerCase().includes('épidémie') ||
-      n.titre?.toLowerCase().includes('alerte')
-    ).length;
-  }
-
-  // ── Actions ─────────────────────────────────────────
   toggleFormulaire(): void {
     this.showFormulaire = !this.showFormulaire;
+    if (this.showFormulaire) this.showVerifEpidemie = false;
+    this.errorMessage = '';
   }
 
   toggleVerifEpidemie(): void {
     this.showVerifEpidemie = !this.showVerifEpidemie;
-  }
-
-  estAlerte(notif: Notification): boolean {
-    return notif.titre?.toLowerCase().includes('épidémie') ||
-           notif.titre?.toLowerCase().includes('alerte') || false;
-  }
-
-  marquerLue(id: number): void {
-    this.notifService.marquerCommeLue(id).subscribe({
-      next: () => {
-        this.afficherSucces('Notification marquée comme lue.');
-        this.chargerNotifications();
-      }
-    });
+    if (this.showVerifEpidemie) this.showFormulaire = false;
   }
 
   envoyerNotification(): void {
-    this.notifService.envoyerNotification(this.nouvelleNotification).subscribe({
-      next: () => {
-        this.afficherSucces('Notification envoyée !');
+    if (!this.nouvelleNotification.titre || !this.nouvelleNotification.message) {
+      this.errorMessage = 'Le titre et le message sont obligatoires.';
+      return;
+    }
+
+    this.isLoading = true;
+    this.notificationService.envoyerNotification(this.nouvelleNotification as Notification).subscribe({
+      next: (nouvelle: Notification) => {
+        this.notifications.unshift(nouvelle);
+        this.appliquerFiltres();
+        this.mettreAJourStatistiques();
+        this.successMessage = 'Notification envoyee avec succes !';
+        this.nouvelleNotification = { titre: '', message: '' };
         this.showFormulaire = false;
-        this.chargerNotifications();
+        this.isLoading = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Erreur lors de l envoi. Verifiez que le serveur est accessible.';
+        this.isLoading = false;
       }
     });
   }
 
   verifierEpidemie(): void {
-    this.notifService.verifierEpidemie(this.idMaladieVerif).subscribe({
-      next: (msg) => {
-        this.afficherSucces(msg);
-        this.showVerifEpidemie = false;
+    this.isLoading = true;
+    this.notificationService.verifierEpidemie(this.idMaladieVerif).subscribe({
+      next: (msg: string) => {
+        this.successMessage = msg || 'Verification effectuee. Aucune alerte.';
         this.chargerNotifications();
+        this.showVerifEpidemie = false;
+        this.isLoading = false;
+        setTimeout(() => this.successMessage = '', 4000);
+      },
+      error: () => {
+        this.errorMessage = 'Erreur lors de la verification epidemie.';
+        this.isLoading = false;
       }
     });
   }
 
-  afficherSucces(message: string): void {
-    this.successMessage = message;
-    setTimeout(() => this.successMessage = '', 4000);
+  marquerLue(id: number): void {
+    this.notificationService.marquerCommeLue(id).subscribe({
+      next: () => {
+        const index = this.notifications.findIndex(n => n.id === id);
+        if (index !== -1) {
+          this.notifications[index].lue = true;
+          this.appliquerFiltres();
+          this.mettreAJourStatistiques();
+        }
+      },
+      error: () => {
+        this.errorMessage = 'Erreur lors de la mise a jour.';
+      }
+    });
+  }
+
+  estAlerte(notif: Notification): boolean {
+    return notif.titre.toLowerCase().includes('alerte') ||
+           notif.message.toLowerCase().includes('epidemie') ||
+           notif.message.toLowerCase().includes('urgent');
   }
 }
