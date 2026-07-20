@@ -5,6 +5,19 @@
   background-color: #F1C40F;
 }
 
+/* Décale la page à droite du sidebar fixe (18vw) de l'équipe */
+:host {
+  display: block;
+  margin-left: 18vw;
+  padding: 24px 32px;
+  min-height: 100vh;
+}
+
+/* Recentre les modals dans la zone de contenu */
+.modal.d-block {
+  padding-left: 18vw;
+}
+
 .btn-vert { background-color: #1E4B3B; color: #fff; font-weight: 600; }
 .btn-vert:hover { background-color: #163a2d; color: #fff; }
 

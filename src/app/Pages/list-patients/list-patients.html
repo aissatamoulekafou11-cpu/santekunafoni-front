@@ -1,3 +1,4 @@
+<app-sidebar></app-sidebar>
 <header class="d-flex justify-content-between align-items-center mb-4">
   <h4 class="fw-bold mb-0">BIENVENUE Dr Aly SY</h4>
   <div class="d-flex align-items-center gap-2">
@@ -25,6 +26,19 @@
     Filtre <i class="bi bi-funnel ms-1"></i>
   </button>
 </div>
+
+<!-- État de la connexion à l'API -->
+@if (chargement) {
+  <tr *ngIf="!chargement && patients.length === 0">
+    <td colspan="5">Aucun patient trouvé.</td>
+</tr>
+}
+@if (erreur) {
+  <div class="alert alert-danger d-flex justify-content-between align-items-center">
+    {{ erreur }}
+    <button class="btn btn-sm btn-outline-danger" (click)="chargerPatients()">Réessayer</button>
+  </div>
+}
 
 <div class="table-responsive">
   <table class="table align-middle">

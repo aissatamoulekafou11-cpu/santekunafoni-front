@@ -1,68 +1,93 @@
-.body{
-    background-color: #E9EFEC;
+.body {
+  background-color: #E9EFEC;
+  min-height: 100vh;
+  width: 100%;
 }
 
-.right-left{
-    display: flex;
-    justify-content: space-between;
+.right-left {
+  display: flex;
+  justify-content: space-between;
 }
 
-.agents-container{
-    position: relative;
-    display: flex;
-    margin-top: 80px;
-    padding: 30px;
-    background-color: #E9EFEC;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    width: 1000px;
-    /* margin-left: 10%; */
-    margin-top: 10%;
+.agents-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  margin: 10% auto 0 auto;
+  padding: 30px;
+  background-color: #E9EFEC;
+  box-sizing: border-box;
 }
 
-.add-btn{
-        width: 200px;
-        height: px;
-        background-color: #16423C;
-        color: white;
-        padding: 10px 20px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.2s ease;
-        border-radius: 7px;
-        border: none;
-    }
-
-.add-btn:hover{
-    background-color: white;
-    color: #16423C;
-    border: black solid 2px;
+.add-btn {
+  width: 200px;
+  height: 45px;
+  background-color: #16423C;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border-radius: 7px;
+  border: none;
+  margin-bottom: 20px;
 }
 
-.table th{
-    background-color: #E9EFEC;
-    border-bottom: 2px solid #16423C;
+.add-btn:hover {
+  background-color: white;
+  color: #16423C;
+  border: #16423C solid 2px;
 }
 
-.table td{
-    background-color: #E9EFEC;
-    border-bottom: 1px solid #16423C;
+.table th {
+  background-color: #E9EFEC;
+  border-bottom: 2px solid #16423C;
+  color: #16423C;
+  font-weight: bold;
 }
 
-/* .btn{
-    background-color: #E9EFEC;
-    border: none;
-} */
-
-.edit{
-    color: #16423C;
+.table td {
+  background-color: #E9EFEC;
+  border-bottom: 1px solid rgba(22, 66, 60, 0.3);
+  vertical-align: middle;
 }
 
-.info{
-    color: #16423C;
+.edit, .info {
+  color: #16423C;
+  transition: transform 0.2s ease;
 }
 
-.del{
-    color: #980202;
+.edit:hover, .info:hover {
+  transform: scale(1.1);
+  color: #0d2623;
+}
+
+.del {
+  color: #980202;
+  transition: transform 0.2s ease;
+}
+
+.del:hover {
+  transform: scale(1.1);
+  color: #660101;
+}
+
+/* Harmonisation des modales Bootstrap */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

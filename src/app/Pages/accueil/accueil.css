@@ -1,3 +1,25 @@
+/* ── LOGO ───────────────────────────────────────── */
+.logo-container {
+  margin-bottom: 25px; /* Légèrement augmenté pour l'espace visuel */
+}
+
+.hero-logo {
+  max-width: 240px;    /* Augmenté de 150px à 240px */
+  height: auto;        
+  object-fit: contain;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2)); 
+}
+
+/* Ajustement pour les petits écrans */
+@media (max-width: 768px) {
+  .logo-container {
+    text-align: center; 
+  }
+  .hero-logo {
+    max-width: 160px;   /* Augmenté de 100px à 160px pour le mobile */
+  }
+}
+
 /*desactiver l'animation par défaut des icônes dans les boutons */
 .btn-action i.fa-fade,
 .btn-action i.fa-float {
@@ -59,13 +81,16 @@
 
 .hero-subtitle {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: black;
   font-style: italic;
+  font-weight: bold;
   margin-bottom: 20px;
 }
-
+.mt-4{
+  color: black;
+}
 .hero-text {
-  color: rgba(255, 255, 255, 0.80);
+  color: #ffff;
   font-size: 1.2rem;
   line-height: 1.8;
   margin-bottom: 20px;
@@ -83,6 +108,7 @@
   margin-bottom: 12px;
   text-decoration: none;
   list-style-type: none;
+  color: #ffff;
 }
 
 /* ── BOUTONS ────────────────────────────────────── */

@@ -1,63 +1,140 @@
 <div class="dashboard-container">
 
-    <div class="dashboard-content">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+  
+    <!-- Header -->
     <app-header></app-header>
 
-<div class="main-content">
-  <app-sidebar></app-sidebar>
+  <!-- Contenu principal -->
+  <div class="main-content">
 
 
+    <!-- Contenu du dashboard -->
+    <div class="dashboard-content">
 
-     
+      <!-- Cartes -->
+      <div class="row g-4">
 
-        <div class="row cards-row">
+        <!-- Agents -->
+        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
 
-          <!-- Carte Agents -->
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="stat-card1">
+          <div class="stat-cardAgent">
 
-              <div class="card-header">
-                <span>Nombre Agents</span>
-                <i class="bi bi-person-badge-fill"></i>
-              </div>
+            <div class="card-header">
 
-              <div class="card-body">
-                <h2>128</h2>
-              </div>
+              <span>Nombre de Agent de santé</span>
+
+              <i class="fa-solid fa-user-nurse"></i>
 
             </div>
+
+            <div class="card-body">
+
+              <h2>108</h2>
+
+            </div>
+
           </div>
 
-          <!-- Carte Patients -->
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="stat-card2">
+        </div>
 
-              <div class="card-header">
-                <span>Nombre Patients</span>
-                <i class="bi bi-people-fill"></i>
-              </div>
+        <!-- Patients -->
 
-              <div class="card-body">
-                <h2>1542</h2>
-              </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+
+          <div class="stat-cardFull">
+
+            <div class="card-header">
+
+              <span>Nombre de Patient</span>
+
+              <i class="fa-solid fa-user"></i>
 
             </div>
+
+            <div class="card-body">
+
+              <h2>1408</h2>
+
+            </div>
+
           </div>
 
-          <!-- Carte Alertes -->
-          <div class="col-lg-4 col-md-6 col-12">
-            <div class="stat-card2">
+        </div>
 
-              <div class="card-header">
-                <span>Nombre Alertes</span>
-                <i class="bi bi-exclamation-triangle-fill"></i>
-              </div>
+        <!-- Alertes -->
 
-              <div class="card-body">
-                <h2>23</h2>
-              </div>
+        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+
+          <div class="stat-cardFull">
+
+            <div class="card-header">
+
+              <span>Nombre d'Alerte</span>
+
+              <i class="bi bi-exclamation-triangle-fill"></i>
 
             </div>
+
+            <div class="card-body">
+
+              <h2>15</h2>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Graphique -->
+
+      <div class="row mt-4">
+
+        <div class="col-12">
+
+          <div class="chart-card">
+
+            <div class="chart-header">
+
+              <h4>Graphe des alertes</h4>
+
+            </div>
+
+            <div class="chart-body">
+
+              <canvas id="dashboardChart"></canvas>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Google Maps -->
+
+      <div class="row mt-4">
+
+        <div class="col-12">
+
+          <div class="map-card">
+
+            <div class="map-header">
+
+              <h4>Carte géographique</h4>
+
+            </div>
+
+            <div class="map-body">
+
+             <div id="map"></div>
+
+            </div>
+
           </div>
 
         </div>
@@ -65,4 +142,7 @@
       </div>
 
     </div>
-    </div>
+
+  </div>
+
+</div>

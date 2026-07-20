@@ -1,41 +1,97 @@
-.b{
-    position: relative;
-    margin-left: 18vw;
+/* --- STYLE GENERAL ET ECRANS LARGES (Ordinateurs) --- */
+
+/* Ce conteneur décale tout ton contenu pour laisser la place à la sidebar de 260px */
+.content-wrapper {
+    margin-left: 260px; 
     padding: 20px;
-    a{
-        text-align: center;
-    }
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
-input {
-    width: 16vw;
+/* On utilise Flexbox pour aligner la recherche et le bouton sans tricher avec "position: absolute" */
+.b {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permet de passer à la ligne sur de très petits écrans */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+input[type="search"] {
+    width: 100%;
+    max-width: 300px; /* Largeur maximale propre */
+    padding: 8px 12px;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    outline: none;
 }
 
-.b-ajout{
-    width: 183px;
-    height: 28px;
-    position: absolute;
-    left: 65vw;
+.b-ajout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 38px;
     background-color: #2273EE;
     border-radius: 5px;
-    color: #ffff;
+    color: #ffffff;
     text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
 }
 
-.tableau{
-    margin-top: 45px;
-    margin-left: 18vw;
-    padding: 20px;
-    width: 82vw;
+.b-ajout:hover {
+    background-color: #1a5ec7;
+    color: #ffffff;
 }
 
-.modiff i{
+.tableau {
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 15px;
+}
+
+/* Actions style */
+.modiff i {
     color: #2273EE;
-    margin-left: 2px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.supp i{
-    margin-left: 18px;
+.supp i {
+    margin-left: 15px;
     color: red;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* --- 📱 RESPONSIVE : Tablettes et Téléphones (Écrans < 992px) --- */
+@media (max-width: 992px) {
+    .content-wrapper {
+        margin-left: 0; /* Plus de marge à gauche car la sidebar est passée en bas ! */
+        padding: 15px;
+        padding-bottom: 90px; /* ⚠️ TRÈS IMPORTANT : évite que le tableau soit caché par la barre du bas */
+    }
+
+    .b {
+        flex-direction: column; /* On empile la recherche et le bouton sur mobile */
+        align-items: stretch; /* Prennent toute la largeur */
+    }
+
+    input[type="search"] {
+        max-width: 100%; /* La barre de recherche prend toute la largeur */
+    }
+
+    .b-ajout {
+        width: 100%; /* Le bouton d'ajout prend toute la largeur pour être facile à cliquer */
+    }
+    
+    .tableau {
+        padding: 10px;
+        font-size: 14px; /* On réduit légèrement l'écriture pour que le tableau tienne */
+    }
 }

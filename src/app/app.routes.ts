@@ -2,73 +2,40 @@ import { Routes } from '@angular/router';
 import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
 import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
 
-
 //DICKO
 import { DashboardPatient } from './Pages/dashboard-patient/dashboard-patient';
 import { ListPatients } from './Pages/list-patients/list-patients';
-import { Placeholder } from './Pages/placeholder/placeholder';
-
-
 
 // 1. Importer le composant Accueil
 import { AccueilComponent } from './Pages/accueil/accueil';
-
-
-
-
 
 /*Awa*/
-// 1. Importer le composant Accueil
-import { AccueilComponent } from './Pages/accueil/accueil';
-import { Connexion } from './Pages/connexion/connexion';
-import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
-import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
 import { Inscription } from './Pages/inscription/inscription';
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
+import { AgentDashboard } from './Pages/agent-dashboard/agent-dashboard';
+
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
-import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
+import { Connexion } from './Pages/connexion/connexion';
+import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
 
-
-// 1. Importer le composant Accueil
 export const routes: Routes = [
-  // Redirection par défaut vers 'accueil'
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
-  // Définition des routes
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
   
-  {
-    path: 'liste-traitement', component: ListeTraitement
-  },
-  {
-    path: 'ajouter-tratement', component: AjouterTraitementComponent
-  },
-
-  {
-    path: 'modifier-traitement/:id', component: ModifierTraitementComponent
-  },
+  { path: 'liste-traitement', component: ListeTraitement },
+  { path: 'ajouter-tratement', component: AjouterTraitementComponent },
+  { path: 'modifier-traitement/:id', component: ModifierTraitementComponent },
   
-  { path: 'liste-traitement', component: ListeTraitement},
-  { path: 'admin-dashboard', component: AdminDashboard},
-  { path: 'ajouter-tratement', component: AjouterTraitementComponent},
-  { path: 'modifier-traitement', component: ModifierTraitementComponent},
+  { path: 'admin-dashboard', component: AdminDashboard },
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
-
+  {path: 'agent-dashboard',component: AgentDashboard},
+  { path: 'agents', component: AgentSanteListe },
   //DICKO
   { path: 'dashboard', component: DashboardPatient },
-      { path: 'patients',  component: ListPatients },
-
-      { path: 'symptomes',     component: Placeholder, data: { titre: 'Symptômes' } },
-      { path: 'maladies',      component: Placeholder, data: { titre: 'Maladies détectées' } },
-      { path: 'traitements',   component: Placeholder, data: { titre: 'Traitements' } },
-      { path: 'notifications', component: Placeholder, data: { titre: 'Notifications' } },
-      { path: 'profil',        component: Placeholder, data: { titre: 'Profil' }},
+  { path: 'patients', component: ListPatients },
 ];
-  { path: 'maladies', component: ListeMaladieComponent},
-
-];
-
