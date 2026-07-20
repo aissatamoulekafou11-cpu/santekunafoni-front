@@ -42,6 +42,38 @@ nav {
   flex-direction: column;
 }
 
+nav a i{
+    width: 20px;
+    margin:  0px 15px 0px 25px;
+    font-size: 16px;
+   
+}
+nav a:hover{
+   
+    background-color: #E9EFEC;
+    color: #16423C;
+    width: 20vw;
+    height: 8vh;
+     
+    
+  
+   
+}
+/* .active{
+    background-color: white;
+    color: #16423C;
+    font-weight: bold;
+} */
+.logo{
+    position: relative;
+    top: 35px;
+    left: 35px;
+    background-color: #ffff;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+}
+
 nav a {
   display: flex;
   align-items: center;
