@@ -1,10 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Patient, EtatPatient } from '../../Models/patient';
 import { PatientService } from '../../Services/patient';
-import { SidebarComponent } from '../sidebar-component/sidebar-component'; 
-// La PAGE s'appelle ListPatients, mais le SERVICE reste PatientService :
-// il est nommé d'après la donnée, pas d'après une page.
+import { SidebarComponent } from '../sidebar-component/sidebar-component';
 
 @Component({
   selector: 'app-list-patients',
@@ -12,23 +10,50 @@ import { SidebarComponent } from '../sidebar-component/sidebar-component';
   templateUrl: './list-patients.html',
   styleUrl: './list-patients.css'
 })
-export class ListPatients {
+export class ListPatients implements OnInit {
   private patientService = inject(PatientService);
+  private cdr = inject(ChangeDetectorRef);
 
   recherche = '';
   etatsDisponibles: EtatPatient[] = ['Stable', 'Instable', 'Critique', 'Grave'];
 
-  // Quel modal est ouvert ? (null = aucun)
   modalOuvert: 'ajouter' | 'details' | 'modifier' | null = null;
   patientSelectionne: Patient | null = null;
   formulaire: Patient = this.formulaireVide();
 
-  /** Liste filtrée par la barre de recherche */
+  // ═══ NOUVEAU : la copie locale + les états d'attente ═══
+  listePatients: Patient[] = [];   // ce que l'API nous a envoyé
+  chargement = false;              // true pendant qu'on attend la réponse
+  erreur = '';                     // message si l'API est injoignable
+
+  /** Au démarrage du composant : premier chargement depuis MySQL */
+  ngOnInit() {
+    this.chargerPatients();
+  }
+
+  /** LA méthode centrale : commande la liste et s'abonne à la réponse */
+  chargerPatients() {
+    this.chargement = true;
+    this.erreur = '';
+    this.patientService.getPatients().subscribe({
+      next: (data) => {                     // ✅ les données sont arrivées
+        this.listePatients = data;
+        this.cdr.detectChanges();
+        this.chargement = false;
+      },
+      error: (err) => {                     // ❌ l'API n'a pas répondu
+        console.error('Erreur API :', err);
+        this.erreur = 'Impossible de charger les patients. Le serveur Spring est-il démarré ?';
+        this.chargement = false;
+      }
+    });
+  }
+
+  /** Le filtre de recherche travaille sur la copie locale */
   get patients(): Patient[] {
     const terme = this.recherche.toLowerCase().trim();
-    const liste = this.patientService.getPatients();
-    if (!terme) return liste;
-    return liste.filter(p =>
+    if (!terme) return this.listePatients;
+    return this.listePatients.filter(p =>
       p.nom.toLowerCase().includes(terme) ||
       p.prenom.toLowerCase().includes(terme) ||
       p.localite.toLowerCase().includes(terme) ||
@@ -45,6 +70,8 @@ export class ListPatients {
     }
   }
 
+  // ─── Ouverture/fermeture des modals : INCHANGÉ ───
+
   ouvrirAjout() {
     this.formulaire = this.formulaireVide();
     this.modalOuvert = 'ajouter';
@@ -57,7 +84,11 @@ export class ListPatients {
 
   ouvrirModification(patient: Patient) {
     this.patientSelectionne = patient;
-    this.formulaire = { ...patient };   // copie : la liste ne bouge qu'à "Enregistrer"
+    // Copie du patient + periode tronquée au format que l'input datetime-local accepte
+    this.formulaire = {
+      ...patient,
+      periode: patient.periode ? patient.periode.substring(0, 16) : ''
+    };
     this.modalOuvert = 'modifier';
   }
 
@@ -66,21 +97,50 @@ export class ListPatients {
     this.patientSelectionne = null;
   }
 
+  // ─── Les actions CRUD : maintenant avec .subscribe() ───
+
+  /** POST → succès : on recharge la liste depuis MySQL */
   enregistrerAjout() {
-    this.patientService.addPatient(this.formulaire);
-    this.fermerModal();
+    this.patientService.addPatient(this.formulaire).subscribe({
+      next: () => {
+        this.chargerPatients();      // resynchronisation avec la base
+        this.fermerModal();
+      },
+      error: (err) => {
+        console.error('Erreur ajout :', err);
+        alert("L'ajout a échoué. Vérifie que le serveur tourne.");
+      }
+    });
   }
 
+  /** PUT → succès : rechargement */
   enregistrerModification() {
-    this.patientService.updatePatient(this.formulaire);
-    this.fermerModal();
+    this.patientService.updatePatient(this.formulaire).subscribe({
+      next: () => {
+        this.chargerPatients();
+        this.fermerModal();
+      },
+      error: (err) => {
+        console.error('Erreur modification :', err);
+        alert('La modification a échoué.');
+      }
+    });
   }
 
+  /** DELETE → succès : rechargement */
   supprimerPatient(patient: Patient) {
     const confirme = confirm(`Supprimer le patient ${patient.nom} ${patient.prenom} ?`);
     if (confirme) {
-      this.patientService.deletePatient(patient.idUtilisateur!);
-      this.fermerModal();
+      this.patientService.deletePatient(patient.idUtilisateur!).subscribe({
+        next: () => {
+          this.chargerPatients();
+          this.fermerModal();
+        },
+        error: (err) => {
+          console.error('Erreur suppression :', err);
+          alert('La suppression a échoué.');
+        }
+      });
     }
   }
 
