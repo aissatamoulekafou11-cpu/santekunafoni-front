@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../Services/auth'; // Ajuste ce chemin si ton dossier services est ailleurs
+import { AuthService } from '../../Services/auth';
 
 @Component({
   selector: 'app-connexion',
@@ -36,18 +36,19 @@ export class Connexion implements OnInit {
       return;
     }
 
+    // 1. On extrait les identifiants du formulaire
     const { tel, motpass } = this.connexionForm.value;
 
-    // Envoi des identifiants au service
-    this.authService.connexion(tel, motpass).subscribe({
+    // 2. On envoie l'objet groupé { tel, motpass } au service
+    this.authService.connexion({ tel, motpass }).subscribe({
       next: (reponse) => {
         console.log('Connexion réussie ! Data reçue du backend :', reponse);
         
-        // Sécurité/Débogage : On vérifie si le token a bien été enregistré dans le localStorage
-        console.log('Token stocké avec succès ? ', this.authService.getToken() ? 'OUI ✅' : 'NON ❌');
+        // 3. Sauvegarde des infos de l'utilisateur dans le localStorage
+        this.authService.sauvegarderSession(reponse);
+        console.log('Utilisateur sauvegardé en session ! ✅');
 
         // Redirection intelligente selon le rôle renvoyé par Spring Boot
-        // (Vérifiez bien dans votre console si le champ s'appelle "role" ou "roles")
         if (reponse.role === 'ADMIN') {
           this.router.navigate(['/admin/dashboard']);
         } else if (reponse.role === 'AGENT_SANTE') {

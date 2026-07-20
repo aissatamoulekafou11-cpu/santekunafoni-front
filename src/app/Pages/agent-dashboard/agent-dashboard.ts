@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
-import { Header } from '../../Component/header/header';
 
 @Component({
   selector: 'app-agent-dashboard',
   standalone: true,
   imports: [
-    SidebarComponent,
-    Header
+    SidebarComponent
   ],
   templateUrl: './agent-dashboard.html',
   styleUrl: './agent-dashboard.css'
