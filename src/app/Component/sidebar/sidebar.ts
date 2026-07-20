@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faGaugeHigh, faUserNurse, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-
-  imports: [FontAwesomeModule],
+  imports: [RouterLink, RouterLinkActive, FontAwesomeModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
 })

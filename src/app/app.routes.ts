@@ -30,12 +30,8 @@ import { Connexion } from './Pages/connexion/connexion';
 
 
 
-
-// 1. Importer le composant Accueil
 export const routes: Routes = [
-  // Redirection par défaut vers 'accueil'
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
-  // Définition des routes
   { path: 'accueil', component: AccueilComponent },
   {
     path: 'connexion', component: Connexion
