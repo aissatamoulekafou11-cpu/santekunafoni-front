@@ -6,7 +6,7 @@ import { ListNotificationsComponent } from './Pages/notifications/list-notificat
 //DICKO
 import { DashboardPatient } from './Pages/dashboard-patient/dashboard-patient';
 import { ListPatients } from './Pages/list-patients/list-patients';
-
+//import { Placeholder } from './Pages/placeholder/placeholder';
 
 
 
@@ -26,23 +26,18 @@ import { ListeTraitement } from './Pages/traitementListeComponent/traitement-com
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
 
-import { SidebarComponent } from './Pages/sidebar-component/sidebar-component';
-/*Awa*/
-import { AgentDashboard } from './Pages/agent-dashboard/agent-dashboard';
-
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 
 
 
-
-// 1. Importer le composant Accueil
 export const routes: Routes = [
-  // Redirection par défaut vers 'accueil'
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
-  // Définition des routes
   { path: 'accueil', component: AccueilComponent },
-  { path: 'connexion', component: Connexion },
+  {
+    path: 'connexion', component: Connexion
+  },
+  
   { path: 'inscription', component: Inscription },
   
   {
@@ -62,7 +57,9 @@ export const routes: Routes = [
   { path: 'modifier-traitement', component: ModifierTraitementComponent},
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
-  {path: 'agent-dashboard',component: AgentDashboard},
-  {path: 'maladies',component: ListeMaladieComponent}
-  
+
+  //DICKO
+  { path: 'dashboard', component: DashboardPatient },
+      { path: 'patients',  component: ListPatients },
+
 ];

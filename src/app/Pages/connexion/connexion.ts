@@ -48,13 +48,14 @@ export class Connexion implements OnInit {
         this.authService.sauvegarderSession(reponse);
         console.log('Utilisateur sauvegardé en session ! ✅');
 
-        // Redirection intelligente selon le rôle renvoyé par Spring Boot
+        // 4. Redirection intelligente alignée avec les paths de app.routes.ts
         if (reponse.role === 'ADMIN') {
-          this.router.navigate(['/admin/dashboard']);
+          this.router.navigate(['/admin-dashboard']);
         } else if (reponse.role === 'AGENT_SANTE') {
           this.router.navigate(['/agent/dashboard']);
         } else {
-          this.router.navigate(['/patient/accueil']);
+          // Correction de 'patient/accueil' vers '/dashboard' (DashboardPatient)
+          this.router.navigate(['/dashboard']);
         }
       },
       error: (err) => {

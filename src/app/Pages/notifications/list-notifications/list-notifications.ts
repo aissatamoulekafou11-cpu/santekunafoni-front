@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { 
-  faBell, 
-  faTriangleExclamation, 
-  faPlus, 
-  faCheck, 
-  faEnvelope, 
-  faMagnifyingGlass, 
-  faClock 
+import {
+  faBell,
+  faTriangleExclamation,
+  faPlus,
+  faCheck,
+  faEnvelope,
+  faMagnifyingGlass,
+  faClock
 } from '@fortawesome/free-solid-svg-icons';
 import { NotificationService } from '../../../Services/notification.service';
 import { Notification } from '../../../Models/notification.model';
@@ -23,7 +23,7 @@ import { Sidebar } from "../../../Component/sidebar/sidebar";
   styleUrl: './list-notifications.css'
 })
 export class ListNotificationsComponent implements OnInit {
-  // Icônes FontAwesome
+
   faBell = faBell;
   faTriangleExclamation = faTriangleExclamation;
   faPlus = faPlus;
@@ -32,34 +32,30 @@ export class ListNotificationsComponent implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass;
   faClock = faClock;
 
-  // Variables d'état
   notifications: Notification[] = [];
   notificationsFiltrees: Notification[] = [];
   notificationsPaginees: Notification[] = [];
-  
-  nombreNonLues: number = 0;
-  nombreAlertes: number = 0;
-  isLoading: boolean = false;
-  
-  successMessage: string = '';
-  errorMessage: string = '';
 
-  // Formulaires
-  showFormulaire: boolean = false;
-  showVerifEpidemie: boolean = false;
-  idMaladieVerif?: number;
-  
+  nombreNonLues = 0;
+  nombreAlertes = 0;
+  isLoading = false;
+  successMessage = '';
+  errorMessage = '';
+
+  showFormulaire = false;
+  showVerifEpidemie = false;
+  idMaladieVerif = 1;
+
   nouvelleNotification: Partial<Notification> = {
     titre: '',
     message: ''
   };
 
-  // Filtres et Pagination
-  filtreTexte: string = '';
-  filtreLue: string = 'toutes';
-  pageActuelle: number = 1;
-  taillePage: number = 5;
-  totalPages: number = 1;
+  filtreTexte = '';
+  filtreLue = 'toutes';
+  pageActuelle = 1;
+  taillePage = 5;
+  totalPages = 1;
   pages: number[] = [];
 
   constructor(private notificationService: NotificationService) {}
@@ -68,24 +64,21 @@ export class ListNotificationsComponent implements OnInit {
     this.chargerNotifications();
   }
 
-chargerNotifications(): void {
+  chargerNotifications(): void {
     this.isLoading = true;
     this.notificationService.getAllNotifications().subscribe({
       next: (data: Notification[]) => {
         this.notifications = data;
         this.appliquerFiltres();
         this.mettreAJourStatistiques();
-        this.isLoading = false; // Arrête le chargement en cas de succès
+        this.isLoading = false;
       },
-      error: (err: any) => {
-        console.error("Erreur lors de la récupération des notifications :", err);
-        this.errorMessage = "Impossible de charger les notifications.";
-        this.isLoading = false; // TRÈS IMPORTANT : On arrête aussi le chargement ici pour faire disparaître le spinner !
+      error: () => {
+        this.errorMessage = 'Impossible de charger les notifications.';
+        this.isLoading = false;
       }
     });
   }
-
-
 
   mettreAJourStatistiques(): void {
     this.nombreNonLues = this.notifications.filter(n => !n.lue).length;
@@ -94,7 +87,7 @@ chargerNotifications(): void {
 
   appliquerFiltres(): void {
     this.notificationsFiltrees = this.notifications.filter(n => {
-      const correspondTexte = !this.filtreTexte || 
+      const correspondTexte = !this.filtreTexte ||
         n.titre.toLowerCase().includes(this.filtreTexte.toLowerCase()) ||
         n.message.toLowerCase().includes(this.filtreTexte.toLowerCase());
 
@@ -117,8 +110,7 @@ chargerNotifications(): void {
 
   mettreAJourPage(): void {
     const debut = (this.pageActuelle - 1) * this.taillePage;
-    const fin = debut + this.taillePage;
-    this.notificationsPaginees = this.notificationsFiltrees.slice(debut, fin);
+    this.notificationsPaginees = this.notificationsFiltrees.slice(debut, debut + this.taillePage);
   }
 
   changerPage(page: number): void {
@@ -131,6 +123,7 @@ chargerNotifications(): void {
   toggleFormulaire(): void {
     this.showFormulaire = !this.showFormulaire;
     if (this.showFormulaire) this.showVerifEpidemie = false;
+    this.errorMessage = '';
   }
 
   toggleVerifEpidemie(): void {
@@ -140,45 +133,41 @@ chargerNotifications(): void {
 
   envoyerNotification(): void {
     if (!this.nouvelleNotification.titre || !this.nouvelleNotification.message) {
-      this.errorMessage = "Veuillez remplir tous les champs obligatoires (*).";
+      this.errorMessage = 'Le titre et le message sont obligatoires.';
       return;
     }
 
     this.isLoading = true;
-    // Modification : Utilisation de envoyerNotification() et typage de 'nouvelle'
     this.notificationService.envoyerNotification(this.nouvelleNotification as Notification).subscribe({
       next: (nouvelle: Notification) => {
         this.notifications.unshift(nouvelle);
         this.appliquerFiltres();
         this.mettreAJourStatistiques();
-        this.successMessage = "Notification envoyée avec succès !";
+        this.successMessage = 'Notification envoyee avec succes !';
         this.nouvelleNotification = { titre: '', message: '' };
         this.showFormulaire = false;
         this.isLoading = false;
+        setTimeout(() => this.successMessage = '', 4000);
       },
-      error: (err: any) => {
-        this.errorMessage = "Erreur lors de l'envoi de la notification.";
+      error: () => {
+        this.errorMessage = 'Erreur lors de l envoi. Verifiez que le serveur est accessible.';
         this.isLoading = false;
       }
     });
   }
 
   verifierEpidemie(): void {
-    if (!this.idMaladieVerif) {
-      this.errorMessage = "Veuillez renseigner un ID de maladie valide.";
-      return;
-    }
-
     this.isLoading = true;
     this.notificationService.verifierEpidemie(this.idMaladieVerif).subscribe({
-      next: (messageAlerte: string) => {
-        this.successMessage = messageAlerte || "Vérification effectuée. Aucune alerte à signaler.";
+      next: (msg: string) => {
+        this.successMessage = msg || 'Verification effectuee. Aucune alerte.';
         this.chargerNotifications();
         this.showVerifEpidemie = false;
         this.isLoading = false;
+        setTimeout(() => this.successMessage = '', 4000);
       },
-      error: (err: any) => {
-        this.errorMessage = "Une erreur est survenue lors de la vérification de l'épidémie.";
+      error: () => {
+        this.errorMessage = 'Erreur lors de la verification epidemie.';
         this.isLoading = false;
       }
     });
@@ -193,13 +182,16 @@ chargerNotifications(): void {
           this.appliquerFiltres();
           this.mettreAJourStatistiques();
         }
+      },
+      error: () => {
+        this.errorMessage = 'Erreur lors de la mise a jour.';
       }
     });
   }
 
   estAlerte(notif: Notification): boolean {
-    return notif.titre.toLowerCase().includes('alerte') || 
-           notif.message.toLowerCase().includes('épidémie') || 
+    return notif.titre.toLowerCase().includes('alerte') ||
+           notif.message.toLowerCase().includes('epidemie') ||
            notif.message.toLowerCase().includes('urgent');
   }
 }
