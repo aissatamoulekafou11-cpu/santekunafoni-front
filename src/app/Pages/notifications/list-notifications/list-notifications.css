@@ -1,24 +1,12 @@
-/* ==========================================================================
-   1. INTEGRATION ET DECALAGE DE LA PAGE AVEC LA SIDEBAR FIXE (CORRIGÉ)
-   ========================================================================== */
-
 .content-with-sidebar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin-left: 260px; /* Aligné sur la largeur exacte de la sidebar */
+  width: 100%;
   min-height: 100vh;
-  background-color: #E9EFEC; /* Ton fond vert/gris clair d'application */
-  width: calc(100% - 260px);
+  background-color: #E9EFEC;
   box-sizing: border-box;
 }
 
-/* ==========================================================================
-   2. STYLES DES CARTES DE NOTIFICATION
-   ========================================================================== */
-
 .card {
-  border-radius: 16px !important; /* Arrondis doux cohérents */
+  border-radius: 16px !important;
   transition: all 0.2s ease-in-out;
   background-color: #ffffff;
 }
@@ -28,31 +16,23 @@
   transform: translateY(-2px);
 }
 
-/* Style spécifique aux alertes épidémies */
 .notif-alerte {
   border-left: 6px solid #dc3545 !important;
   background-color: #fff9f9;
 }
 
-/* Style spécifique aux notifications ordinaires */
 .notif-ordinaire {
   border-left: 6px solid #16423C !important;
 }
 
-/* Les notifications lues sont estompées */
 .notif-lue {
   opacity: 0.7;
 }
 
-/* Annulation de la bordure bleue par défaut de Bootstrap au focus */
 input:focus, textarea:focus, select:focus {
   box-shadow: none !important;
   border-color: #16423C !important;
 }
-
-/* ==========================================================================
-   3. ISOLATION DE LA PAGINATION
-   ========================================================================== */
 
 .custom-pagination .page-item .page-link {
   transition: background-color 0.2s ease;
@@ -66,10 +46,6 @@ input:focus, textarea:focus, select:focus {
 .custom-pagination .page-item:not(.active) .page-link:hover {
   background-color: rgba(22, 66, 60, 0.1) !important;
 }
-
-/* ==========================================================================
-   4. TRANSITION D'APPARITION DU FORMULAIRE
-   ========================================================================== */
 
 .animate-fade-in {
   animation: fadeIn 0.3s ease-in-out;

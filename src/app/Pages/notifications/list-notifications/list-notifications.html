@@ -1,5 +1,3 @@
-<app-sidebar></app-sidebar>
-
 <div class="p-5 content-with-sidebar">
 
   <!-- ── EN-TÊTE ──────────────────────────────────── -->
@@ -12,7 +10,7 @@
         </span>
       </h1>
       <p class="text-muted mb-0">
-        {{ notifications.length }} notification(s) au total — 
+        {{ notifications.length }} notification(s) au total —
         <span class="text-danger fw-bold">
           <fa-icon [icon]="faTriangleExclamation"></fa-icon> {{ nombreAlertes }} alerte(s) épidémie
         </span>
@@ -20,16 +18,14 @@
     </div>
 
     <div class="d-flex gap-2">
-      <!-- Bouton Ajouter -->
-      <button class="btn text-white rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" 
-              style="background-color: #2F80ED; border: none; height: 45px;" 
+      <button class="btn text-white rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2"
+              style="background-color: #2F80ED; border: none; height: 45px;"
               (click)="toggleFormulaire()">
         <fa-icon [icon]="faPlus"></fa-icon> Nouvelle notification
       </button>
 
-      <!-- Bouton Alerte -->
-      <button class="btn btn-warning text-dark rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" 
-              style="border: none; height: 45px;" 
+      <button class="btn btn-warning text-dark rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2"
+              style="border: none; height: 45px;"
               (click)="toggleVerifEpidemie()">
         <fa-icon [icon]="faTriangleExclamation"></fa-icon> Vérifier épidémie
       </button>
@@ -49,20 +45,33 @@
   <!-- ── FORMULAIRE NOTIFICATION ORDINAIRE ─────────── -->
   <div *ngIf="showFormulaire" class="card mb-4 border-0 shadow-sm rounded-4 animate-fade-in">
     <div class="card-header border-0 bg-light rounded-top-4 py-3">
-      <h5 class="mb-0 fw-bold" style="color: #16423C;"><fa-icon [icon]="faEnvelope"></fa-icon> Envoyer une notification</h5>
+      <h5 class="mb-0 fw-bold" style="color: #16423C;">
+        <fa-icon [icon]="faEnvelope"></fa-icon> Envoyer une notification
+      </h5>
     </div>
     <div class="card-body p-4">
       <div class="mb-3">
         <label class="form-label fw-bold">Titre *</label>
-        <input type="text" class="form-control rounded-3" [(ngModel)]="nouvelleNotification.titre" placeholder="Indiquer le titre" maxlength="100">
+        <input type="text" class="form-control rounded-3"
+               [(ngModel)]="nouvelleNotification.titre"
+               placeholder="Indiquer le titre" maxlength="100">
       </div>
       <div class="mb-3">
         <label class="form-label fw-bold">Message *</label>
-        <textarea class="form-control rounded-3" [(ngModel)]="nouvelleNotification.message" placeholder="Contenu du message..." rows="3"></textarea>
+        <textarea class="form-control rounded-3"
+                  [(ngModel)]="nouvelleNotification.message"
+                  placeholder="Contenu du message..." rows="3">
+        </textarea>
       </div>
       <div class="d-flex gap-2">
-        <button class="btn text-white rounded-pill px-4 fw-bold" style="background-color: #16423C; border: none;" (click)="envoyerNotification()">Envoyer</button>
-        <button class="btn btn-light rounded-pill px-4" (click)="toggleFormulaire()">Annuler</button>
+        <button class="btn text-white rounded-pill px-4 fw-bold"
+                style="background-color: #16423C; border: none;"
+                (click)="envoyerNotification()">
+          Envoyer
+        </button>
+        <button class="btn btn-light rounded-pill px-4" (click)="toggleFormulaire()">
+          Annuler
+        </button>
       </div>
     </div>
   </div>
@@ -70,14 +79,21 @@
   <!-- ── FORMULAIRE VÉRIFICATION ÉPIDÉMIE ──────────── -->
   <div *ngIf="showVerifEpidemie" class="card mb-4 border-0 shadow-sm rounded-4 animate-fade-in">
     <div class="card-header border-0 bg-warning bg-opacity-25 rounded-top-4 py-3">
-      <h5 class="mb-0 fw-bold text-warning-emphasis"><fa-icon [icon]="faTriangleExclamation"></fa-icon> Vérification automatique</h5>
+      <h5 class="mb-0 fw-bold text-warning-emphasis">
+        <fa-icon [icon]="faTriangleExclamation"></fa-icon> Vérification automatique
+      </h5>
     </div>
     <div class="card-body p-4">
+      <p class="text-muted mb-3">
+        Le système analyse les cas enregistrés sur les <strong>7 derniers jours</strong>.
+        Si le nombre dépasse <strong>30 cas</strong>, une alerte est créée automatiquement.
+      </p>
       <div class="mb-3">
         <label class="form-label fw-bold">ID de la maladie à surveiller</label>
         <input type="number" class="form-control rounded-3" [(ngModel)]="idMaladieVerif">
       </div>
-      <button class="btn btn-warning rounded-pill px-4 fw-bold" (click)="verifierEpidemie()" [disabled]="isLoading">
+      <button class="btn btn-warning rounded-pill px-4 fw-bold"
+              (click)="verifierEpidemie()" [disabled]="isLoading">
         <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
         Lancer la vérification
       </button>
@@ -87,24 +103,25 @@
   <!-- ── FILTRES ET RECHERCHE ───────────────────────── -->
   <div class="bg-white rounded-4 p-3 shadow-sm mb-4">
     <div class="row g-3">
-      <!-- Barre de recherche avec icône intégrée proprement -->
       <div class="col-md-8">
-        <div class="position-relative d-flex align-items-center bg-light rounded-pill px-3" style="height: 45px;">
-          <input 
-            type="text" 
-            class="form-control border-0 bg-transparent w-100 ps-2" 
-            [(ngModel)]="filtreTexte" 
-            (ngModelChange)="appliquerFiltres()" 
-            placeholder="Rechercher une notification..."
-          >
+        <div class="position-relative d-flex align-items-center bg-light rounded-pill px-3"
+             style="height: 45px;">
+          <input
+            type="text"
+            class="form-control border-0 bg-transparent w-100 ps-2"
+            [(ngModel)]="filtreTexte"
+            (ngModelChange)="appliquerFiltres()"
+            placeholder="Rechercher une notification...">
           <span class="text-muted pe-2">
             <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
           </span>
         </div>
       </div>
-      <!-- Filtre de statut -->
       <div class="col-md-4">
-        <select class="form-select border-0 bg-light rounded-pill px-3" style="height: 45px;" [(ngModel)]="filtreLue" (ngModelChange)="appliquerFiltres()">
+        <select class="form-select border-0 bg-light rounded-pill px-3"
+                style="height: 45px;"
+                [(ngModel)]="filtreLue"
+                (ngModelChange)="appliquerFiltres()">
           <option value="toutes">Toutes les notifications</option>
           <option value="non-lues">Non lues</option>
           <option value="lues">Lues</option>
@@ -115,26 +132,28 @@
 
   <!-- ── SPINNER DE CHARGEMENT ──────────────────────── -->
   <div *ngIf="isLoading" class="text-center my-5">
-    <div class="spinner-border text-success" role="status" style="color: #16423C !important;">
+    <div class="spinner-border" role="status" style="color: #16423C;">
       <span class="visually-hidden">Chargement...</span>
     </div>
     <p class="mt-2 text-muted">Chargement des notifications...</p>
   </div>
 
   <!-- ── LISTE VIDE ────────────────────────────────── -->
-  <div *ngIf="!isLoading && notificationsFiltrees.length === 0" class="alert bg-white text-muted text-center py-5 border-0 rounded-4 shadow-sm">
+  <div *ngIf="!isLoading && notificationsFiltrees.length === 0"
+       class="alert bg-white text-muted text-center py-5 border-0 rounded-4 shadow-sm">
     <fa-icon [icon]="faBell" class="fs-1 d-block mb-3 text-secondary"></fa-icon>
     Aucune notification trouvée.
   </div>
 
   <!-- ── LISTE DES NOTIFICATIONS ───────────────────── -->
   <div *ngIf="!isLoading && notificationsFiltrees.length > 0">
-    <div *ngFor="let notif of notificationsPaginees" class="card mb-3 border-0 shadow-sm"
-      [ngClass]="{
-        'notif-alerte': estAlerte(notif),
-        'notif-ordinaire': !estAlerte(notif),
-        'notif-lue': notif.lue
-      }">
+    <div *ngFor="let notif of notificationsPaginees"
+         class="card mb-3 border-0 shadow-sm"
+         [ngClass]="{
+           'notif-alerte': estAlerte(notif),
+           'notif-ordinaire': !estAlerte(notif),
+           'notif-lue': notif.lue
+         }">
       <div class="card-body p-4">
         <div class="d-flex justify-content-between align-items-start">
           <div>
@@ -142,23 +161,32 @@
               <span *ngIf="estAlerte(notif)" class="badge bg-danger rounded-pill text-white">
                 <fa-icon [icon]="faTriangleExclamation"></fa-icon> Alerte épidémie
               </span>
-              <span *ngIf="!notif.lue && !estAlerte(notif)" class="badge rounded-pill text-white" style="background-color: #16423C;">
+              <span *ngIf="!notif.lue && !estAlerte(notif)"
+                    class="badge rounded-pill text-white"
+                    style="background-color: #16423C;">
                 <fa-icon [icon]="faEnvelope"></fa-icon> Info
               </span>
-              <span class="badge rounded-pill text-dark" [ngClass]="notif.lue ? 'bg-secondary bg-opacity-25' : 'bg-success bg-opacity-25 text-success'">
+              <span class="badge rounded-pill text-dark"
+                    [ngClass]="notif.lue ? 'bg-secondary bg-opacity-25' : 'bg-success bg-opacity-25 text-success'">
                 {{ notif.lue ? '✔ Lue' : '● Non lue' }}
               </span>
             </div>
-            
-            <h5 class="fw-bold mb-2" [style.color]="notif.lue ? '#6c757d' : '#16423C'">{{ notif.titre }}</h5>
-            <p class="mb-3 text-secondary" style="max-width: 800px; line-height: 1.5;">{{ notif.message }}</p>
-            
+
+            <h5 class="fw-bold mb-2" [style.color]="notif.lue ? '#6c757d' : '#16423C'">
+              {{ notif.titre }}
+            </h5>
+            <p class="mb-3 text-secondary" style="max-width: 800px; line-height: 1.5;">
+              {{ notif.message }}
+            </p>
             <small class="text-muted d-flex align-items-center gap-1">
-              <fa-icon [icon]="faClock"></fa-icon> {{ notif.datePublication | date:'dd/MM/yyyy HH:mm' }}
+              <fa-icon [icon]="faClock"></fa-icon>
+              {{ notif.datePublication | date:'dd/MM/yyyy HH:mm' }}
             </small>
           </div>
-          
-          <button *ngIf="!notif.lue" class="btn btn-sm btn-outline-success rounded-pill px-3 py-1 align-self-start" (click)="marquerLue(notif.id!)">
+
+          <button *ngIf="!notif.lue"
+                  class="btn btn-sm btn-outline-success rounded-pill px-3 py-1 align-self-start"
+                  (click)="marquerLue(notif.id!)">
             <fa-icon [icon]="faCheck"></fa-icon> Marquer lue
           </button>
         </div>
@@ -170,24 +198,33 @@
   <div *ngIf="totalPages > 1" class="d-flex justify-content-center mt-4">
     <nav class="custom-pagination">
       <ul class="pagination pagination-sm mb-0 gap-1 align-items-center">
-        <!-- Page Précédente -->
         <li class="page-item" [class.disabled]="pageActuelle === 1">
-          <button class="page-link border-0 text-muted bg-transparent" (click)="changerPage(pageActuelle - 1)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>
+          <button class="page-link border-0 text-muted bg-transparent"
+                  (click)="changerPage(pageActuelle - 1)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                 fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                    d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+            </svg>
           </button>
         </li>
-        <!-- Numéros de pages -->
         <li *ngFor="let p of pages" class="page-item" [class.active]="p === pageActuelle">
-          <button class="page-link rounded px-3 border-0 fw-bold" 
-                  [ngStyle]="p === pageActuelle ? {'background-color': '#16423C', 'color': 'white'} : {'background-color': '#f8f9fa', 'color': '#2D3748'}"
+          <button class="page-link rounded px-3 border-0 fw-bold"
+                  [ngStyle]="p === pageActuelle
+                    ? {'background-color': '#16423C', 'color': 'white'}
+                    : {'background-color': '#f8f9fa', 'color': '#2D3748'}"
                   (click)="changerPage(p)">
             {{ p }}
           </button>
         </li>
-        <!-- Page Suivante -->
         <li class="page-item" [class.disabled]="pageActuelle === totalPages">
-          <button class="page-link border-0 text-muted bg-transparent" (click)="changerPage(pageActuelle + 1)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+          <button class="page-link border-0 text-muted bg-transparent"
+                  (click)="changerPage(pageActuelle + 1)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                 fill="currentColor" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
           </button>
         </li>
       </ul>
