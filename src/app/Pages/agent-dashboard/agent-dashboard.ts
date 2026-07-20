@@ -19,7 +19,7 @@ import { forkJoin } from 'rxjs';
 export class AgentDashboard implements OnInit {
   private dashboardService = inject(AgentDashboardService);
   private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef); // 🔥 Injecté pour forcer l'affichage immédiat des données
+  private cdr = inject(ChangeDetectorRef); //  Injecté pour forcer l'affichage immédiat des données
 
   // Cartes statistiques
   nombrePatients = 0;
@@ -41,11 +41,11 @@ export class AgentDashboard implements OnInit {
 
   // Méthode de redirection pour le bouton "Voir tout"
   voirPlus(): void {
-    this.router.navigate(['/patient']); 
+    this.router.navigate(['/patients']); 
   }
 
   chargerDonneesDashboard(): void {
-    // 🔥 On regroupe tout dans un seul forkJoin pour exécuter les requêtes en parallèle 
+    //  On regroupe tout dans un seul forkJoin pour exécuter les requêtes en parallèle 
     // et éviter le bug de l'écran qui reste vide au démarrage
     forkJoin({
       patientsCount: this.dashboardService.getNombrePatients(),
@@ -87,7 +87,7 @@ export class AgentDashboard implements OnInit {
           this.pourcentageFemmes = Math.round((f / total) * 100);
         }
 
-        // 🔥 Force Angular à rafraîchir l'interface graphique immédiatement
+        // Force Angular à rafraîchir l'interface graphique immédiatement
         this.cdr.detectChanges(); 
       },
       error: (err) => {

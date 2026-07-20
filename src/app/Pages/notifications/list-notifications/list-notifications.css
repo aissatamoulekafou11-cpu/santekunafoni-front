@@ -1,44 +1,87 @@
-.notifications-page {
-  width: 100%;
+/* ==========================================================================
+   1. INTEGRATION ET DECALAGE DE LA PAGE AVEC LA SIDEBAR FIXE (CORRIGÉ)
+   ========================================================================== */
+
+.content-with-sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-left: 260px; /* Aligné sur la largeur exacte de la sidebar */
+  min-height: 100vh;
+  background-color: #E9EFEC; /* Ton fond vert/gris clair d'application */
+  width: calc(100% - 260px);
+  box-sizing: border-box;
 }
 
-.page-title {
-  color: #16423C; /* Vert sombre de l'application */
-  font-weight: 700;
-}
+/* ==========================================================================
+   2. STYLES DES CARTES DE NOTIFICATION
+   ========================================================================== */
 
-/* Cartes de notification */
 .card {
-  transition: box-shadow 0.2s ease, transform 0.1s ease;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-}
-
-.card:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  transform: translateY(-1px);
-}
-
-/* Alerte épidémie */
-.notif-alerte {
-  border-left: 5px solid #dc3545 !important;
-  background-color: #fff5f5;
-}
-
-/* Notification ordinaire */
-.notif-ordinaire {
-  border-left: 5px solid #0d6efd !important;
+  border-radius: 16px !important; /* Arrondis doux cohérents */
+  transition: all 0.2s ease-in-out;
   background-color: #ffffff;
 }
 
-/* Opacité si déjà consultée */
+.card:hover {
+  box-shadow: 0 8px 24px rgba(22, 66, 60, 0.08) !important;
+  transform: translateY(-2px);
+}
+
+/* Style spécifique aux alertes épidémies */
+.notif-alerte {
+  border-left: 6px solid #dc3545 !important;
+  background-color: #fff9f9;
+}
+
+/* Style spécifique aux notifications ordinaires */
+.notif-ordinaire {
+  border-left: 6px solid #16423C !important;
+}
+
+/* Les notifications lues sont estompées */
 .notif-lue {
   opacity: 0.7;
 }
 
-.badge {
-  font-size: 0.75rem;
-  padding: 6px 12px;
-  border-radius: 20px;
+/* Annulation de la bordure bleue par défaut de Bootstrap au focus */
+input:focus, textarea:focus, select:focus {
+  box-shadow: none !important;
+  border-color: #16423C !important;
+}
+
+/* ==========================================================================
+   3. ISOLATION DE LA PAGINATION
+   ========================================================================== */
+
+.custom-pagination .page-item .page-link {
+  transition: background-color 0.2s ease;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.custom-pagination .page-item:not(.active) .page-link:hover {
+  background-color: rgba(22, 66, 60, 0.1) !important;
+}
+
+/* ==========================================================================
+   4. TRANSITION D'APPARITION DU FORMULAIRE
+   ========================================================================== */
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

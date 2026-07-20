@@ -8,6 +8,16 @@
   font-weight: 700;
 }
 
+
+/* Décale la page à droite du sidebar fixe (18vw) de l'équipe */
+:host {
+  display: block;
+  margin-left: 18vw;
+  padding: 24px 32px;
+  min-height: 100vh;
+}
+
+
 .alerte-region { background-color: #E9EFEA; border-radius: 10px; }
 .alerte-icone {
   width: 42px; height: 42px;

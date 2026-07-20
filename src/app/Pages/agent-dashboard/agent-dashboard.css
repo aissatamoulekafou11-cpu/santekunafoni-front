@@ -193,7 +193,7 @@
     margin: 20px 0;
 }
 
-/* 🔥 CORRECTION : Devient le disque de couleur dynamique */
+/*  CORRECTION : Devient le disque de couleur dynamique */
 .chart-placeholder {
     width: 160px;
     height: 160px;
@@ -205,7 +205,7 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* 🔥 AJOUT : Le cercle blanc interne pour isoler le texte au centre */
+/*  AJOUT : Le cercle blanc interne pour isoler le texte au centre */
 .chart-inner-text {
     width: 124px;
     height: 124px;
@@ -277,4 +277,40 @@
 
 .symptome-item:last-child {
     border-bottom: none;
+}
+/* ===========================
+   Responsive Design
+=========================== */
+
+/*  Pour les petits écrans d'ordinateurs et grandes tablettes (max 1024px) */
+@media (max-width: 1024px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr); /* Passe de 4 à 2 colonnes */
+    }
+
+    .dashboard-bottom {
+        grid-template-columns: 1fr; /* La partie droite passe en dessous de la liste des patients */
+    }
+}
+
+/*  Pour les mobiles et petites tablettes (max 768px) */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0; /* Si ta sidebar devient un menu burger ou se cache */
+    }
+
+    .dashboard {
+        padding: 15px; /* Réduit les espaces sur mobile */
+    }
+
+    .cards {
+        grid-template-columns: 1fr; /* 1 seule carte par ligne */
+        margin-top: 5%;
+    }
+
+    .gender-info {
+        flex-direction: column; /* Aligne les légendes "Hommes/Femmes" verticalement */
+        gap: 10px;
+        align-items: center;
+    }
 }

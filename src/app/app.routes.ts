@@ -3,9 +3,24 @@ import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-sy
 import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
 
 
+
+//DICKO
+import { DashboardPatient } from './Pages/dashboard-patient/dashboard-patient';
+import { ListPatients } from './Pages/list-patients/list-patients';
+//import { Placeholder } from './Pages/placeholder/placeholder';
+
+
+
 // 1. Importer le composant Accueil
 import { AccueilComponent } from './Pages/accueil/accueil';
-import { Connexion } from './Pages/connexion/connexion';
+
+
+
+
+
+/*Awa*/
+// 1. Importer le composant Accueil
+
 import { Inscription } from './Pages/inscription/inscription';
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
@@ -13,17 +28,17 @@ import { ModifierTraitementComponent } from './Pages/modifier-traitement-compone
 import { AgentDashboard } from './Pages/agent-dashboard/agent-dashboard';
 
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
+import { Connexion } from './Pages/connexion/connexion';
 
 
 
-
-// 1. Importer le composant Accueil
 export const routes: Routes = [
-  // Redirection par défaut vers 'accueil'
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
-  // Définition des routes
   { path: 'accueil', component: AccueilComponent },
-  { path: 'connexion', component: Connexion },
+  {
+    path: 'connexion', component: Connexion
+  },
+  
   { path: 'inscription', component: Inscription },
   
   {
@@ -43,6 +58,11 @@ export const routes: Routes = [
   { path: 'modifier-traitement', component: ModifierTraitementComponent},
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
-  {path: 'agent-dashboard',component: AgentDashboard}
+  {path: 'agent-dashboard',component: AgentDashboard},
   
+
+  //DICKO
+  { path: 'dashboard', component: DashboardPatient },
+      { path: 'patients',  component: ListPatients },
+
 ];

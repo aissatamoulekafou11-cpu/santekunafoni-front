@@ -49,13 +49,13 @@
             <div class="patients-panel">
                 <div class="panel-header">
                     <h3>Derniers patients enregistrés</h3>
-                    <!-- 🔥 Clic lié à la fonction de redirection -->
+                    <!--  Clic lié à la fonction de redirection -->
                     <button class="btn-voir" (click)="voirPlus()">
                         Voir tout
                     </button>
                 </div>
 
-                <!-- 🔥 NETTOYAGE : Utilisation exclusive du @for moderne d'Angular, plus de doublons ! -->
+                <!-- NETTOYAGE : Utilisation exclusive du @for moderne d'Angular, plus de doublons ! -->
                 @for (patient of derniersPatients; track $index) {
                     <div class="patient-item">
                         <div class="patient-left">
@@ -79,7 +79,7 @@
                 <div class="gender-panel">
                     <h3>Répartition par sexe</h3>
                     <div class="gender-chart">
-                        <!-- 🔥 DYNAMISATION DU CERCLE : Le fond évolue en fonction des pourcentages réels -->
+                        <!--  DYNAMISATION DU CERCLE : Le fond évolue en fonction des pourcentages réels -->
                         <div class="chart-placeholder" 
                              [style.background]="'conic-gradient(#00796B ' + pourcentageHommes + '%, #E91E63 ' + pourcentageHommes + '%)'">
                             <div class="chart-inner-text">
