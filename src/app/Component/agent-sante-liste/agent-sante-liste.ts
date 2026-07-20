@@ -15,6 +15,7 @@ import { AgentSante } from '../../Models/agent-sante.model';
 export class AgentSanteListe {
   listAgent: AgentSante[] = []; // Un tableau vide pour stocker les agents de santé
   agent!:AgentSante
+  idAgent!: number;
   
   // Injection du service AgentSanteService
   private agentService = inject(AgentSanteService);
@@ -30,7 +31,9 @@ export class AgentSanteListe {
   toutLesAgents(): void {
     this.agentService.getAllAgents().subscribe({
       next: (data) => {
-        this.listAgent = data; // On stocke les agents reçus de l'API
+        //this.listAgent = data; // On stocke les agents reçus de l'API
+        // L'opérateur [...] crée une copie propre et force Angular à rafraîchir le DOM
+        this.listAgent = [...data];
         // console.log('Chargement effectué ! ');
         // console.log(data);
         this.cdr.detectChanges();
@@ -120,18 +123,26 @@ export class AgentSanteListe {
   }
 
   //supprimer un agent de santé
-  supprimerAgent(id: number): void{
-    this.agentService.deleteAgent(id).subscribe({
-      next:() =>  {
-        console.log("Agent supprimer avec succès")
-        this.toutLesAgents();
-        this.cdr.detectChanges();
+  preparerSuppression(id: number): void{
+    this.idAgent = id;
+  }
+
+  supprimerAgent(): void{
+    if (this.idAgent) {
+      this.agentService.deleteAgent(this.idAgent).subscribe({
+        next:() =>  {
+          console.log("Agent supprimer avec succès")
+          // On laisse l'animation Bootstrap se terminer avant de rafraîchir
+          setTimeout(() => {
+            this.toutLesAgents();
+          }, 100);
+
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.log("Erreur lors de la suppression de l'agent", err);
       },
-      error: (err) => {
-        console.log("Erreur lors de la suppression de l'agent", err)
-      },
-    });
+      });
+    }
   }
 }
-
-// this.listAgent = [...data]; // L'opérateur [...] force Angular à recréer la référence du tableau

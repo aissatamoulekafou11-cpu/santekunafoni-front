@@ -52,5 +52,6 @@ export const routes: Routes = [
 
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
+  { path: 'agents', component: AgentSanteListe },
 ];
 

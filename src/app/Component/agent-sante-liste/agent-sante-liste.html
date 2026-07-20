@@ -26,7 +26,7 @@
                         <td>{{ agent.specialite}}</td>
                         <td><button class="btn edit" data-bs-toggle="modal" data-bs-target="#modifModal"><i class="bi bi-pencil-fill"></i></button></td>
                         <td><button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="infoAgent(agent.idUtilisateur)"><i class="bi bi-info-circle"></i></button></td>
-                        <td><button class="btn del" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="supprimerAgent(agent.idUtilisateur)"><i class="bi bi-trash3"></i></button></td>
+                        <td><button class="btn del" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="preparerSuppression(agent.idUtilisateur)"><i class="bi bi-trash3"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -205,12 +205,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <H1>Attention</H1>
+                <h1>Attention</h1>
                 <p>Voulez-vous vraiment effectuer la suppression ?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Supprimer</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="supprimerAgent()">Supprimer</button>
             </div>
             </div>
         </div>
