@@ -5,7 +5,6 @@
   </div>
 
   <nav>
-
     <!-- ── MENU ADMIN ─────────────────────────── -->
     <ng-container *ngIf="isAdmin">
       <a routerLink="/dashboard" routerLinkActive="active-menu" class="nav-link">
@@ -41,7 +40,6 @@
         <span>Profil</span>
       </a>
     </ng-container>
-
     <!-- ── MENU AGENT DE SANTÉ ────────────────── -->
     <ng-container *ngIf="isAgent">
       <a routerLink="/dashboard" routerLinkActive="active-menu" class="nav-link">
@@ -52,6 +50,8 @@
         <i class="fa-solid fa-user"></i>
         <span>Mes patients</span>
       </a>
+
+      
       <a routerLink="/traitements" routerLinkActive="active-menu" class="nav-link">
         <i class="fa-solid fa-briefcase-medical"></i>
         <span>Traitements</span>
