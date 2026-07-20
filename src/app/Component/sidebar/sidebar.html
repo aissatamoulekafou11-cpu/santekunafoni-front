@@ -5,7 +5,6 @@
   </div>
 
   <nav>
-
     <!-- ── MENU ADMIN ─────────────────────────── -->
     <ng-container *ngIf="isAdmin">
       <a routerLink="/dashboard" routerLinkActive="active-menu" class="nav-link">
@@ -16,19 +15,10 @@
         <i class="fa-solid fa-user-nurse"></i>
         <span>Agents de santé</span>
       </a>
-<<<<<<< HEAD
-
-    <a routerLink="/maladies" routerLinkActive="active-menu" class="nav-link">
-      <i class="fa-solid fa-head-side-cough"></i>
-      <span>Maladies</span>
-    </a>
-
-=======
       <a routerLink="/patients" routerLinkActive="active-menu" class="nav-link">
         <i class="fa-solid fa-user"></i>
         <span>Patients</span>
       </a>
->>>>>>> a67cc138a3159b1447bb9b93d9364b5d8bf5a9d8
       <a routerLink="/symptomes" routerLinkActive="active-menu" class="nav-link">
         <i class="fa-solid fa-disease"></i>
         <span>Symptômes</span>
@@ -50,7 +40,6 @@
         <span>Profil</span>
       </a>
     </ng-container>
-
     <!-- ── MENU AGENT DE SANTÉ ────────────────── -->
     <ng-container *ngIf="isAgent">
       <a routerLink="/dashboard" routerLinkActive="active-menu" class="nav-link">
@@ -61,6 +50,8 @@
         <i class="fa-solid fa-user"></i>
         <span>Mes patients</span>
       </a>
+
+      
       <a routerLink="/traitements" routerLinkActive="active-menu" class="nav-link">
         <i class="fa-solid fa-briefcase-medical"></i>
         <span>Traitements</span>
