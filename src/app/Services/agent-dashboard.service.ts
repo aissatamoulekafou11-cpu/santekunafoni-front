@@ -1,11 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentDashboardService {
-
   private http = inject(HttpClient);
 
   private patientUrl = 'http://localhost:8080/api/patients';
@@ -14,36 +14,36 @@ export class AgentDashboardService {
   private traitementUrl = 'http://localhost:8080/api/traitements';
   private patientSymptomeUrl = 'http://localhost:8080/api/patient-symptomes';
 
-  getPatients() {
-    return this.http.get<any[]>(this.patientUrl);
+  getNombrePatients(): Observable<number> {
+    return this.http.get<number>(`${this.patientUrl}/count`);
   }
 
-  getDerniersPatients() {
+  getDerniersPatients(): Observable<any[]> {
     return this.http.get<any[]>(`${this.patientUrl}/derniers`);
   }
 
-  getNombreHommes() {
+  getNombreHommes(): Observable<number> {
     return this.http.get<number>(`${this.patientUrl}/hommes`);
   }
 
-  getNombreFemmes() {
+  getNombreFemmes(): Observable<number> {
     return this.http.get<number>(`${this.patientUrl}/femmes`);
   }
 
-  getMaladies() {
+  getMaladies(): Observable<any[]> {
     return this.http.get<any[]>(this.maladieUrl);
   }
 
-  getSymptomes() {
+  getSymptomes(): Observable<any[]> {
     return this.http.get<any[]>(this.symptomeUrl);
   }
 
-  getTraitements() {
+  getTraitements(): Observable<any[]> {
     return this.http.get<any[]>(this.traitementUrl);
   }
 
-  getTopSymptomes() {
-    return this.http.get<any[]>(`${this.patientSymptomeUrl}/top`);
+  getTopSymptomes(): Observable<any[]> {
+    // Si l'api retourne un tableau d'objets ou de paires [nom, count]
+    return this.http.get<any[]>(`${this.patientSymptomeUrl}`);
   }
-
 }
