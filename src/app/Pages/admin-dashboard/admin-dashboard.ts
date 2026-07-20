@@ -66,14 +66,18 @@ export class AdminDashboard  implements AfterViewInit {
 
 private initMap(): void {
 
-  const map = L.map('map').setView([17.5707, -3.9962], 5);
+  const maliBounds = L.latLngBounds(
+    [10.0, -12.5],   // Sud-Ouest du Mali
+    [25.5, 4.5]      // Nord-Est du Mali
+  );
+
+  const map = L.map('map', {
+    maxBounds: maliBounds,
+    maxBoundsViscosity: 1.0
+  }).setView([17.5707, -3.9962], 6);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-
-    maxZoom: 18,
-
     attribution: '&copy; OpenStreetMap'
-
   }).addTo(map);
 
 }
