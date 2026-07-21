@@ -1,38 +1,20 @@
-/* ── LOGO ───────────────────────────────────────── */
-.logo-container {
-  margin-bottom: 25px; /* Légèrement augmenté pour l'espace visuel */
+/* ── LOGO FIXE EN HAUT À GAUCHE (agrandi, sans texte) ─── */
+.header-logo {
+  position: absolute;
+  top: 20px;
+  left: 32px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
 }
 
-.hero-logo {
-  max-width: 240px;    /* Augmenté de 150px à 240px */
-  height: auto;        
-  object-fit: contain;
-  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2)); 
+.header-logo img {
+  max-width: 170px; /* agrandi de 110px à 170px */
+  height: auto;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.35));
 }
 
-/* Ajustement pour les petits écrans */
-@media (max-width: 768px) {
-  .logo-container {
-    text-align: center; 
-  }
-  .hero-logo {
-    max-width: 160px;   /* Augmenté de 100px à 160px pour le mobile */
-  }
-}
-
-/*desactiver l'animation par défaut des icônes dans les boutons */
-.btn-action i.fa-fade,
-.btn-action i.fa-float {
-  animation: none !important;
-}
-
-.btn-action:hover i.fa-fade {
-  animation: fa-fade 1.5s infinite !important;
-}
-
-.btn-action:hover i.fa-float {
-  animation: fa-float 2s ease-in-out infinite !important;
-}
+/* ── HERO AVEC IMAGE DE LA DOCTORESSE ───────────── */
 .hero-section {
   position: relative;
   min-height: 100vh;
@@ -40,60 +22,73 @@
   align-items: center;
   overflow: hidden;
 
-  /* Image de fond */
-  background-image: url('../../../assets/images/hero-bg.jpg');
+  background-image: url('/doctor-hero-bg.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: center right;
   background-repeat: no-repeat;
 }
 
-/* Overlay sombre + teinte verte pour harmonie avec le design */
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    135deg,
-    rgba(6, 64, 54, 0.82) 0%,    /* vert foncé du thème à gauche */
-    rgba(6, 64, 54, 0.55) 50%,   /* semi-transparent au centre */
-    rgba(0, 0, 0, 0.40) 100%     /* léger assombrissement à droite */
+    100deg,
+    rgba(6, 64, 54, 0.92) 0%,
+    rgba(6, 64, 54, 0.75) 35%,
+    rgba(6, 64, 54, 0.35) 60%,
+    rgba(0, 0, 0, 0.15) 100%
   );
-
-  
   z-index: 1;
 }
 
-/* Le contenu passe au-dessus de l'overlay */
 .hero-content {
   position: relative;
   z-index: 2;
-  padding: 60px 40px;
+  padding: 40px 40px 60px; /* réduit en haut pour remonter le contenu */
 }
 
-/* ── TITRE ──────────────────────────────────────── */
+/* ── ALIGNEMENT DES BOUTONS AVEC LE TITRE ───────── */
+.row.align-items-center {
+  align-items: flex-start !important; /* aligne en haut au lieu du centre vertical */
+}
+
+.col-md-4 {
+  margin-top: 100px; /* fait descendre légèrement les boutons pour matcher le haut du titre */
+}
+
+/* ── TITRE ────────────────────────────────────────── */
 .hero-title {
-  font-size: 4rem;
-  font-weight: 800;
-  color: #ffff;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
-  margin-bottom: 10px;
+  font-size: 5.5rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 3px;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 14px;
+  line-height: 1.05;
+  margin-top: 0;
 }
 
 .hero-subtitle {
-  font-size: 1.2rem;
-  color: black;
+  font-size: 1.6rem;
+  color: #fff;
   font-style: italic;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-weight: 700;
+  margin-bottom: 26px;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
 }
-.mt-4{
-  color: black;
+
+.mt-4 {
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
 }
+
 .hero-text {
-  color: #ffff;
-  font-size: 1.2rem;
+  color: #fff;
+  font-size: 1.4rem;
   line-height: 1.8;
-  margin-bottom: 20px;
+  margin-bottom: 26px;
+  max-width: 640px;
 }
 
 .hero-list {
@@ -101,28 +96,38 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
 .hero-list li {
-  margin-bottom: 12px;
-  text-decoration: none;
-  list-style-type: none;
-  color: #ffff;
+  margin-bottom: 4px;
+  font-size: 1.25rem;
+  color: #fff;
 }
 
-/* ── BOUTONS ────────────────────────────────────── */
+/* ── DECALAGE DU CONTENU VERS LA GAUCHE ─────────── */
+.hero-content.container {
+  max-width: 1500px; /* container plus large */
+  margin-left: 0;
+  padding-left: 60px;
+}
+
+.col-md-8 {
+  margin-left: -40px; /* rapproche le bloc texte du bord gauche */
+}
+
+/* ── BOUTONS ─────────────────────────────────────── */
 .btn-action {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 20px 28px;
   background-color: rgba(255, 255, 255, 0.12);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-radius: 14px;
   color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 700;
   cursor: pointer;
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
@@ -130,22 +135,29 @@
 }
 
 .btn-action:hover {
-  background-color: rgba(6, 64, 54, 0.82);
+  background-color: rgba(6, 64, 54, 0.85);
   border-color: white;
   transform: translateX(5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 .icon-circle {
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
+
+.btn-action i.fa-fade,
+.btn-action i.fa-float {
+  animation: none !important;
+}
+.btn-action:hover i.fa-fade { animation: fa-fade 1.5s infinite !important; }
+.btn-action:hover i.fa-float { animation: fa-float 2s ease-in-out infinite !important; }
 
 /* ── DIAGONALE BAS ──────────────────────────────── */
 .diagonal-shape {
@@ -159,15 +171,18 @@
 
 /* ── RESPONSIVE ─────────────────────────────────── */
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
-  }
+  .header-logo img { max-width: 100px; }
 
-  .hero-content {
-    padding: 40px 20px;
-  }
+  .hero-title { font-size: 2.6rem; }
+  .hero-subtitle { font-size: 1.1rem; }
+  .hero-text { font-size: 1.05rem; }
+  .hero-list li { font-size: 1rem; }
 
-  .btn-action {
-    font-size: 1rem;
-  }
+  .hero-content { padding: 90px 20px 40px; }
+  .hero-content.container { padding-left: 20px; }
+
+  .col-md-4 { margin-top: 0; }
+  .col-md-8 { margin-left: 0; }
+
+  .btn-action { font-size: 1rem; padding: 16px 20px; }
 }

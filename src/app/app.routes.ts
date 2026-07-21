@@ -10,14 +10,20 @@ import { ListPatients } from './Pages/list-patients/list-patients';
 import { AccueilComponent } from './Pages/accueil/accueil';
 
 /*Awa*/
+// 1. Importer le composant Accueil
+import { Connexion } from './Pages/connexion/connexion';
+
 import { Inscription } from './Pages/inscription/inscription';
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
+import { AgentDashboard } from './Pages/agent-dashboard/agent-dashboard';
 
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
-import { Connexion } from './Pages/connexion/connexion';
+import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
+
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
@@ -32,7 +38,7 @@ export const routes: Routes = [
   { path: 'admin-dashboard', component: AdminDashboard },
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
-  
+  {path: 'agent-dashboard',component: AgentDashboard},
   { path: 'agents', component: AgentSanteListe },
   //DICKO
   { path: 'dashboard', component: DashboardPatient },

@@ -6,17 +6,21 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
-/* Logo + texte alignés en ligne, dans le flux normal */
-/* .logo {
+/* Conteneur du logo unifié et centré */
+.logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background-color: transparent;
+  justify-content: center;
+  background-color: #ffffff;
+  width: 200px;
+  height: 60px;
+  border-radius: 8px;
   margin-bottom: 40px;
   padding-right: 20px;
-} */
+}
 
 .logo img {
   width: 40px;
@@ -26,13 +30,13 @@
   padding: 5px;
 }
 
-/* .logo-text {
+.logo-text {
   font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.5px;
   white-space: nowrap;
-} */
+}
 
 nav {
   font-family: "Poppins", sans-serif;
@@ -42,59 +46,28 @@ nav {
   flex-direction: column;
 }
 
-nav a i{
-    width: 20px;
-    margin:  0px 15px 0px 25px;
-    font-size: 16px;
-   
-}
-nav a:hover{
-   
-    background-color: #E9EFEC;
-    color: #16423C;
-    width: 20vw;
-    height: 8vh;
-     
-    
-  
-   
-}
-/* .active{
-    background-color: white;
-    color: #16423C;
-    font-weight: bold;
-} */
-.logo{
-    position: relative;
-    top: 35px;
-    left: 35px;
-    background-color: #ffff;
-    width: 200px;
-    height: 50px;
-    border-radius: 5px;
-}
-
 nav a {
   display: flex;
   align-items: center;
   margin-bottom: 12px;
-  padding: 10px 0 10px 0;
+  padding: 12px 0 12px 0;
   padding-right: 20px;
   color: white;
   text-decoration: none;
   border-radius: 5px;
-  transition: 0.15s;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 nav a i {
   width: 20px;
-  margin: 0 15px 0 10px;
+  margin: 0 15px 0 20px;
   font-size: 16px;
   text-align: center;
 }
 
 nav a span {
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
 nav a:hover:not(.active-menu) {
@@ -107,12 +80,14 @@ nav a:hover:not(.active-menu) {
   border-bottom-left-radius: 8px;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
-  background-color: #f4f6f4 !important; /* même couleur que .main-content */
+  background-color: #E9EFEC !important;
   color: #16423C !important;
   font-weight: bold;
-  margin-right: 0 !important; /* touche le bord droit du sidebar */
+  margin-right: 0 !important;
 }
+
 .logout-container {
   margin-top: auto;
   padding-top: 20px;
+  padding-right: 20px;
 }
