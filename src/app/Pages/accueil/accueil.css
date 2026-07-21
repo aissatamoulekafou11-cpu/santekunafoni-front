@@ -55,7 +55,9 @@
 .col-md-4 {
   margin-top: 100px; /* fait descendre légèrement les boutons pour matcher le haut du titre */
 }
-
+.col-md-9{
+  margin-bottom: 100px;
+}
 /* ── TITRE ────────────────────────────────────────── */
 .hero-title {
   font-size: 5.5rem;
