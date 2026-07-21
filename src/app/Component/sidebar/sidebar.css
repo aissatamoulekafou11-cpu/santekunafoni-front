@@ -9,14 +9,14 @@
 }
 
 /* Logo + texte alignés en ligne, dans le flux normal */
-.logo {
+/* .logo {
   display: flex;
   align-items: center;
   gap: 12px;
   background-color: transparent;
   margin-bottom: 40px;
   padding-right: 20px;
-}
+} */
 
 .logo img {
   width: 40px;
@@ -26,13 +26,13 @@
   padding: 5px;
 }
 
-.logo-text {
+/* .logo-text {
   font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.5px;
   white-space: nowrap;
-}
+} */
 
 nav {
   font-family: "Poppins", sans-serif;
