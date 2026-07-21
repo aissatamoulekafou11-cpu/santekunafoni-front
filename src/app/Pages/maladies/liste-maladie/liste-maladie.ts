@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { MaladieService } from '../../../Services/maladie.service';
 import { Header } from "../../../Component/header/header";
 import { SidebarComponent } from "../../sidebar-component/sidebar-component";
+import { RouterOutlet } from "@angular/router";
+import { Sidebar } from '../../../Component/sidebar/sidebar';
 
 type ModalMode = 'none' | 'form' | 'info' | 'delete';
 
@@ -16,8 +18,9 @@ type ModalMode = 'none' | 'form' | 'info' | 'delete';
     CommonModule,
     FormsModule,
     Header,
-    SidebarComponent
-  ],
+    SidebarComponent,
+    RouterOutlet
+],
   templateUrl: './liste-maladie.html',
   styleUrl: './liste-maladie.css'
 })

@@ -10,3 +10,9 @@ export interface Notification {
     prenom?: string;
   } | null;
 }
+
+
+export interface NotificationRequestDto {
+  titre: string;
+  message: string;
+}
