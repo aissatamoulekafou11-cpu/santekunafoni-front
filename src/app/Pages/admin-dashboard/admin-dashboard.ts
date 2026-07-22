@@ -1,8 +1,10 @@
-import { AfterViewInit,Component } from '@angular/core';
+import { AfterViewInit,Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { Sidebar } from '../../Component/sidebar/sidebar';
 import { Header } from '../../Component/header/header';
 import { Chart } from 'chart.js/auto';
+import { DashboardStats } from '../../Models/dashboard-stats.model';
+import { AdminDashboardService } from '../../Services/admin-dashboard';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -11,17 +13,42 @@ import { Chart } from 'chart.js/auto';
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })
-export class AdminDashboard  implements AfterViewInit {
+export class AdminDashboard  implements OnInit, AfterViewInit {
 
-  // Graphe des alertes
+  // stocker les compteurs de nos 3 cartes
+  stats: DashboardStats={
+    totalAgentsSante:0,
+    totalPatients:0,
+    totalAlertes: 0
+  };
 
+  // Injection du service dans le constructeur
+  constructor(private dashboardService: AdminDashboardService){}
+
+
+  // 1. Appel du service HTTP dès le chargement de la page
+  ngOnInit():void{
+    this.chargerStatistiques();
+  }
+  // 2. Initialisation des visuels (Graphe & Carte) une fois la vue chargée
   ngAfterViewInit(): void {
-
     this.initChart();
-
     this.initMap();
   } 
 
+// Méthode pour récupérer les données de Spring Boot
+  private chargerStatistiques(): void {
+    this.dashboardService.getDashboardStats().subscribe({
+      next: (donnees) => {
+        this.stats = donnees; // On met à jour les compteurs
+      },
+      error: (erreur) => {
+        console.error('Erreur lors de la récupération des données du dashboard :', erreur);
+      }
+    });
+  }
+  
+// Configuration du Graphique Chart.js
   private initChart():void {
     new Chart('dashboardChart', {
   type: 'line',
@@ -62,8 +89,7 @@ export class AdminDashboard  implements AfterViewInit {
 });
 }
 
-// Cartographie
-
+// Configuration de la Carte Leaflet pour le Mali
 private initMap(): void {
 
   const maliBounds = L.latLngBounds(
