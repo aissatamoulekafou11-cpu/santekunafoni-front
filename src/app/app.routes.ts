@@ -43,4 +43,8 @@ export const routes: Routes = [
   //DICKO
   { path: 'dashboard', component: DashboardPatient },
   { path: 'patients', component: ListPatients },
+
+  //maladie
+  { path: 'maladies', component: ListeMaladieComponent },
+
 ];
