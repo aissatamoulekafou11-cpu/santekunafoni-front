@@ -27,6 +27,7 @@ import { ModifierTraitementComponent } from './Pages/modifier-traitement-compone
 
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { Connexion } from './Pages/connexion/connexion';
+import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 
 
 
@@ -38,7 +39,8 @@ export const routes: Routes = [
   },
   
   { path: 'inscription', component: Inscription },
-  
+
+  { path: 'maladies', component: ListeMaladieComponent },
   {
     path: 'liste-traitement', component: ListeTraitement
   },
