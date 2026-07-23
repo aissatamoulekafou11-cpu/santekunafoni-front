@@ -51,7 +51,7 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
 // Configuration du Graphique Chart.js
   private initChart():void {
     new Chart('dashboardChart', {
-  type: 'line',
+  type: 'bar',
 
   data: {
     labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
@@ -93,7 +93,7 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
 private initMap(): void {
 
   const maliBounds = L.latLngBounds(
-    [10.0, -12.5],   // Sud-Ouest du Mali
+    [100, -12.5],   // Sud-Ouest du Mali
     [25.5, 4.5]      // Nord-Est du Mali
   );
 
