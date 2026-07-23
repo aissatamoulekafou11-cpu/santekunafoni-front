@@ -1,148 +1,87 @@
-<div class="dashboard-container">
+<div class="body">
+  <div class="right-left">
+    <div class="agents-container">
+      
+      <!-- Header -->
+      <app-header></app-header>
 
-  <!-- Sidebar -->
-  <app-sidebar></app-sidebar>
-  
-    <!-- Header -->
-    <app-header></app-header>
+      <!-- Contenu du dashboard -->
+      <div class="dashboard-content">
 
-  <!-- Contenu principal -->
-  <div class="main-content">
+        <!-- Cartes de statistiques -->
+        <div class="row g-4">
 
-
-    <!-- Contenu du dashboard -->
-    <div class="dashboard-content">
-
-      <!-- Cartes -->
-      <div class="row g-4">
-
-        <!-- Agents -->
-        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
-
-          <div class="stat-cardAgent">
-
-            <div class="card-header">
-
-              <span>Nombre de Agent de santé</span>
-
-              <i class="fa-solid fa-user-nurse"></i>
-
+          <!-- Agents -->
+          <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+            <div class="stat-cardAgent">
+              <div class="card-header">
+                <span>Agents de santé</span>
+                <i class="fa-solid fa-user-nurse"></i>
+              </div>
+              <div class="card-body">
+                <h2>108</h2>
+              </div>
             </div>
+          </div>
 
-            <div class="card-body">
-
-              <h2>108</h2>
-
+          <!-- Patients -->
+          <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+            <div class="stat-cardFull">
+              <div class="card-header">
+                <span>Patients</span>
+                <i class="fa-solid fa-user"></i>
+              </div>
+              <div class="card-body">
+                <h2>1408</h2>
+              </div>
             </div>
+          </div>
 
+          <!-- Alertes -->
+          <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+            <div class="stat-cardFull">
+              <div class="card-header">
+                <span>Alertes</span>
+                <i class="bi bi-exclamation-triangle-fill"></i>
+              </div>
+              <div class="card-body">
+                <h2>15</h2>
+              </div>
+            </div>
           </div>
 
         </div>
 
-        <!-- Patients -->
-
-        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
-
-          <div class="stat-cardFull">
-
-            <div class="card-header">
-
-              <span>Nombre de Patient</span>
-
-              <i class="fa-solid fa-user"></i>
-
+        <!-- Graphique -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="chart-card">
+              <div class="chart-header">
+                <h4>Graphe des alertes</h4>
+              </div>
+              <div class="chart-body">
+                <canvas id="dashboardChart"></canvas>
+              </div>
             </div>
-
-            <div class="card-body">
-
-              <h2>1408</h2>
-
-            </div>
-
           </div>
-
         </div>
 
-        <!-- Alertes -->
-
-        <div class="col-xl-4 col-lg-4 col-md-6 col-12">
-
-          <div class="stat-cardFull">
-
-            <div class="card-header">
-
-              <span>Nombre d'Alerte</span>
-
-              <i class="bi bi-exclamation-triangle-fill"></i>
-
+        <!-- Carte géographique -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="map-card">
+              <div class="map-header">
+                <h4>Carte géographique</h4>
+              </div>
+              <div class="map-body">
+                <div id="map"></div>
+              </div>
             </div>
-
-            <div class="card-body">
-
-              <h2>15</h2>
-
-            </div>
-
           </div>
-
-        </div>
-
-      </div>
-
-      <!-- Graphique -->
-
-      <div class="row mt-4">
-
-        <div class="col-12">
-
-          <div class="chart-card">
-
-            <div class="chart-header">
-
-              <h4>Graphe des alertes</h4>
-
-            </div>
-
-            <div class="chart-body">
-
-              <canvas id="dashboardChart"></canvas>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Google Maps -->
-
-      <div class="row mt-4">
-
-        <div class="col-12">
-
-          <div class="map-card">
-
-            <div class="map-header">
-
-              <h4>Carte géographique</h4>
-
-            </div>
-
-            <div class="map-body">
-
-             <div id="map"></div>
-
-            </div>
-
-          </div>
-
         </div>
 
       </div>
 
     </div>
-
   </div>
-
 </div>

@@ -1,47 +1,89 @@
-.sous-titre { color: #444; font-size: 0.95rem; }
+/* Centrage complet du composant */
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #E9EFEC;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+
+/* Conteneur principal centré avec largeur max */
+.dashboard-container {
+  max-width: 1100px;
+  margin: 0 auto; /* Centre horizontalement */
+  width: 100%;
+}
+
+.sous-titre { 
+  color: #444; 
+  font-size: 0.95rem; 
+}
 
 .avatar {
-  width: 44px; height: 44px;
+  width: 44px; 
+  height: 44px;
   border-radius: 50%;
-  background-color: #2E86F5;
+  background-color: #16423C;
   color: #fff;
   font-weight: 700;
 }
 
-
-/* Décale la page à droite du sidebar fixe (18vw) de l'équipe */
-:host {
-  display: block;
-  margin-left: 18vw;
-  padding: 24px 32px;
-  min-height: 100vh;
+/* Alerte Région */
+.alerte-region { 
+  background-color: #ffffff; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-
-.alerte-region { background-color: #E9EFEA; border-radius: 10px; }
 .alerte-icone {
-  width: 42px; height: 42px;
-  background-color: #1a1a1a;
+  width: 42px; 
+  height: 42px;
+  background-color: #E67E22;
   border-radius: 50%;
   flex-shrink: 0;
 }
-.btn-savoir-plus { border-radius: 20px; background: #fff; font-weight: 500; }
 
-.stat-card {
-  background-color: #E9EFEA;
-  border: 1px solid #1E4B3B;
-  border-radius: 12px;
+.btn-savoir-plus { 
+  border-radius: 20px; 
+  background: #16423C; 
+  color: #ffffff;
+  font-weight: 500; 
+  border: none;
 }
-.stat-nombre { font-size: 2.2rem; font-weight: 800; color: #111; }
 
-.titre-section { color: #1E4B3B; font-weight: 700; }
+.btn-savoir-plus:hover {
+  background: #0d2623;
+  color: #ffffff;
+}
 
+/* Cartes Stats */
+.stat-card {
+  background-color: #ffffff;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.stat-nombre { 
+  font-size: 2.2rem; 
+  font-weight: 800; 
+  color: #16423C; 
+}
+
+.titre-section { 
+  color: #16423C; 
+  font-weight: 700; 
+}
+
+/* Carte & Graphique */
 .carte-mali {
   background-color: #DCEBD5;
   border-radius: 12px;
   height: 300px;
   overflow: hidden;
 }
+
 .point-ville {
   position: absolute;
   display: flex;
@@ -49,12 +91,21 @@
   gap: 4px;
   transform: translate(-50%, -50%);
 }
-.rond { border-radius: 50%; display: inline-block; }
-.nom-ville { font-size: 0.8rem; font-weight: 600; }
+
+.rond { 
+  border-radius: 50%; 
+  display: inline-block; 
+}
+
+.nom-ville { 
+  font-size: 0.8rem; 
+  font-weight: 600; 
+}
 
 .graph-box {
-  background: #fff;
-  border: 1px solid #ddd;
+  background: #ffffff;
+  border: 1px solid #E5E7EB;
   border-radius: 12px;
   height: 300px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
