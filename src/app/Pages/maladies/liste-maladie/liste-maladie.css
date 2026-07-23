@@ -61,7 +61,52 @@
   top: 50%;
   transform: translateY(-50%);
   color: #16423C;
-  pointer-events: none;
+  /* Écrit le texte en blanc au survol */
+}
+
+/* ==========================================
+   5. TABLEAU ET CELLULES
+   ========================================== */
+
+/* Structure responsive pour éviter les débordements */
+.table-responsive {
+  max-width: 1000px;
+  /* Même largeur max que la barre d'actions */
+  margin: 20px ;
+  /* Centre le tableau horizontalement */
+  background-color: transparent !important;
+  /* Supprime le fond blanc persistant */
+}
+
+/* Force le tableau et ses composants à être transparents */
+table.table,
+table.table thead,
+table.table tbody,
+table.table tr,
+table.table th,
+table.table td {
+  background-color: transparent !important;
+  background: transparent !important;
+  --bs-table-bg: transparent !important;
+  /* Désactive la variable de fond Bootstrap */
+  --bs-table-accent-bg: transparent !important;
+}
+
+/* Ligne verte d'en-tête */
+thead tr {
+  border-bottom: 2px solid #16423C !important;
+  /* Bordure vert sapin sous les titres */
+}
+
+/* Lignes vertes du corps du tableau */
+tbody tr {
+  border-bottom: 1.5px solid #16423C !important;
+  /* Ligne verte de séparation entre chaque maladie */
+}
+
+/* Espacement confortable des cellules */
+tbody td {
+  padding: 14px 10px;
 }
 
 /* En-tête du tableau */
