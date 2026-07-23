@@ -148,7 +148,7 @@ thead th {
 .table-responsive {
   max-width: 1000px;
   /* Même largeur max que la barre d'actions */
-  margin: 0 auto;
+  margin: 20px ;
   /* Centre le tableau horizontalement */
   background-color: transparent !important;
   /* Supprime le fond blanc persistant */
