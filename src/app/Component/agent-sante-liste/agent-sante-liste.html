@@ -29,9 +29,11 @@
             <td>{{ agent.prenom }}</td>
             <td>{{ agent.specialite }}</td>
             <td>
-              <button class="btn edit" data-bs-toggle="modal" data-bs-target="#modifModal">
-                <i class="bi bi-pencil-fill"></i>
-              </button>
+              <button
+    class="btn edit"
+    (click)="modifierAgent(agent.idUtilisateur)">
+    <i class="bi bi-pencil-fill"></i>
+</button>
             </td>
             <td>
               <button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="infoAgent(agent.idUtilisateur)">
@@ -101,7 +103,7 @@
         </div>
       </div>
 
-      <!-- ── MODAL : MODIFIER UN AGENT ─────────────────────────────────── -->
+      <!-- ── MODAL : MODIFIER UN AGENT ─────────────────────────────────── 
       <div class="modal fade" id="modifModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -153,7 +155,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- ── MODAL : INFOS D'UN AGENT ────────────────────────────────────── -->
       <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

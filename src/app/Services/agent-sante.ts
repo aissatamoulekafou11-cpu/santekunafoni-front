@@ -32,4 +32,11 @@ export class AgentSanteService {
     deleteAgent(id: number): Observable<any>{
         return this.http.delete(`${this.apiUrl}/${id}`);
     }
+   
+
+// Modifier un agent
+modifierAgent(id: number, agent: AgentSante): Observable<AgentSante> {
+  return this.http.put<AgentSante>(`${this.apiUrl}/${id}`, agent);
+}
+
 }

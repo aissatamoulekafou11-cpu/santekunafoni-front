@@ -1,7 +1,7 @@
 import { Component, OnInit, signal, computed } from '@angular/core'; // <-- Ajout de computed
 import { Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
-import { FormsModule } from '@angular/forms';     
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Traitement } from '../../Models/traitement.model';
 import { ServiceTraitement } from '../../Services/TraitementService/service-traitement';
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
@@ -12,34 +12,25 @@ import { SidebarComponent } from '../sidebar-component/sidebar-component';
   imports: [
     RouterLink, 
     SidebarComponent, 
-    CommonModule, 
-    FormsModule  
+    CommonModule,
+    FormsModule
   ],
   templateUrl: './traitement-component.html',
   styleUrl: './traitement-component.css',
 })
 export class ListeTraitement implements OnInit {
   
-  // 1. La liste brute issue de la BDD
+  // Signal stockant la source de données brute
   traitements = signal<Traitement[]>([]);
   
-  // 2. Le terme de recherche devient lui aussi un Signal
-  searchTerm = signal<string>('');
+  // Tous les traitements correspondant au filtre actuel
+  traitementsFiltres: Traitement[] = [];
+  
+  searchTerm: string = '';
 
-  // 3. La liste filtrée se calcule TOUTE SEULE et en temps réel !
-  traitementsFiltres = computed(() => {
-    const listeBrute = this.traitements();
-    const term = this.searchTerm().trim().toLowerCase();
-
-    if (!term) {
-      return listeBrute; // Si vide, renvoie tout
-    }
-
-    return listeBrute.filter((t: Traitement) => 
-      t.nomTraitement.toLowerCase().includes(term) || 
-      (t.description && t.description.toLowerCase().includes(term))
-    );
-  });
+  // 🟢 VARIABLES DE PAGINATION
+  currentPage: number = 1;
+  itemsPerPage: number = 5; // Modifie cette valeur pour afficher plus/moins d'éléments par page
 
   constructor(
     private serviceTraitement: ServiceTraitement,
@@ -53,8 +44,9 @@ export class ListeTraitement implements OnInit {
   loadTraitement() {
     this.serviceTraitement.getAllTraitement().subscribe({
       next: (donnees) => {
-        console.log("Données reçues :", donnees);
-        this.traitements.set(donnees); // Met à jour le Signal et recalcule le tableau automatiquement
+        const listeData = Array.isArray(donnees) ? donnees : [];
+        this.traitements.set(listeData); 
+        this.traitementsFiltres = [...listeData];
       },
       error: (err) => {
         console.error("Erreur d'appel API :", err);
@@ -62,14 +54,69 @@ export class ListeTraitement implements OnInit {
     });
   }
 
+  filtrer(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+    this.currentPage = 1; // Remet à la page 1 lors d'une nouvelle recherche
+
+    if (!term) {
+      this.traitementsFiltres = [...this.traitements()]; 
+    } else {
+      this.traitementsFiltres = this.traitements().filter((t: Traitement) => {
+        const nom = t.nomTraitement ? t.nomTraitement.toLowerCase() : '';
+        const desc = t.description ? t.description.toLowerCase() : '';
+        return nom.includes(term) || desc.includes(term);
+      });
+    }
+  }
+
+  // 🟢 GETTER : Découpe la liste filtrée pour n'afficher que la page courante dans le HTML
+  get traitementsPagines(): Traitement[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.traitementsFiltres.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  // 🟢 GETTER : Calcule le nombre total de pages nécessaires
+  get totalPages(): number {
+    return Math.ceil(this.traitementsFiltres.length / this.itemsPerPage) || 1;
+  }
+
+  // 🟢 GETTER : Génère le tableau des numéros de pages [1, 2, 3...]
+  get pages(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  // 🟢 METHODES POUR CHANGER DE PAGE
+  changerPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  pagePrecedente(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  pageSuivante(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
   supprimerTraitement(id: number) {
     if (confirm("Voulez-vous vraiment supprimer ce traitement ?")) {
       this.serviceTraitement.deleteTraitement(id).subscribe({
         next: () => {
-          console.log("Traitement supprimé avec succès !");
-          // Mettre à jour le Signal suffit, la liste affichée s'adaptera seule
           this.traitements.update(liste => liste.filter(t => t.idTraitement !== id));
-          alert("Traitement supprimé avec succès !!!!!");
+          this.filtrer();
+          
+          // Si on supprime le dernier élément d'une page, on recule d'une page
+          if (this.currentPage > this.totalPages) {
+            this.currentPage = this.totalPages;
+          }
+
+          alert("Traitement supprimé avec succès !");
         },
         error: (err) => {
           console.error("Erreur lors de la suppression :", err);
