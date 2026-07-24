@@ -52,7 +52,7 @@ export class Connexion implements OnInit {
         if (reponse.role === 'ADMIN') {
           this.router.navigate(['/admin-dashboard']);
         } else if (reponse.role === 'AGENT_SANTE') {
-          this.router.navigate(['/agent/dashboard']);
+          this.router.navigate(['/agent-dashboard']);
         } else {
           // Correction de 'patient/accueil' vers '/dashboard' (DashboardPatient)
           this.router.navigate(['/dashboard']);
