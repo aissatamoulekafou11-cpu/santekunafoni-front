@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ServiceTraitement } from '../../Services/TraitementService/service-traitement';
 import { Traitement } from '../../Models/traitement.model';
-import { Sidebar } from '../../Component/sidebar/sidebar';
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
 
 @Component({
@@ -16,23 +15,27 @@ import { SidebarComponent } from '../sidebar-component/sidebar-component';
 })
 export class AjouterTraitementComponent implements OnInit {
 
-  // 1. Les conteneurs (Signals) nommés exactement comme dans ton HTML
+  // Signals pour les référentiels
   idPatients = signal<any[]>([]);
   idAgent = signal<any[]>([]);
   idMaladie = signal<any[]>([]);
 
-  // 2. L'objet lié à tes directives [(ngModel)] dans le HTML
+  // Variables pour gérer les messages d'état dans la vue
+  messageSucces: string | null = null;
+  messageErreur: string | null = null;
+
+  // L'objet lié à tes directives [(ngModel)] dans le HTML
   traitement = {
     nomTraitement: '',
     description: '',
     datedebut: null,
     datefin: null,
-    id_patient: 0,       // Stockera l'id temporairement (lié à ton select HTML)
-    id_maladie: 0,       // Stockera l'id temporairement (lié à ton select HTML)
-    id_agent_sante: 0    // Stockera l'id temporairement (lié à ton select HTML)
+    id_patient: 0,
+    id_maladie: 0,
+    id_agent_sante: 0
   };
 
-  // Raccourcis indispensables pour simplifier la liaison ngModel bidirectionnelle de tes inputs textuels
+  // Raccourcis
   get nomTraitement() { return this.traitement.nomTraitement; }
   set nomTraitement(val) { this.traitement.nomTraitement = val; }
   get description() { return this.traitement.description; }
@@ -47,12 +50,10 @@ export class AjouterTraitementComponent implements OnInit {
     private router: Router
   ) {}
 
-  // 3. Chargement initial des données au démarrage de l'écran
   async ngOnInit() {
     await this.chargerDonneesFormulaire();
   }
 
-  // Récupération asynchrone des référentiels d'ID
   async chargerDonneesFormulaire() {
     try {
       const resPatients = await fetch('http://localhost:8080/api/patients');
@@ -69,34 +70,42 @@ export class AjouterTraitementComponent implements OnInit {
     }
   }
 
-  // 4. L'enregistrement final avec remappage des IDs pour le DTO Spring Boot
   onSubmit() {
+    this.messageSucces = null;
+    this.messageErreur = null;
+
     const nouveauTraitementDTO: Traitement = {
-      idTraitement: 0, // Ignoré par le backend à la création
+      idTraitement: 0,
       nomTraitement: this.traitement.nomTraitement,
       description: this.traitement.description,
       datedebut: this.traitement.datedebut,
       datefin: this.traitement.datefin,
-      // Conversion sécurisée en nombre des IDs issus du HTML
       idPatient: Number(this.traitement.id_patient),
       idMaladie: Number(this.traitement.id_maladie),
       idAgentSante: Number(this.traitement.id_agent_sante)
     };
 
-    // Validation simple pour éviter d'envoyer des identifiants vides
+    // Validation des sélections
     if (!nouveauTraitementDTO.idPatient || !nouveauTraitementDTO.idMaladie || !nouveauTraitementDTO.idAgentSante) {
-      alert("Veuillez sélectionner un Patient, une Maladie et un Agent de santé valide.");
+      this.messageErreur = "Veuillez sélectionner un Patient, une Maladie et un Agent de santé valide.";
       return;
     }
 
-    // Appel du service pour enregistrer
+    // Appel au service
     this.serviceTraitement.ajouterTraitement(nouveauTraitementDTO).subscribe({
       next: (response) => {
         console.log("Traitement enregistré avec succès !", response);
-        this.router.navigate(['/liste-traitement']); // Redirection
+        this.messageSucces = "Traitement enregistré avec succès !";
+        
+        alert("Traitement enregistré avec succès !");
+        
+        setTimeout(() => {
+          this.router.navigate(['/liste-traitement']);
+        }, 1000);
       },
       error: (err) => {
         console.error("Erreur lors de l'enregistrement :", err);
+        this.messageErreur = "Erreur lors de l'enregistrement du traitement. Veuillez réessayer.";
       }
     });
   }
