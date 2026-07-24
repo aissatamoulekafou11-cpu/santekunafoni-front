@@ -15,7 +15,6 @@ import { Traitement } from '../../Models/traitement.model';
 })
 export class ModifierTraitementComponent implements OnInit {
 
-  // ID du traitement récupéré dans l'URL
   idTraitementActuel!: number;
 
   // Listes déroulantes (Signals)
@@ -23,41 +22,30 @@ export class ModifierTraitementComponent implements OnInit {
   idAgent = signal<any[]>([]);
   idMaladie = signal<any[]>([]);
 
-  // Objet de liaison ngModel local
+  // L'objet unique sur lequel TOUT le HTML pointe via [(ngModel)]
   traitement = {
     nomTraitement: '',
     description: '',
-    datedebut: null,
-    datefin: null,
+    datedebut: '', // String pour correspondre au format de l'input type="date"
+    datefin: '',   // String pour correspondre au format de l'input type="date"
     id_patient: 0,
     id_maladie: 0,
     id_agent_sante: 0
   };
 
-  // Getters/Setters pour les inputs textuels
-  get nomTraitement() { return this.traitement.nomTraitement; }
-  set nomTraitement(val) { this.traitement.nomTraitement = val; }
-  get description() { return this.traitement.description; }
-  set description(val) { this.traitement.description = val; }
-  get datedebut() { return this.traitement.datedebut; }
-  set datedebut(val) { this.traitement.datedebut = val; }
-  get datefin() { return this.traitement.datefin; }
-  set datefin(val) { this.traitement.datefin = val; }
-
   constructor(
     private serviceTraitement: ServiceTraitement,
-    private route: ActivatedRoute, // 🟢 Pour lire l'ID de l'URL
+    private route: ActivatedRoute, 
     private router: Router
   ) {}
 
   async ngOnInit() {
-    // 1. Récupération de l'ID du traitement à modifier depuis l'URL
     this.idTraitementActuel = Number(this.route.snapshot.params['id']);
 
-    // 2. Chargement en parallèle de tous nos selects (patients, agents, maladies)
+    // 1. Charger d'abord les listes des selects
     await this.chargerDonneesFormulaire();
 
-    // 3. Récupération du traitement actuel depuis la base de données
+    // 2. Charger ensuite le traitement et pré-remplir l'objet
     this.chargerTraitementAModifier();
   }
 
@@ -79,15 +67,28 @@ export class ModifierTraitementComponent implements OnInit {
   chargerTraitementAModifier() {
     this.serviceTraitement.getTraitementById(this.idTraitementActuel).subscribe({
       next: (data: any) => {
-        // Pré-remplissage de notre formulaire avec les données existantes
+        console.log("Données brutes reçues du backend :", data);
+
+        // Formatage obligatoire des dates pour l'affichage dans <input type="date">
+        let dateDebFormatee = '';
+        let dateFinFormatee = '';
+
+        if (data.datedebut || data.date_debut) {
+          dateDebFormatee = new Date(data.datedebut || data.date_debut).toISOString().split('T')[0];
+        }
+        if (data.datefin || data.date_fin) {
+          dateFinFormatee = new Date(data.datefin || data.date_fin).toISOString().split('T')[0];
+        }
+
+        // Affectation finale : c'est CETTE étape qui remplit instantanément ton HTML
         this.traitement = {
-          nomTraitement: data.nomTraitement,
-          description: data.description,
-          datedebut: data.datedebut,
-          datefin: data.datefin,
-          id_patient: data.idPatient || data.id_patient,
-          id_maladie: data.idMaladie || data.id_maladie,
-          id_agent_sante: data.idAgentSante || data.id_agent_sante
+          nomTraitement: data.nomTraitement || data.nom || '',
+          description: data.description || '',
+          datedebut: dateDebFormatee,
+          datefin: dateFinFormatee,
+          id_patient: data.idPatient || data.id_patient || 0,
+          id_maladie: data.idMaladie || data.id_maladie || 0,
+          id_agent_sante: data.idAgentSante || data.id_agent_sante || 0
         };
       },
       error: (err) => console.error("Impossible de charger le traitement :", err)
@@ -95,32 +96,24 @@ export class ModifierTraitementComponent implements OnInit {
   }
 
   onSubmit() {
-    // 4. Reconstruction du DTO au format CamelCase pour Spring Boot
+    // Reconstruction du DTO attendu par ton API Spring Boot
     const traitementModifieDTO: Traitement = {
       idTraitement: this.idTraitementActuel,
       nomTraitement: this.traitement.nomTraitement,
       description: this.traitement.description,
-      datedebut: this.traitement.datedebut,
-      datefin: this.traitement.datefin,
+      datedebut: this.traitement.datedebut ? new Date(this.traitement.datedebut) : null,
+      datefin: this.traitement.datefin ? new Date(this.traitement.datefin) : null,
       idPatient: Number(this.traitement.id_patient),
       idMaladie: Number(this.traitement.id_maladie),
       idAgentSante: Number(this.traitement.id_agent_sante)
     };
 
-    if (!traitementModifieDTO.idPatient || !traitementModifieDTO.idMaladie || !traitementModifieDTO.idAgentSante) {
-      alert("Veuillez sélectionner des identifiants valides.");
-      return;
-    }
-
-    // 5. Envoi de la requête de modification
     this.serviceTraitement.modifierTraitement(this.idTraitementActuel, traitementModifieDTO).subscribe({
       next: () => {
-        console.log("Traitement modifié avec succès !");
-        this.router.navigate(['/liste-traitement']); // 🟢 Utilise la bonne route (avec ou sans 's')
+        alert("Traitement modifié avec succès !");
+        this.router.navigate(['/liste-traitement']);
       },
-      error: (err) => {
-        console.error("Erreur lors de la modification :", err);
-      }
+      error: (err) => console.error("Erreur lors de la modification :", err)
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Router } from '@angular/router'; 
-import { SidebarComponent } from '../sidebar-component/sidebar-component';
+import { Header } from '../../Component/header/header'; //  Import du composant Header
 import { AgentDashboardService } from '../../Services/agent-dashboard.service';
 import { Patient } from '../../Models/patient.model'; 
 import { forkJoin } from 'rxjs'; 
@@ -11,7 +11,7 @@ import { forkJoin } from 'rxjs';
   standalone: true,
   imports: [
     CommonModule, 
-    SidebarComponent
+    Header //  Ajouté pour résoudre l'erreur NG8001 (<app-header>)
   ],
   templateUrl: './agent-dashboard.html',
   styleUrl: './agent-dashboard.css'
@@ -19,7 +19,7 @@ import { forkJoin } from 'rxjs';
 export class AgentDashboard implements OnInit {
   private dashboardService = inject(AgentDashboardService);
   private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef); //  Injecté pour forcer l'affichage immédiat des données
+  private cdr = inject(ChangeDetectorRef); // Injecté pour forcer l'affichage immédiat des données
 
   // Cartes statistiques
   nombrePatients = 0;
@@ -45,7 +45,7 @@ export class AgentDashboard implements OnInit {
   }
 
   chargerDonneesDashboard(): void {
-    //  On regroupe tout dans un seul forkJoin pour exécuter les requêtes en parallèle 
+    // On regroupe tout dans un seul forkJoin pour exécuter les requêtes en parallèle 
     // et éviter le bug de l'écran qui reste vide au démarrage
     forkJoin({
       patientsCount: this.dashboardService.getNombrePatients(),
