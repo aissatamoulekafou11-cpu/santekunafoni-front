@@ -1,20 +1,25 @@
 import { Routes } from '@angular/router';
 
-// Importer le composant Accueil
+/* Authentification */
 import { AccueilComponent } from './Pages/accueil/accueil';
-
-/* Auth & Authentification */
 import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
 
 /* Dashboards */
+import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { AgentDashboard } from './Pages/agent-dashboard/agent-dashboard';
 import { DashboardPatient } from './Pages/dashboard-patient/dashboard-patient';
 
-/* Modules de gestion */
-import { ListPatients } from './Pages/list-patients/list-patients';
+/* Agents */
 import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
+import { Modifieragent } from './Pages/admin/modifieragent/modifieragent';
+
+/* Patients */
+import { ListPatients } from './Pages/list-patients/list-patients';
+
+/* Santé */
 import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
+import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
 
 /* Traitements */
@@ -22,46 +27,49 @@ import { ListeTraitement } from './Pages/traitementListeComponent/traitement-com
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
 
-import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
-import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
-
-
+/* Composants */
+import { Sidebar } from './Component/sidebar/sidebar';
+import { SidebarComponent } from './Pages/sidebar-component/sidebar-component';
 
 export const routes: Routes = [
+
+  // Redirection par défaut
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
+
+  /* Authentification */
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
 
-  { path: 'maladies', component: ListeMaladieComponent },
-  {
-    path: 'liste-traitement', component: ListeTraitement
-  },
-  {
-    path: 'ajouter-tratement', component: AjouterTraitementComponent
-  },
-
-  // Dashboards
+  /* Dashboards */
   { path: 'admin-dashboard', component: AdminDashboard },
   { path: 'agent-dashboard', component: AgentDashboard },
   { path: 'dashboard', component: DashboardPatient },
 
-  // Patient & Agent
-  { path: 'patients', component: ListPatients },
+  /* Agents */
   { path: 'agents', component: AgentSanteListe },
+  { path: 'modifieragent/:id', component: Modifieragent },
 
-  // Santé & Diagnostic
+  /* Patients */
+  { path: 'patients', component: ListPatients },
+
+  /* Santé */
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'maladies', component: ListeMaladieComponent },
+  { path: 'list-maladies', component: ListeMaladieComponent },
   { path: 'notifications', component: ListNotificationsComponent },
-  { path: 'list-maladies', component: ListeMaladieComponent},
 
-  // Traitements
+  /* Traitements */
   { path: 'traitements', component: ListeTraitement },
-  { path: 'liste-traitement', component: ListeTraitement }, // Conservé pour rétrocompatibilité
+  { path: 'liste-traitement', component: ListeTraitement }, // Compatibilité
   { path: 'ajouter-tratement', component: AjouterTraitementComponent },
   { path: 'modifier-traitement/:id', component: ModifierTraitementComponent },
 
-  // Profil et Déconnexion
+  /* Composants de test */
+  { path: 'sidebar', component: Sidebar },
+  { path: 'sidebar-component', component: SidebarComponent },
+
+  /* Déconnexion */
   { path: 'deconnexion', component: Connexion }
+
 ];
