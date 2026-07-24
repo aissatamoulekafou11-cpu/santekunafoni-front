@@ -2,7 +2,7 @@
 
 /* Ce conteneur décale tout ton contenu pour laisser la place à la sidebar de 260px */
 .content-wrapper {
-    margin-left: 260px; 
+    margin-left: 20px; 
     padding: 20px;
     min-height: 100vh;
     box-sizing: border-box;

@@ -23,7 +23,8 @@
             </thead>
 
             <tbody>
-                @for (t of traitementsFiltres; track t.idTraitement) {
+                <!-- 🟢 On utilise la liste découpée pour la pagination -->
+                @for (t of traitementsPagines; track t.idTraitement) {
                     <tr>
                         <td>{{ t.idTraitement }}</td>
                         <td>{{ t.nomTraitement }}</td>
@@ -52,23 +53,22 @@
             </tbody>
         </table>
 
-        <!-- PAGINATION -->
+        <!-- PAGINATION - Conservation exacte de tes classes d'origine -->
         <nav aria-label="Pagination des traitements">
             <ul class="pagination ms-auto">
                 <li class="page-item">
-                    <a href="javascript:void(0)" class="page-link">Précédent</a>
+                    <a href="javascript:void(0)" class="page-link" (click)="pagePrecedente()">Précédent</a>
                 </li>
-                <li class="page-item active">
-                    <a href="javascript:void(0)" class="page-link">1</a>
-                </li>
+
+                <!-- 🟢 Génération automatique de TES puces de page -->
+                @for (p of pages; track p) {
+                    <li class="page-item" [class.active]="currentPage === p">
+                        <a href="javascript:void(0)" class="page-link" (click)="changerPage(p)">{{ p }}</a>
+                    </li>
+                }
+
                 <li class="page-item">
-                    <a href="javascript:void(0)" class="page-link">2</a>
-                </li>
-                <li class="page-item">
-                    <a href="javascript:void(0)" class="page-link">3</a>
-                </li>
-                <li class="page-item">
-                    <a href="javascript:void(0)" class="page-link">Suivant</a>
+                    <a href="javascript:void(0)" class="page-link" (click)="pageSuivante()">Suivant</a>
                 </li>
             </ul>
         </nav>

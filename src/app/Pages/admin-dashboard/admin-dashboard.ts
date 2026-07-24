@@ -9,7 +9,7 @@ import { AdminDashboardService } from '../../Services/admin-dashboard';
 @Component({
   selector: 'app-admin-dashboard',
   standalone:true,
-  imports: [Sidebar,Header],
+  imports: [Header],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })
