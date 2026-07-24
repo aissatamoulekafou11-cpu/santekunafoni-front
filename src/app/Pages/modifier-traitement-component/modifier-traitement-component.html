@@ -1,5 +1,3 @@
-<app-sidebar></app-sidebar>
-
 <div class="content-wrapper">
     <div class="main">
         <div class="top">
@@ -7,77 +5,88 @@
         </div>
 
         <div class="titre2">
-            <h2>Veuillez remplir les informations ci-dessous pour prescrire un traitement à un patient !</h2>
+            <h2>Veuillez modifier les informations ci-dessous pour mettre à jour le traitement du patient !</h2>
         </div>
 
-        <!-- SELECTION DU PATIENT -->
-        <div class="card-form id">
-            <h2>Selection du patient</h2>
-            <form action="">
-                <label for="id_patient">id du patient</label><br>
-                <select name="id_patient" id="id_patient" [(ngModel)]="traitement.id_patient">
-                    <option value="0" disabled>-- Sélectionnez un patient --</option>
-                    @for (idenPatient of idPatients(); track $index) {
-                        <option [value]="idenPatient.idUtilisateur">{{ idenPatient.nom }} {{ idenPatient.prenom }}</option>
-                    }
-                </select>
-            </form>
-        </div>
+        <!-- FORMULAIRE PRINCIPAL GLOBAL -->
+        <form id="formbutton" (ngSubmit)="onSubmit()">
 
-        <!-- SELECTION DE LA MALADIE -->
-        <div class="card-form select-maladie">
-            <h2>Selection de la maladie concernée</h2>
-            <form action="">
-                <label for="id_maladie">id de la maladie</label><br>
-                <select name="id_maladie" id="id_maladie" [(ngModel)]="traitement.id_maladie">
-                    <option value="0" disabled>-- Sélectionnez une maladie --</option>
-                    @for (identifiant of idMaladie(); track $index) {
-                        <option [value]="identifiant.idMaladie">{{ identifiant.nomMaladie || identifiant.nom }}</option>
-                    }
-                </select>
-            </form>
-        </div>
-
-        <!-- INFORMATIONS DU TRAITEMENT -->
-        <div class="card-form select-traitemet">
-            <h2>Informations du traitement</h2>
-            <form id="formbutton" class="form-grid" (ngSubmit)="onSubmit()">
-                <div class="form-group-col">
-                    <label for="nom">Nom du traitement</label>
-                    <input type="text" id="nom" name="nom" [(ngModel)]="traitement.nomTraitement" required>
-
-                    <label for="date_debut">Date début</label>
-                    <input type="date" id="date_debut" name="date_debut" [(ngModel)]="traitement.datedebut">
+            <!-- SELECTION DU PATIENT -->
+            <div class="card-form id">
+                <h2>Sélection du patient</h2>
+                <div class="form-group">
+                    <label for="id_patient">id du patient</label><br>
+                    <select id="id_patient" [(ngModel)]="traitement.id_patient" name="id_patient">
+                        <option [ngValue]="0" disabled>-- Sélectionnez un patient --</option>
+                        @for (idenPatient of idPatients(); track idenPatient.idUtilisateur) {
+                            <option [ngValue]="idenPatient.idUtilisateur">
+                                {{ idenPatient.nom }} {{ idenPatient.prenom }}
+                            </option>
+                        }
+                    </select>
                 </div>
+            </div>
 
-                <div class="form-group-col">
-                    <label for="desc">Description</label>
-                    <input type="text" id="desc" name="desc" [(ngModel)]="traitement.description">
-
-                    <label for="date_fin">Date fin</label>
-                    <input type="date" id="date_fin" name="date_fin" [(ngModel)]="traitement.datefin">
+            <!-- SELECTION DE LA MALADIE -->
+            <div class="card-form select-maladie">
+                <h2>Sélection de la maladie concernée</h2>
+                <div class="form-group">
+                    <label for="id_maladie">id de la maladie</label><br>
+                    <select id="id_maladie" [(ngModel)]="traitement.id_maladie" name="id_maladie">
+                        <option [ngValue]="0" disabled>-- Sélectionnez une maladie --</option>
+                        @for (identifiant of idMaladie(); track identifiant.idMaladie) {
+                            <option [ngValue]="identifiant.idMaladie">
+                                {{ identifiant.nomMaladie || identifiant.nom }}
+                            </option>
+                        }
+                    </select>
                 </div>
-            </form>
-        </div>
+            </div>
 
-        <!-- SELECTION DE L'AGENT -->
-        <div class="card-form select-agent">
-            <h2>Section Agent de santé</h2>
-            <form action="">
-                <label for="id_agent">id de l'agent</label><br>
-                <select name="id-agent" id="id_agent" [(ngModel)]="traitement.id_agent_sante">
-                    <option value="0" disabled>-- Sélectionnez un agent --</option>
-                    @for (idenAgent of idAgent(); track $index) {
-                        <option [value]="idenAgent.idUtilisateur">{{ idenAgent.nom }}</option>
-                    }
-                </select>
-            </form>
-        </div>
+            <!-- INFORMATIONS DU TRAITEMENT -->
+            <div class="card-form select-traitemet">
+                <h2>Informations du traitement</h2>
+                <div class="form-grid">
+                    <div class="form-group-col">
+                        <label for="nom">Nom du traitement</label>
+                        <input type="text" id="nom" [(ngModel)]="traitement.nomTraitement" name="nomTraitement" required>
 
-        <!-- BOUTONS -->
-        <div class="btn1">
-            <button type="button" class="annuler" (click)="onAnnuler()">Annuler</button>
-            <button type="submit" class="ajouter" form="formbutton">Modifier</button>
-        </div>
+                        <label for="date_debut">Date début</label>
+                        <input type="date" id="date_debut" [(ngModel)]="traitement.datedebut" name="date_debut">
+                    </div>
+
+                    <div class="form-group-col">
+                        <label for="desc">Description</label>
+                        <input type="text" id="desc" [(ngModel)]="traitement.description" name="description">
+
+                        <label for="date_fin">Date fin</label>
+                        <input type="date" id="date_fin" [(ngModel)]="traitement.datefin" name="date_fin">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SELECTION DE L'AGENT -->
+            <div class="card-form select-agent">
+                <h2>Section Agent de santé</h2>
+                <div class="form-group">
+                    <label for="id_agent">id de l'agent de santé</label><br>
+                    <select id="id_agent" [(ngModel)]="traitement.id_agent_sante" name="id_agent">
+                        <option [ngValue]="0" disabled>-- Sélectionnez un agent --</option>
+                        @for (idenAgent of idAgent(); track idenAgent.idUtilisateur) {
+                            <option [ngValue]="idenAgent.idUtilisateur">
+                                {{ idenAgent.nom }} {{ idenAgent.prenom }}
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <!-- BOUTONS D'ACTION -->
+            <div class="btn1">
+                <button type="button" class="annuler" (click)="onAnnuler()">Annuler</button>
+                <button type="submit" class="ajouter">Enregistrer</button>
+            </div>
+
+        </form>
     </div>
 </div>

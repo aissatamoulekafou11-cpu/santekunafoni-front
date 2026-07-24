@@ -1,65 +1,75 @@
 import { Routes } from '@angular/router';
 
-// import { Dashboard } from './Pages/AgentSante/dashboard/dashboard';
-import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
+/* Authentification */
+import { AccueilComponent } from './Pages/accueil/accueil';
 import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
-import { Header } from './Component/header/header';
+
+/* Dashboards */
+import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
+import { AgentDashboard } from './Pages/agent-dashboard/agent-dashboard';
+import { DashboardPatient } from './Pages/dashboard-patient/dashboard-patient';
+
+/* Agents */
+import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
+import { Modifieragent } from './Pages/admin/modifieragent/modifieragent';
+
+/* Patients */
+import { ListPatients } from './Pages/list-patients/list-patients';
+
+/* Santé */
+import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
+import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
+import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
+
+/* Traitements */
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
+
+/* Composants */
 import { Sidebar } from './Component/sidebar/sidebar';
 import { SidebarComponent } from './Pages/sidebar-component/sidebar-component';
-import { AccueilComponent } from './Pages/accueil/accueil';
-import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
-import { Modifieragent } from './Pages/admin/modifieragent/modifieragent';
-import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
-
-/*Awa*/
 
 export const routes: Routes = [
-  // Redirection par défaut vers 'accueil' au lieu de 'connexion'
+
+  // Redirection par défaut
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
 
-
-  // Définition des routes
+  /* Authentification */
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
-  { path: 'sidebar', component: Sidebar },
-  
- 
 
-  // // pour visualiser le composant navbar de l'administrateur
-  // {path: '', component: Header},
+  /* Dashboards */
+  { path: 'admin-dashboard', component: AdminDashboard },
+  { path: 'agent-dashboard', component: AgentDashboard },
+  { path: 'dashboard', component: DashboardPatient },
 
-  {
-    path: 'liste-traitement', component: ListeTraitement
-  },
+  /* Agents */
+  { path: 'agents', component: AgentSanteListe },
+  { path: 'modifieragent/:id', component: Modifieragent },
 
-  {
-    path: 'ajouter-tratement', component: AjouterTraitementComponent
-  },
-  //  {
-  //   path: 'dashboard',
-  //   component: Dashboard
-  // },
+  /* Patients */
+  { path: 'patients', component: ListPatients },
 
-  {
-    path: 'sidebar-component', component:  SidebarComponent
-  },
-
-  {
-    path: 'modifier-traitement', component: ModifierTraitementComponent
-  },
+  /* Santé */
   { path: 'symptomes', component: ListSymptomesComponent },
+  { path: 'maladies', component: ListeMaladieComponent },
+  { path: 'list-maladies', component: ListeMaladieComponent },
   { path: 'notifications', component: ListNotificationsComponent },
 
-  {
-  path: 'modifieragent/:id',
-  component: Modifieragent
-},
+  /* Traitements */
+  { path: 'traitements', component: ListeTraitement },
+  { path: 'liste-traitement', component: ListeTraitement }, // Compatibilité
+  { path: 'ajouter-tratement', component: AjouterTraitementComponent },
+  { path: 'modifier-traitement/:id', component: ModifierTraitementComponent },
 
-{ path: 'agents', component: AgentSanteListe }
+  /* Composants de test */
+  { path: 'sidebar', component: Sidebar },
+  { path: 'sidebar-component', component: SidebarComponent },
+
+  /* Déconnexion */
+  { path: 'deconnexion', component: Connexion }
 
 ];
