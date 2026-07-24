@@ -1,14 +1,19 @@
 <div class="hero-section">
   <div class="hero-overlay"></div>
 
+  <!-- Logo seul, agrandi, en haut à gauche -->
+  <div class="header-logo">
+    <img src="logo.png" alt="Logo Santé Kunafoni">
+  </div>
+
   <div class="hero-content container">
     <div class="row align-items-center">
 
-      <!-- Colonne gauche : boutons -->
+      <!-- Colonne gauche : boutons remontés au niveau du titre -->
       <div class="col-md-4 d-flex flex-column gap-3">
         <button class="btn-action" (click)="allerInscription()">
           <span>Inscription</span>
-          <span class="icon-circle"><i class="fa-solid fa-user-plus fa-fade"></i></span>
+          <span class="icon-circle"><i class="fa-solid fa-user-plus fa-float"></i></span>
         </button>
 
         <button class="btn-action" (click)="allerConnexion()">
@@ -17,8 +22,8 @@
         </button>
       </div>
 
-      <!-- Colonne droite : texte -->
-      <div class="col-md-8">
+      <!-- Colonne droite : texte rapproché du bord gauche -->
+      <div class="col-md-9">
         <h1 class="hero-title">SANTE KUNAFONI</h1>
         <p class="hero-subtitle">Votre allié santé, à portée de main</p>
 
@@ -31,15 +36,14 @@
         <h5 class="mt-4">Pourquoi choisir Santé Kunafoni ?</h5>
         <ul class="hero-list">
           <li>
-            <fa-icon [icon]="faBolt" class="me-2 text-warning"></fa-icon>
+            
             <strong>Accès rapide :</strong> trouvez facilement des alertes et des ressources essentielles.
           </li>
           <li>
-            <fa-icon [icon]="faUserCheck" class="me-2 text-primary"></fa-icon>
+           
             <strong>Suivi personnalisé :</strong> bénéficiez d'outils modernes pour surveiller votre santé.
           </li>
           <li>
-            <fa-icon [icon]="faDesktop" class="me-2 text-info"></fa-icon>
             <strong>Interface épurée :</strong> conçue pour une expérience simple et efficace.
           </li>
         </ul>

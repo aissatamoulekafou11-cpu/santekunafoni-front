@@ -1,122 +1,85 @@
 .sidebar {
   width: 280px;
   height: 100vh;
-  background-color: #16423C; /* Vert Figma officiel */
-  padding: 30px 0px 30px 20px; /* Pas de padding à droite pour coller l'onglet actif */
+  background-color: #16423C;
+  padding: 30px 0px 30px 20px;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  box-sizing: border-box;
 }
 
+/* Conteneur du logo unifié et centré */
 .logo {
-  background-color: #ffffff;
-  width: 70px;
-  height: 50px;
-  border-radius: 5px;
   display: flex;
   align-items: center;
-  padding-left: 15px;
-  margin-bottom: 15px;
+  justify-content: center;
+  background-color: #ffffff;
+  width: 200px;
+  height: 60px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  margin-left: 10px;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .logo img {
-  width: 40px;
-}
-
-h1 {
-  position: absolute;
-  top: 3.5rem;
-  left: 5.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 40px;
-  padding-left: 10px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 nav {
-    font-family: "Poppins", sans-serif;
-    width: 20vw;
-    height: 100vh;
-    background-color: #16423C;
-    position: fixed;
-
-
-   
-}
-nav a{
-    position: relative;
-    display: block;
-    margin-bottom: 30px;
-    margin-left: 10px;
-    color: white;
-    text-decoration: none;
-    top: 80px;
-    border-radius: 5px;
-    transition: 0.1s;align-content: center;
-   
-   
-}
-span{
-    text-decoration: none; 
-    font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-nav a i{
-    width: 20px;
-    margin:  0px 15px 0px 25px;
-    font-size: 16px;
-   
-}
-nav a:hover{
-   
-    background-color: #E9EFEC;
-    color: #16423C;
-    width: 21vw;
-    
-    height: 40px;
-     
-    
-  
-   
-}
-/* .active{
-    background-color: white;
-    color: #16423C;
-    font-weight: bold;
-} */
-.logo{
-    position: relative;
-    top: 35px;
-    left: 35px;
-    background-color: #ffff;
-    width: 200px;
-    height: 50px;
-    border-radius: 5px;
-  
+nav a {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 12px 0 12px 0;
+  padding-right: 20px;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.nav-link span {
+nav a i {
+  width: 20px;
+  margin: 0 15px 0 20px;
+  font-size: 16px;
+  text-align: center;
+}
+
+nav a span {
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
-.nav-link:hover:not(.active-menu) {
+nav a:hover:not(.active-menu) {
   background-color: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
 }
 
-/* Effet onglet actif asymétrique - Fond gris clair */
+/* Onglet actif */
 .active-menu {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
-  border-top-right-radius: 0px !important;
-  border-bottom-right-radius: 0px !important;
-  background-color: #EEF3F1 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  background-color: #E9EFEC !important;
   color: #16423C !important;
   font-weight: bold;
+  margin-right: 0 !important;
 }
 
 .logout-container {
   margin-top: auto;
   padding-top: 20px;
+  padding-right: 20px;
 }

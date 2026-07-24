@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faGaugeHigh, faUserNurse, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-
-  imports: [FontAwesomeModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
 })
 export class Sidebar {
-  faGaugeHigh = faGaugeHigh;
-  faUserNurse = faUserNurse;
-  faUsers = faUsers;
 }

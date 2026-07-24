@@ -1,30 +1,31 @@
 import { Component } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs';
-
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { Sidebar } from './Component/sidebar/sidebar';
+import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Sidebar, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class AppComponent {
   title = 'santekunafoni-front';
-
-  // true = on affiche la sidebar, false = on la cache
   showSidebar = false;
 
-  // Pages sans sidebar
   pagesWithoutSidebar = ['/accueil', '/connexion', '/inscription', '/'];
 
   constructor(private router: Router) {
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      // Cache la sidebar sur les pages d'accueil/auth
-      this.showSidebar = !this.pagesWithoutSidebar.includes(event.urlAfterRedirects);
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      // Normalisation du chemin d'accès actuel
+      const currentUrl = event.urlAfterRedirects.split('?')[0].replace(/\/$/, '') || '/';
+      
+      // Affiche la sidebar sur TOUTES les pages sauf les pages publiques
+      this.showSidebar = !this.pagesWithoutSidebar.includes(currentUrl);
     });
   }
 }

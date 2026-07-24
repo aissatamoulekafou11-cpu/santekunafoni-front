@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core'; // <-- Ajout de computed
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +34,7 @@ export class ListeTraitement implements OnInit {
 
   constructor(
     private serviceTraitement: ServiceTraitement,
-    private router: Router
+    // private router: Router
   ) {}
 
   ngOnInit() {

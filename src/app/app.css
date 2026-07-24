@@ -4,19 +4,20 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100%;
+  overflow: hidden;
   font-family: 'Poppins', sans-serif;
-  background-color: #f4f6f4;
 }
 
-.active-menu {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-top-right-radius: 0px !important;
-  border-bottom-right-radius: 0px !important;
-  margin-right: -16px;
-  background-color: #EEF3F1 !important;
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
-*{
-  background-color: #1ea160;
+
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: #E9EFEC;
 }
