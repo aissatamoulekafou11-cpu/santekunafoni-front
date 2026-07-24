@@ -1,15 +1,24 @@
 <aside class="sidebar">
-  <!-- Logo -->
+
   <div class="logo">
-    <img src="assets/images/Logo.svg" alt="SantéKunafoni">
-    <span class="logo-text">SANTEKUNAFONI</span>
+    <img src="/logo.png" alt="SantéKunafoni">
   </div>
 
-  <!-- Liens de Navigation -->
   <nav>
+    <!-- ── MENU UNIQUE (accessible à tous) ────────────────── -->
     <a routerLink="/dashboard" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-solid fa-home"></i>
       <span>Tableau de bord</span>
+    </a>
+
+    <a routerLink="/admin-dashboard" routerLinkActive="active-menu" class="nav-link">
+      <i class="fa-solid fa-user-doctor"></i>
+      <span>Dashboard Admin</span>
+    </a>
+
+        <a routerLink="/agent-dashboard" routerLinkActive="active-menu" class="nav-link">
+      <i class="fa-solid fa-user-doctor"></i>
+      <span>Dashboard Agent</span>
     </a>
 
     <a routerLink="/agents" routerLinkActive="active-menu" class="nav-link">
@@ -29,7 +38,7 @@
 
     <a routerLink="/maladies" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-solid fa-head-side-cough"></i>
-      <span>Maladies détectées</span>
+      <span>Maladies</span>
     </a>
 
     <a routerLink="/traitements" routerLinkActive="active-menu" class="nav-link">
@@ -47,12 +56,13 @@
       <span>Profil</span>
     </a>
 
-    <!-- Conteneur Déconnexion poussé vers le bas -->
+    <!-- ── DÉCONNEXION ───────────────────────── -->
     <div class="logout-container">
       <a routerLink="/deconnexion" routerLinkActive="active-menu" class="nav-link">
         <i class="fa-solid fa-right-from-bracket"></i>
         <span>Déconnexion</span>
       </a>
     </div>
+
   </nav>
 </aside>

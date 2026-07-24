@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -12,12 +12,13 @@ import {
   faClock
 } from '@fortawesome/free-solid-svg-icons';
 import { NotificationService } from '../../../Services/notification.service';
-import { Notification } from '../../../Models/notification.model';
+import { Notification, NotificationRequestDto } from '../../../Models/notification.model';
+import { Sidebar } from "../../../Component/sidebar/sidebar";
 
 @Component({
   selector: 'app-list-notifications',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, Sidebar],
   templateUrl: './list-notifications.html',
   styleUrl: './list-notifications.css'
 })
@@ -30,6 +31,8 @@ export class ListNotificationsComponent implements OnInit {
   faEnvelope = faEnvelope;
   faMagnifyingGlass = faMagnifyingGlass;
   faClock = faClock;
+
+  private cdr = inject(ChangeDetectorRef)
 
   notifications: Notification[] = [];
   notificationsFiltrees: Notification[] = [];
@@ -45,7 +48,7 @@ export class ListNotificationsComponent implements OnInit {
   showVerifEpidemie = false;
   idMaladieVerif = 1;
 
-  nouvelleNotification: Partial<Notification> = {
+  nouvelleNotification: NotificationRequestDto = {
     titre: '',
     message: ''
   };
@@ -71,10 +74,12 @@ export class ListNotificationsComponent implements OnInit {
         this.appliquerFiltres();
         this.mettreAJourStatistiques();
         this.isLoading = false;
+        this.cdr.detectChanges()
       },
       error: () => {
         this.errorMessage = 'Impossible de charger les notifications.';
         this.isLoading = false;
+        this.cdr.detectChanges()
       }
     });
   }
@@ -137,8 +142,9 @@ export class ListNotificationsComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.notificationService.envoyerNotification(this.nouvelleNotification as Notification).subscribe({
-      next: (nouvelle: Notification) => {
+    this.notificationService.envoyerNotification(this.nouvelleNotification ).subscribe({
+      next: (nouvelle) => {
+        console.log("##############################",nouvelle)
         this.notifications.unshift(nouvelle);
         this.appliquerFiltres();
         this.mettreAJourStatistiques();

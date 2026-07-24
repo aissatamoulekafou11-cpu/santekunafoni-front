@@ -1,72 +1,80 @@
-<header class="d-flex justify-content-between align-items-start mb-4">
-  <div>
-    <h4 class="fw-bold mb-1">Bonjour, {{ utilisateur.prenom }}</h4>
-    <p class="mb-0 sous-titre">
-      Région : <span class="fw-semibold">{{ utilisateur.region }}</span>
-      &nbsp;-&nbsp; {{ dateDuJour }}
-    </p>
-  </div>
-  <div class="d-flex align-items-center gap-3">
-    <i class="bi bi-bell-fill fs-4"></i>
-    <div class="avatar d-flex align-items-center justify-content-center">AD</div>
-  </div>
-</header>
+<div class="dashboard-container">
 
-<div class="alerte-region d-flex align-items-center gap-3 p-3 mb-4">
-  <div class="alerte-icone d-flex align-items-center justify-content-center">
-    <i class="bi bi-exclamation-triangle-fill text-white"></i>
-  </div>
-  <div class="flex-grow-1">
-    <strong>Alerte dans votre région</strong><br>
-    <small>
-      Cas de choléra signalés à Bamako. Lavez-vous les mains régulièrement
-      et buvez de l'eau potable traitée.
-    </small>
-  </div>
-  <button class="btn btn-light btn-savoir-plus px-4">En savoir plus</button>
-</div>
-
-<div class="row g-4 justify-content-center mb-4">
-  <div class="col-md-4">
-    <div class="stat-card text-center p-3">
-      <div class="fw-semibold"><i class="bi bi-people-fill me-2"></i>Mes Maladies</div>
-      <div class="stat-nombre">{{ nbMaladies }}</div>
-      <div class="sous-titre">sont liées à vous</div>
+  <!-- Header -->
+  <header class="d-flex justify-content-between align-items-start mb-4">
+    <div>
+      <h4 class="fw-bold mb-1">Bonjour, {{ utilisateur.prenom }}</h4>
+      <p class="mb-0 sous-titre">
+        Région : <span class="fw-semibold">{{ utilisateur.region }}</span>
+        &nbsp;-&nbsp; {{ dateDuJour }}
+      </p>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="stat-card text-center p-3">
-      <div class="fw-semibold"><i class="bi bi-virus me-2"></i>Mes symptômes</div>
-      <div class="stat-nombre">{{ nbSymptomes }}</div>
-      <div class="sous-titre">sont liés à vous</div>
+    <div class="d-flex align-items-center gap-3">
+      <i class="bi bi-bell-fill fs-4"></i>
+      <div class="avatar d-flex align-items-center justify-content-center">AD</div>
     </div>
+  </header>
+
+  <!-- Alerte Région -->
+  <div class="alerte-region d-flex align-items-center gap-3 p-3 mb-4">
+    <div class="alerte-icone d-flex align-items-center justify-content-center">
+      <i class="bi bi-exclamation-triangle-fill text-white"></i>
+    </div>
+    <div class="flex-grow-1">
+      <strong>Alerte dans votre région</strong><br>
+      <small>
+        Cas de choléra signalés à Bamako. Lavez-vous les mains régulièrement
+        et buvez de l'eau potable traitée.
+      </small>
+    </div>
+    <button class="btn btn-light btn-savoir-plus px-4">En savoir plus</button>
   </div>
-</div>
 
-<div class="row g-4">
-
-  <div class="col-lg-6">
-    <h5 class="titre-section text-center mb-3">Cartographie des épidémies</h5>
-    <div class="carte-mali position-relative">
-      @for (ville of villes; track ville.nom) {
-        <div class="point-ville"
-             [style.left.%]="ville.x"
-             [style.top.%]="ville.y">
-          <span class="rond"
-                [style.background-color]="ville.couleur"
-                [style.width.px]="ville.taille"
-                [style.height.px]="ville.taille"></span>
-          <span class="nom-ville">{{ ville.nom }}</span>
-        </div>
-      }
+  <!-- Statistiques -->
+  <div class="row g-4 justify-content-center mb-4">
+    <div class="col-md-6 col-lg-4">
+      <div class="stat-card text-center p-3">
+        <div class="fw-semibold"><i class="bi bi-people-fill me-2"></i>Mes Maladies</div>
+        <div class="stat-nombre">{{ nbMaladies }}</div>
+        <div class="sous-titre">sont liées à vous</div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="stat-card text-center p-3">
+        <div class="fw-semibold"><i class="bi bi-virus me-2"></i>Mes symptômes</div>
+        <div class="stat-nombre">{{ nbSymptomes }}</div>
+        <div class="sous-titre">sont liés à vous</div>
+      </div>
     </div>
   </div>
 
-  <div class="col-lg-6">
-    <h5 class="titre-section text-center mb-3">Cartographie des épidémies</h5>
-    <div class="graph-box p-3">
-      <canvas #graphEpidemies></canvas>
+  <!-- Cartographie et Graphique -->
+  <div class="row g-4">
+
+    <div class="col-lg-6">
+      <h5 class="titre-section text-center mb-3">Cartographie des épidémies</h5>
+      <div class="carte-mali position-relative">
+        @for (ville of villes; track ville.nom) {
+          <div class="point-ville"
+               [style.left.%]="ville.x"
+               [style.top.%]="ville.y">
+            <span class="rond"
+                  [style.background-color]="ville.couleur"
+                  [style.width.px]="ville.taille"
+                  [style.height.px]="ville.taille"></span>
+            <span class="nom-ville">{{ ville.nom }}</span>
+          </div>
+        }
+      </div>
     </div>
+
+    <div class="col-lg-6">
+      <h5 class="titre-section text-center mb-3">Évolution des épidémies</h5>
+      <div class="graph-box p-3">
+        <canvas #graphEpidemies></canvas>
+      </div>
+    </div>
+
   </div>
 
 </div>

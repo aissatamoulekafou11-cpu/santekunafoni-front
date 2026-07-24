@@ -1,33 +1,63 @@
-.page-title {
-  color: #1a3c5e;
-  font-weight: 700;
-}
-
-.notif-alerte {
-  border-left: 5px solid #dc3545 !important;
-  background-color: #fff5f5;
-}
-
-.notif-ordinaire {
-  border-left: 5px solid #0d6efd !important;
-}
-
-.notif-lue {
-  opacity: 0.65;
+.content-with-sidebar {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #E9EFEC;
+  box-sizing: border-box;
 }
 
 .card {
-  transition: box-shadow 0.2s ease, transform 0.1s ease;
-  border-radius: 10px;
+  border-radius: 16px !important;
+  transition: all 0.2s ease-in-out;
+  background-color: #ffffff;
 }
 
 .card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(22, 66, 60, 0.08) !important;
+  transform: translateY(-2px);
 }
 
-.badge {
-  font-size: 0.75rem;
-  padding: 5px 10px;
-  border-radius: 20px;
+.notif-alerte {
+  border-left: 6px solid #dc3545 !important;
+  background-color: #fff9f9;
+}
+
+.notif-ordinaire {
+  border-left: 6px solid #16423C !important;
+}
+
+.notif-lue {
+  opacity: 0.7;
+}
+
+input:focus, textarea:focus, select:focus {
+  box-shadow: none !important;
+  border-color: #16423C !important;
+}
+
+.custom-pagination .page-item .page-link {
+  transition: background-color 0.2s ease;
+}
+
+.custom-pagination .page-item.disabled .page-link {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.custom-pagination .page-item:not(.active) .page-link:hover {
+  background-color: rgba(22, 66, 60, 0.1) !important;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
