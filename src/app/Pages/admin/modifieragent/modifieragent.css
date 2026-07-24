@@ -1,0 +1,76 @@
+.page-container{
+
+    margin-left:260px;
+    margin-top:110px;
+
+    padding:30px;
+
+    background:#E9EFEC;
+
+    min-height:100vh;
+
+}
+
+.form-container{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+}
+
+.title{
+
+    color:#16423C;
+
+    font-size:32px;
+
+    font-weight:bold;
+
+    margin-bottom:30px;
+
+    text-align:center;
+
+}
+
+.form-label{
+
+    font-weight:600;
+
+    color:#16423C;
+
+}
+
+.form-control{
+
+    height:48px;
+
+    border-radius:8px;
+
+}
+
+.buttons{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+    margin-top:30px;
+
+}
+
+.btn{
+
+    min-width:170px;
+
+    height:45px;
+
+    font-weight:600;
+
+}
