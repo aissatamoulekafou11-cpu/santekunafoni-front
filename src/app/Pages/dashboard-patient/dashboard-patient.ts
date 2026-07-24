@@ -1,6 +1,5 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { Sidebar } from "../../Component/sidebar/sidebar";
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
 
 @Component({

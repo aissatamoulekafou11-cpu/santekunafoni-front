@@ -31,7 +31,7 @@
   </div>
 
   <!-- État de chargement & Erreurs -->
-  @if (chargement) {
+  @if (chargement()) {
     <div class="text-center my-4">
       <div class="spinner-border text-success" role="status">
         <span class="visually-hidden">Chargement...</span>
@@ -39,7 +39,7 @@
     </div>
   }
 
-  @if (erreur) {
+  @if (erreur()) {
     <div class="alert alert-danger d-flex justify-content-between align-items-center">
       {{ erreur }}
       <button class="btn btn-sm btn-outline-danger" (click)="chargerPatients()">Réessayer</button>
