@@ -3,14 +3,13 @@
     <div class="agents-container">
       
       <!-- En-tête -->
-      <app-header></app-header>
+     
 
       <!-- Zone de contenu du Dashboard -->
       <div class="dashboard-content">
         
-        <!-- Cartes statistiques -->
+        <!-- 1. Cartes statistiques du haut -->
         <div class="cards">
-          <!-- Patients -->
           <div class="card patient">
             <div class="card-icon"><i class="bi bi-people-fill"></i></div>
             <div class="card-info">
@@ -18,8 +17,6 @@
               <span>Patients</span>
             </div>
           </div>
-
-          <!-- Symptômes -->
           <div class="card symptome">
             <div class="card-icon"><i class="bi bi-clipboard2-pulse-fill"></i></div>
             <div class="card-info">
@@ -27,8 +24,6 @@
               <span>Symptômes</span>
             </div>
           </div>
-
-          <!-- Maladies -->
           <div class="card maladie">
             <div class="card-icon"><i class="bi bi-heart-pulse-fill"></i></div>
             <div class="card-info">
@@ -36,8 +31,6 @@
               <span>Maladies</span>
             </div>
           </div>
-
-          <!-- Traitements -->
           <div class="card traitement">
             <div class="card-icon"><i class="bi bi-capsule-pill"></i></div>
             <div class="card-info">
@@ -47,16 +40,14 @@
           </div>
         </div>
 
-        <!-- Bas du dashboard -->
+        <!-- 2. Zone du bas (2 colonnes) -->
         <div class="dashboard-bottom">
 
-          <!-- Derniers patients -->
+          <!-- Colonne gauche : Derniers patients -->
           <div class="patients-panel">
             <div class="panel-header">
               <h3>Derniers patients enregistrés</h3>
-              <button class="btn-voir" (click)="voirPlus()">
-                Voir tout
-              </button>
+              <button class="btn-voir" (click)="voirPlus()">Voir plus</button>
             </div>
 
             @for (patient of derniersPatients; track $index) {
@@ -75,7 +66,7 @@
             }
           </div>
 
-          <!-- Partie droite -->
+          <!-- Colonne droite : Genre + Symptômes -->
           <div class="right-panel">
 
             <!-- Répartition par sexe -->
@@ -89,7 +80,6 @@
                   </div>
                 </div>
               </div>
-
               <div class="gender-info">
                 <div class="gender-item">
                   <span class="female-color"></span>
@@ -109,15 +99,17 @@
               </div>
               @for (symptome of topSymptomes; track $index) {
                 <div class="symptome-item">
-                  <span>{{ symptome.nom }}</span>
+                  <span class="symptome-nom">{{ symptome.nom }}</span>
+                  <span class="symptome-count">{{ symptome.nombreCas || symptome.count || 0 }} cas</span>
                 </div>
               }
             </div>
 
-          </div>
-        </div>
+          </div> <!-- Fin de right-panel -->
 
-      </div>
+        </div> <!-- Fin de dashboard-bottom -->
+
+      </div> <!-- Fin de dashboard-content -->
 
     </div>
   </div>
