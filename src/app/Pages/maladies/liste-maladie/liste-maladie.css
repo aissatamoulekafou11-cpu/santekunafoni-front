@@ -1,141 +1,65 @@
-/* ==========================================
-   1. VARIABLES GLOBALES
-   ========================================== */
-:root {
-  --bs-custom-dark-green: #16423C;
-  /* Définition de la variable pour le vert sapin de la maquette */
-}
-
-/* ==========================================
-   2. CONTENEURS DE STRUCTURE (LAYOUT)
-   ========================================== */
-
-/* Enveloppe globale de la page */
-.content-wrapper {
-  background-color: #eef3f1;
-  /* Couleur de fond gris-vert très clair de la maquette */
-  min-height: 100vh;
-  /* S'assure que le fond couvre toute la hauteur de l'écran */
+/* Style global du composant */
+:host {
+  display: block;
   width: 100%;
-  /* Prend toute la largeur disponible */
+  min-height: 100vh;
+  background-color: #E9EFEC;
+  padding: 30px 20px;
+  box-sizing: border-box;
 }
 
-/* Zone centrale contenant le contenu de la page */
-.page-content {
-  margin-left: 250px;
-  /* Laisse un espace vide de 250px à gauche pour ne pas chevaucher la Sidebar */
-  padding: 30px;
-  /* Ajoute de l'espace d'aération tout autour du contenu */
-
-
-  /* SOLUTION ANTI-HEADER CACHÉ : 
-     On ajoute une marge interne en haut pour repousser tout le contenu 
-     vers le bas et éviter qu'il ne passe sous votre <app-header> fixe. */
-
-  padding-top: 140px;
+/* Conteneur principal centré */
+.maladies-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-/* ==========================================
-   3. TYPOGRAPHIE ET TITRES
-   ========================================== */
-
-/* Titre principal "Maladies" */
 .title-maladies {
   color: #16423C;
-  /* Applique le vert sapin */
-  font-weight: 700;
-  /* Écriture très grasse pour correspondre au design */
-  font-size: 2.3rem;
-  /* Taille importante et lisible */
+  font-weight: 800;
+  font-size: 2.2rem;
 }
 
-/* En-têtes du tableau */
-thead th {
+.text-vert {
   color: #16423C;
-  /* Applique le vert sapin aux titres de colonnes */
-  font-weight: 700;
-  /* Titres bien gras */
-  font-size: 1rem;
-  /* Taille standardisée */
 }
 
-/* ==========================================
-   4. COMPOSANTS DE LA BARRE D'ACTIONS
-   ========================================== */
-
-/* Limite et harmonise la largeur de la barre d'actions */
-.action-bar {
-  max-width: 1000px;
-  /* Aligne la barre d'actions sur la largeur maximale du tableau */
-  margin: 0 auto;
-  /* Centre la barre d'action horizontalement */
+.bg-vert {
+  background-color: #16423C !important;
 }
 
-/* --- Bouton "Ajouter" --- */
-.btn-ajouter {
+.btn-vert {
   background-color: #16423C;
-  /* Fond vert sapin */
   color: #ffffff;
   border: none;
-  /* Texte blanc */
-  /* Pas de bordure par défaut */
-  border-radius: 5px;
-  /* Coins légèrement arrondis */
   height: 42px;
-  /* Hauteur fixe propre */
-  font-size: 0.95rem;
-  /* Taille de police */
+  border-radius: 8px;
   transition: background-color 0.2s ease;
-  /* Animation fluide au survol */
 }
 
-.btn-filtrer:hover {
-  background-color: var(--bs-custom-dark-green);
-  /* Devient vert sapin au survol */
-  color: #16423C;
-  /* Écrit le texte en blanc au survol */
+.btn-vert:hover {
+  background-color: #0d2623;
+  color: #ffffff;
 }
 
-/* --- Barre de recherche --- */
+/* Barre de recherche */
 .search-bar-container {
-    width: 380px;
-  /* Largeur équilibrée et fixe pour le champ de saisie */
+  width: 350px;
 }
 
-/* Style de l'input de recherche */
 .search-input {
-  height: 42px;    /* Même hauteur que le bouton ajouter pour l'alignement */
-  border-radius: 5px;   /* Coins arrondis coordonnés */
-  border: 1.5px solid #16423C;  /* Bordure grise claire par défaut */
-  background-color: #ffffff;  /* Fond blanc pur pour ressortir sur le fond gris-vert */
-  padding-right: 45px; /* Laisse de l'espace à droite pour que le texte n'écrive pas sur la loupe */
-  font-weight: 500; /* Épaisseur de texte moyenne */
-  transition: border-color 0.2s ease;   /* Transition fluide lors du focus */
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #16423C;
+  padding-right: 40px;
 }
 
-/* Comportement de l'input de recherche lors de la saisie */
-.search-input:focus {
-  box-shadow: none !important;  /* Enlève l'effet d'ombre bleue par défaut des navigateurs */
-  border-color: var(--bs-custom-dark-green) !important; /* Change la bordure en vert sapin au focus */
-}
-
-/* Positionnement de la loupe à l'intérieur de l'input */
 .search-icon {
-  position: absolute; /* Positionne l'icône de façon autonome dans son parent */
-  right: 15px;  /* Aligne l'icône à 15px du bord droit */
-  top: 50%; /* Descend l'icône à la moitié de la hauteur */
-  transform: translateY(-50%);  /* Centre verticalement l'icône au pixel près */
-  color: #16423C;  /* Couleur de l'icône assortie */
-  pointer-events: none;   /* Désactive les clics sur l'icône pour ne pas gêner la saisie */
-}
-
-
-
-/* Animation globale au survol */
-
-.btn-filtrer:hover {
-  background-color: var(--bs-custom-dark-green);
-  /* Devient vert sapin au survol */
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
   color: #16423C;
   /* Écrit le texte en blanc au survol */
 }
@@ -185,268 +109,62 @@ tbody td {
   padding: 14px 10px;
 }
 
-/* Effet de survol sur les lignes du tableau ajusté */
-tbody tr:hover td {
-  background-color: rgba(22, 66, 60, 0.05) !important;
-  /* Léger voile vert translucide très propre */
-}
-
-/* ==========================================
-   6. ACTIONS DU TABLEAU (BOUTONS)
-   ========================================== */
-
-/* Style pour les icônes de détails et modification (Vert sapin doux) */
-.text-action-green {
-  color: #1a5c4c;
-  /* Vert de la maquette pour les actions positives/neutres */
-  transition: color 0.2s ease;
-  /* Transition de couleur */
-}
-
-.text-action-green:hover {
-  color: #0d2a26;
-  /* Assombrit le vert au survol */
-}
-
-/* Style spécifique pour l'icône de suppression (Rouge) */
-.text-danger {
-  color: #e53e3e !important;
-  /* Force la couleur rouge d'alerte pour supprimer */
-}
-
-.text-danger:hover {
-  color: #b82e2e !important;
-  /* Assombrit le rouge au survol */
-}
-
-/* ==========================================
-   7. CLASSES UTILITAIRES
-   ========================================== */
-
-/* Troncature de texte pour la description longue */
-.text-truncate {
-  white-space: nowrap;
-  /* Empêche le texte de retourner à la ligne */
-  overflow: hidden;
-  /* Masque le texte qui dépasse */
-  text-overflow: ellipsis;
-  /* Ajoute les points de suspension "..." */
-  display: inline-block;
-  /* Permet d'appliquer les contraintes de dimension */
-}
-
-/* Lien de bouton propre sans soulignement */
-.btn-link {
-  text-decoration: none;
-  /* Enlève la ligne de soulignement par défaut */
-}
-
-/* Couleur de texte vert foncé personnalisé */
-.text-dark-green {
+/* En-tête du tableau */
+.entete-tableau th {
   color: #16423C;
-  /* Applique la variable couleur vert sapin */
-}
-
-/* Classe utilitaire d'arrière-plan vert sapin */
-.bg-custom-green {
-  background-color: var(--bs-custom-dark-green) !important;
-  /* Force l'arrière-plan avec notre vert */
-}
-
-/* Enlever les contours bleus par défaut au focus de tous les formulaires */
-input:focus,
-textarea:focus {
-  box-shadow: none !important;
-  /* Supprime le halo bleu des navigateurs */
-  border-color: var(--bs-custom-dark-green) !important;
-  /* Force la bordure en vert sapin lors de l'édition */
-}
-
-
-/*bouton enregistrer*/
-
-.btn-enregistrer {
-  background-color: #006400;
-  /* vert foncé au départ */
-  color: white;
-  border: none;
-  transition: background-color 0.3s ease;
-}
-
-.btn-enregistrer:hover {
-  background-color: #2e8b57;
-  /* vert légèrement plus clair au passage */
-  color: white;
-}
-
-input {
-  border-color: #16423C;
-  border-radius: 5;
-}
-
-textarea {
-  border-color: #16423C;
-  border-radius: 5;
-  text-decoration: black;
-}
-
-
-
-/*Pour details maladie */
-
-
-/* Conteneur principal de la modale */
-.maladie-modal-dialog {
-  width: 100%;
-  max-width: 650px;
-  /* Largeur pour correspondre à l'image */
-  font-family: 'Arial', sans-serif;
-  /* Police sans-serif standard */
-  margin: 0;
-  /* Centrage géré par le flex parent de la modale */
-}
-
-/* Contenu de la modale */
-.maladie-modal-content {
-  background-color: #EBF1EF;
-  /* Fond blanc cassé/vert très clair */
-  border: none;
-  border-radius: 4px;
-  /* Arrondis très légers */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  /* Légère ombre */
-}
-
-/* Header de la modale */
-.maladie-modal-header {
-  border-bottom: none;
-  /* !!! CETTE LIGNE SUPPRIME LA LIGNE DE SÉPARATION !!! */
-  padding: 20px 25px 0 25px;
-  /* Padding pour aligner le titre */
-  display: flex;
-  justify-content: center;
-  /* Centre le titre */
-  align-items: center;
-  position: relative;
-  /* Pour positionner le bouton de fermeture */
-}
-
-/* Titre de la modale */
-.maladie-modal-title {
-  color: #1F4D42;
-  /* Vert très foncé */
   font-weight: 700;
-  font-size: 1.2rem;
-  margin: 0;
+  border-bottom: 2px solid #16423C;
 }
 
-/* Bouton de fermeture 'x' textuel */
-.maladie-close-btn {
-  background: none;
-  border: none;
-  font-size: 1.4rem;
-  color: #1F4D42;
+.border-bottom-custom {
+  border-bottom: 1px solid #EDF2F7;
+}
+
+/* ==========================================
+   EFFET HOVER SUR LES LIGNES DU TABLEAU
+   ========================================== */
+
+tbody tr {
+  transition: all 0.25s ease-in-out;
   cursor: pointer;
-  padding: 0;
-  line-height: 1;
-  position: absolute;
-  top: 15px;
-  right: 15px;
 }
 
-.maladie-close-btn:hover {
-  color: #000;
+tbody tr:hover {
+  background-color: rgba(22, 66, 60, 0.08) !important;
+  transform: scale(1.005);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* Body de la modale */
-.maladie-modal-body {
-  padding: 0 25px 30px 25px;
-  /* Espacement intérieur */
+tbody tr:hover td {
+  color: #16423C !important;
 }
 
-/* Mise en page des lignes de données */
-.maladie-data-row {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-  /* Espace important entre les lignes, comme sur l'image */
+tbody tr:hover .btn {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
 }
 
-/* Groupe de données (label + valeur) */
-.maladie-data-group {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Largeurs spécifiques des colonnes pour correspondre à l'image */
-.col-id {
-  width: 15%;
-}
-
-.col-name {
-  width: 75%;
-}
-
-.col-desc {
-  width: 45%;
-}
-
-.col-date {
-  width: 45%;
-}
-
-/* Style des labels */
-.maladie-label {
-  color: #1F4D42;
-  /* Vert foncé */
+/* Modals & Champs de saisie */
+.label-champ {
+  color: #16423C;
   font-weight: 700;
   font-size: 0.9rem;
-  margin-bottom: 5px;
-  /* Petit espace sous le label */
+  margin-bottom: 4px;
 }
 
-/* Style de la valeur ID (texte simple en gras) */
-.maladie-value-id {
-  color: #1F4D42;
-  font-weight: 700;
-  font-size: 1rem;
-  padding-left: 2px;
-  /* Léger décalage pour aligner avec les labels */
-}
-
-/* Style des champs de texte "input field" */
-.maladie-input-field {
-  background-color: transparent;
-  border: 1px solid #B0C4BF;
-  /* Bordure gris-vert clair */
-  border-radius: 4px;
-  color: #1F4D42;
-  /* Texte vert foncé */
+.champ-lecture {
+  background-color: #F3F4F6;
+  border: 1px solid #16423C;
+  border-radius: 8px;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  color: #16423C;
   font-weight: 500;
-  font-size: 0.9rem;
-  padding: 8px 12px;
-  width: 100%;
-  box-sizing: border-box;
-  /* Inclut le padding dans la largeur */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-/* Style spécifique pour la description pour gérer le texte long */
-.maladie-description {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Style de la nouvelle ligne séparatrice */
-.maladie-divider {
-  border: 0;
-  border-top: 3px solid;
-  /* Même couleur gris-vert que la bordure des inputs */
-  margin: 25px 0;
-  /* Espacement équilibré au-dessus et en-dessous */
-  opacity: 1;
-  /* Évite que Bootstrap ne rende la ligne semi-transparente */
-  height: 2px;
+/* Focus sur les champs de saisie */
+input:focus, textarea:focus {
+  box-shadow: none !important;
+  border-color: #16423C !important;
 }
