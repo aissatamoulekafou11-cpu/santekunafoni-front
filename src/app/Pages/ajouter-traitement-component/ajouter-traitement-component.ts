@@ -27,9 +27,9 @@ export class AjouterTraitementComponent implements OnInit {
     description: '',
     datedebut: null,
     datefin: null,
-    id_patient: 0,       // Stockera l'id temporairement (lié à ton select HTML)
-    id_maladie: 0,       // Stockera l'id temporairement (lié à ton select HTML)
-    id_agent_sante: 0    // Stockera l'id temporairement (lié à ton select HTML)
+    id_patient: 0,       
+    id_maladie: 0,      
+    id_agent_sante: 0
   };
 
   // Raccourcis indispensables pour simplifier la liaison ngModel bidirectionnelle de tes inputs textuels

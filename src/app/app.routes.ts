@@ -63,6 +63,7 @@ export const routes: Routes = [
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'maladies', component: ListeMaladieComponent },
   { path: 'notifications', component: ListNotificationsComponent },
+  { path: 'list-maladies', component: ListeMaladieComponent},
 
   // Traitements
   { path: 'traitements', component: ListeTraitement },
