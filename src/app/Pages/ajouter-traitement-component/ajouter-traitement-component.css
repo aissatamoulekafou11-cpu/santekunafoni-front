@@ -7,7 +7,7 @@
 
 /* Zone d'affichage décalée de la barre latérale sur grand écran */
 .content-wrapper {
-    margin-left: 260px; /* S'aligne parfaitement sur ta sidebar de 260px */
+    margin-left: 20px; /* S'aligne parfaitement sur ta sidebar de 260px */
     padding: 30px;
     box-sizing: border-box;
     background-color: #E9EFEC;
