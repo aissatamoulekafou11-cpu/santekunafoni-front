@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Notification } from '../Models/notification.model';
+import { Notification, NotificationRequestDto } from '../Models/notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,8 @@ export class NotificationService {
 
   // POST /api/notification
   // Notification ordinaire — envoyée manuellement
-  envoyerNotification(notification: Notification): Observable<Notification> {
+  envoyerNotification(notification: NotificationRequestDto): Observable<Notification> {
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$",notification)
     return this.http.post<Notification>(this.apiUrl, notification);
   }
 

@@ -1,22 +1,67 @@
-/* ==========================================================================
-   1. INTEGRATION ET DECALAGE DE LA PAGE AVEC LE SIDEBAR FIXED
-   ========================================================================== */
-
-.content-with-sidebar {
-  margin-left: 18vw;               /* Décale tout le contenu pour laisser la place au sidebar fixe */
-  width: calc(100vw - 18vw);       /* Prend exactement le reste de la largeur de l'écran */
+/* Style racine du composant */
+:host {
+  display: block;
+  width: 100%;
   min-height: 100vh;
-  background-color: #eef3f1;       /* Ta couleur de fond gris clair */
+  background-color: #E9EFEC;
+  padding: 30px 20px;
   box-sizing: border-box;
 }
-.left-right {
-  display: flex;
-  justify-content: space-between;       /* Aligne le sidebar à gauche et le contenu à droite */
+
+/* Conteneur principal CENTRÉ */
+.symptomes-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-/* ==========================================================================
-   2. TES STYLES DE TABLEAU ET ELEMENTS CONSERVÉS
-   ========================================================================== */
+.titre-page {
+  color: #16423C;
+  font-size: 2.1rem;
+}
+
+.text-vert {
+  color: #16423C;
+}
+
+.bg-vert {
+  background-color: #16423C !important;
+  color: #ffffff !important;
+}
+
+.btn-vert {
+  background-color: #16423C;
+  color: #ffffff;
+  border: none;
+  height: 45px;
+  transition: background-color 0.2s;
+}
+
+.btn-vert:hover {
+  background-color: #0d2623;
+  color: #ffffff;
+}
+
+/* Barre de recherche */
+.barre-recherche {
+  width: 350px;
+  height: 45px;
+}
+
+/* Table */
+.entete-tableau th {
+  color: #16423C;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.border-bottom-custom {
+  border-bottom: 1px solid #EDF2F7;
+}
+
+tbody tr:hover {
+  background-color: #F8FAFC;
+}
 
 .text-truncate {
   white-space: nowrap;
@@ -25,117 +70,12 @@
   display: block;
 }
 
-.btn-link {
-  text-decoration: none;
+.label-champ {
+  color: #16423C;
 }
 
-h2 {
-  color: #1a1a1a;
-}
-
-/* Barre de recherche */
-.search-bar-container input {
-  width: 300px;
-  border: 1px solid #ced4da;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='gray' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 95% center;
-}
-
-.icon-btn {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-/* Couleurs spécifiques des icônes d'action */
-.btn-outline-success { 
-  color: #1a5c4c; 
-  border-color: #1a5c4c; 
-}
-.btn-outline-success:hover { 
-  background-color: #1a5c4c; 
-  color: white; 
-}
-
-.btn-outline-secondary { 
-  color: #4a5568; 
-  border-color: #4a5568; 
-}
-
-.btn-outline-danger { 
-  color: #e53e3e; 
-  border-color: #e53e3e; 
-}
-
-/* Bordures légères entre les lignes */
-.border-bottom-custom {
-  border-bottom: 1px solid #EDF2F7;
-}
-
-/* Effet hover des lignes du tableau */
-tbody tr:hover {
-  background-color: #F8FAFC;
-}
-
-/* Enlever les contours bleus au focus */
+/* Focus inputs */
 input:focus, textarea:focus {
   box-shadow: none !important;
-  border-color: #2F80ED !important;
-}
-
-/* ==========================================================================
-   3. STYLES DES MODALS
-   ========================================================================== */
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1050; /* S'assure que le modal s'ouvre par-dessus le sidebar fixe */
-}
-
-.modal-box {
-  width: 450px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,.3);
-}
-
-/* Positionne la sidebar de manière fixe sur toute la hauteur à gauche */
-
-app-sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 260px; /* Aligne cette largeur sur celle définie dans ton composant Sidebar */
-  height: 100vh;
-  z-index: 100;
-  background-color: #ffffff; /* Ou la couleur de ta sidebar */
-  border-right: 1px solid #e0e0e0;
-}
-
-/* Décale le contenu principal de 260px vers la droite pour éviter qu'il ne passe sous la sidebar */
-.content-with-sidebar {
-  margin-left: 260px; 
-  min-height: 100vh;
-  background-color: #E9EFEC; /* Un fond gris très clair pour faire ressortir tes cartes blanches */
-  width: calc(100% - 260px);
-  box-sizing: border-box;
-}
-
-/* Style optionnel pour assurer une jolie transition si besoin */
-body {
-  margin: 0;
-  background-color: #f8f9fa;
+  border-color: #16423C !important;
 }

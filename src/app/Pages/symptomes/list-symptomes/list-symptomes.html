@@ -1,19 +1,16 @@
-<!-- 1. Ton composant Sidebar autonome (fixé à gauche grâce à son CSS) -->
-<div class="left-right">
-  <app-sidebar></app-sidebar>
+<div class="symptomes-container">
 
+  <!-- En-tête de la page -->
+  <h1 class="fw-bold mb-4 titre-page">Gestion des Symptômes</h1>
 
-<!-- 2. Ton contenu principal (décalé à droite grâce au CSS) -->
-<div class="p-5 content-with-sidebar">
-  <h1 class="fw-bold mb-4" style="color: #000000; font-size: 2.3rem;">Gestion des Symptomes</h1>
-
-  <!-- Recherche et Bouton Ajouter -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div class="position-relative shadow-sm rounded-pill bg-white d-flex align-items-center px-3" style="width: 350px; height: 45px;">
+  <!-- Barre de recherche et Bouton Ajouter -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    
+    <div class="position-relative shadow-sm rounded-pill bg-white d-flex align-items-center px-3 barre-recherche">
       <input 
         type="text" 
         class="form-control border-0 bg-transparent w-100 ps-2" 
-        placeholder="Rechercher un symptome"
+        placeholder="Rechercher un symptôme"
         [ngModel]="searchTerm()"
         (ngModelChange)="searchTerm.set($event)"
       >
@@ -24,26 +21,24 @@
     </div>
     
     <div class="d-flex gap-2">
-     
-
       <!-- Bouton Ajouter -->
-      <button class="btn text-white rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" 
-              style="background-color: #2F80ED; border: none; height: 45px;" 
+      <button class="btn btn-vert rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2" 
               (click)="openAddModal()">
         <span class="fs-5">+</span> Ajouter
       </button>
     </div>
+
   </div>
 
   <!-- Tableau de données -->
-  <div class="bg-white rounded-4 p-4 shadow-sm">
+  <div class="bg-white rounded-4 p-4 shadow-sm table-responsive">
     <table class="table table-borderless align-middle mb-0 text-center">
       <thead>
-        <tr class="text-secondary border-bottom" style="font-size: 1.05rem;">
+        <tr class="border-bottom entete-tableau">
           <th class="pb-3" style="width: 80px;">ID</th>
-          <th class="pb-3 text-start">Nom du symptome</th>
+          <th class="pb-3 text-start">Nom du symptôme</th>
           <th class="pb-3 text-start">Description</th>
-          <th class="pb-3">Date de creation</th>
+          <th class="pb-3">Date de création</th>
           <th class="pb-3" style="width: 150px;">Actions</th>
         </tr>
       </thead>
@@ -55,9 +50,9 @@
           <td class="py-3 text-muted">{{ s.dateCreation | date:'dd/MM/yyyy HH:mm' }}</td>
           <td>
             <div class="d-flex justify-content-center gap-3">
-              <!-- BOUTON DETAILS -->
+              <!-- BOUTON DÉTAILS -->
               <button class="btn p-0 border-0 bg-transparent text-success" (click)="openInfoModal(s)" title="Détails">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="bi">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <circle cx="12" cy="12" r="10"></circle>
                   <line x1="12" y1="16" x2="12" y2="12"></line>
                   <line x1="12" y1="8" x2="12.01" y2="8"></line>
@@ -65,7 +60,7 @@
               </button>
 
               <!-- BOUTON MODIFIER -->
-              <button class="btn p-0 border-0 bg-transparent text-secondary" (click)="openEditModal(s)" title="Modifier">
+              <button class="btn p-0 border-0 bg-transparent text-warning" (click)="openEditModal(s)" title="Modifier">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -99,7 +94,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg>
             </a>
           </li>
-          <li class="page-item active"><a class="page-link rounded px-3 border-0 bg-primary fw-bold" href="#">1</a></li>
+          <li class="page-item active"><a class="page-link rounded px-3 border-0 bg-vert fw-bold" href="#">1</a></li>
           <li class="page-item"><a class="page-link rounded px-3 border-0 text-dark bg-light" href="#">2</a></li>
           <li class="page-item"><a class="page-link rounded px-3 border-0 text-dark bg-light" href="#">3</a></li>
           <li class="page-item">
@@ -111,85 +106,79 @@
       </nav>
     </div>
   </div>
-</div>
 
-<!-- ================= MODALS ================= -->
+  <!-- ================= MODALS ================= -->
 
-<!-- 1. Modal AJOUTER / MODIFIER -->
-<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'form'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0 rounded-4 shadow">
-      <div class="modal-header border-0 bg-light rounded-top-4">
-        <h5 class="modal-title fw-bold">{{ selectedSymptome() ? 'Modifier' : 'Ajouter' }} un Symptôme</h5>
-        <!-- <button type="button" class="btn-close" (click)="closeModal()"></button> -->
-      </div>
-      <div class="modal-body p-4">
-        <div class="mb-3">
-          <label class="form-label fw-bold">Nom du symptôme</label>
-          <input type="text" class="form-control rounded-3" [(ngModel)]="formModel.nom" placeholder="Ex: Maux de tête">
+  <!-- 1. Modal AJOUTER / MODIFIER -->
+  <div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'form'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 shadow">
+        <div class="modal-header border-0 bg-light rounded-top-4">
+          <h5 class="modal-title fw-bold text-vert">{{ selectedSymptome() ? 'Modifier' : 'Ajouter' }} un Symptôme</h5>
         </div>
-        <div class="mb-3">
-          <label class="form-label fw-bold">Description</label>
-          <textarea class="form-control rounded-3" rows="3" [(ngModel)]="formModel.description" placeholder="Description du symptôme..."></textarea>
+        <div class="modal-body p-4">
+          <div class="mb-3">
+            <label class="form-label fw-bold label-champ">Nom du symptôme</label>
+            <input type="text" class="form-control rounded-3" [(ngModel)]="formModel.nom" placeholder="Ex: Maux de tête">
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold label-champ">Description</label>
+            <textarea class="form-control rounded-3" rows="3" [(ngModel)]="formModel.description" placeholder="Description du symptôme..."></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold label-champ">Date de création</label>
+            <input type="datetime-local" class="form-control rounded-3" [(ngModel)]="formModel.dateCreation">
+          </div>
         </div>
-        <!-- Champ Date de création -->
-        <div class="mb-3">
-          <label class="form-label fw-bold">Date de création</label>
-         <input type="datetime-local" class="form-control rounded-3" [(ngModel)]="formModel.dateCreation">
-        </div>
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-light rounded-pill px-4" (click)="closeModal()">Annuler</button>
-        <button type="button" class="btn btn-primary rounded-pill px-4" (click)="sauvegarder()">Enregistrer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 2. Modal DETAILS (INFO) -->
-<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'info'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0 rounded-4 shadow">
-      <div class="modal-header border-0 bg-success text-white rounded-top-4">
-        <h5 class="modal-title fw-bold">Détails du Symptôme</h5>
-        <!-- <button type="button" class="btn-close btn-close-white" (click)="closeModal()"></button> -->
-      </div>
-      <div class="modal-body p-4">
-        <p><strong>ID :</strong> {{ selectedSymptome()?.id }}</p>
-        <p><strong>Nom du symptôme :</strong> {{ selectedSymptome()?.nom }}</p>
-        <p><strong>Description complète :</strong></p>
-        <div class="p-3 bg-light rounded-3 text-muted">{{ selectedSymptome()?.description }}</div>
-        <p class="mt-3"><small class="text-muted">Créé le : {{ selectedSymptome()?.dateCreation | date:'dd/MM/yyyy HH:mm' }}</small></p>
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-secondary rounded-pill px-4" (click)="closeModal()">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 3. Modal SUPPRESSION -->
-<div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'delete'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
-  <div class="modal-dialog modal-dialog-centered modal-sm">
-    <div class="modal-content border-0 rounded-4 shadow">
-      <div class="modal-body text-center p-4">
-        <div class="text-danger mb-3">
-          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.16.16 0 0 1-.066.017H1.146a.16.16 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z"/>
-            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.993c.16-.922 1.632-.922 1.792 0l.392 2.254c.067.388-.227.753-.62.753h-1.076c-.393 0-.687-.365-.62-.753z"/>
-          </svg>
-        </div>
-        <h5 class="fw-bold mb-2">Supprimer ?</h5>
-        <p class="text-muted mb-4">Voulez-vous vraiment supprimer le symptôme <strong>{{ selectedSymptome()?.nom }}</strong> ?</p>
-        <div class="d-flex justify-content-center gap-2">
-          <button type="button" class="btn btn-light rounded-pill px-3" (click)="closeModal()">Annuler</button>
-          <button type="button" class="btn btn-danger rounded-pill px-3" (click)="confirmerSuppression()">Supprimer</button>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-outline-dark rounded-pill px-4" (click)="closeModal()">Annuler</button>
+          <button type="button" class="btn btn-vert rounded-pill px-4" (click)="sauvegarder()">Enregistrer</button>
         </div>
       </div>
     </div>
   </div>
-</div>
 
+  <!-- 2. Modal DÉTAILS (INFO) -->
+  <div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'info'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 shadow">
+        <div class="modal-header border-0 bg-vert text-white rounded-top-4">
+          <h5 class="modal-title fw-bold">Détails du Symptôme</h5>
+        </div>
+        <div class="modal-body p-4">
+          <p><strong>ID :</strong> {{ selectedSymptome()?.id }}</p>
+          <p><strong>Nom du symptôme :</strong> {{ selectedSymptome()?.nom }}</p>
+          <p><strong>Description complète :</strong></p>
+          <div class="p-3 bg-light rounded-3 text-muted">{{ selectedSymptome()?.description }}</div>
+          <p class="mt-3"><small class="text-muted">Créé le : {{ selectedSymptome()?.dateCreation | date:'dd/MM/yyyy HH:mm' }}</small></p>
+        </div>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-secondary rounded-pill px-4" (click)="closeModal()">Fermer</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- 3. Modal SUPPRESSION -->
+  <div class="modal fade show d-block" tabindex="-1" *ngIf="currentMode() === 'delete'" style="background: rgba(0,0,0,0.5); z-index: 1050;">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content border-0 rounded-4 shadow">
+        <div class="modal-body text-center p-4">
+          <div class="text-danger mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.16.16 0 0 1-.066.017H1.146a.16.16 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z"/>
+              <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.993c.16-.922 1.632-.922 1.792 0l.392 2.254c.067.388-.227.753-.62.753h-1.076c-.393 0-.687-.365-.62-.753z"/>
+            </svg>
+          </div>
+          <h5 class="fw-bold mb-2">Supprimer ?</h5>
+          <p class="text-muted mb-4">Voulez-vous vraiment supprimer le symptôme <strong>{{ selectedSymptome()?.nom }}</strong> ?</p>
+          <div class="d-flex justify-content-center gap-2">
+            <button type="button" class="btn btn-light rounded-pill px-3" (click)="closeModal()">Annuler</button>
+            <button type="button" class="btn btn-danger rounded-pill px-3" (click)="confirmerSuppression()">Supprimer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

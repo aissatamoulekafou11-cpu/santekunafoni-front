@@ -1,125 +1,116 @@
-<app-sidebar></app-sidebar>
+<div class="body">
+  <div class="right-left">
+    <div class="agents-container">
+      
+      <!-- En-tête -->
+     
 
-<div class="main-content">
-    <div class="dashboard">
+      <!-- Zone de contenu du Dashboard -->
+      <div class="dashboard-content">
         
-        <!-- Cartes statistiques -->
+        <!-- 1. Cartes statistiques du haut -->
         <div class="cards">
-            <!-- Patients -->
-            <div class="card patient">
-                <div class="card-icon"><i class="bi bi-people-fill"></i></div>
-                <div class="card-info">
-                    <h2>{{ nombrePatients }}</h2>
-                    <span>Patients</span>
-                </div>
+          <div class="card patient">
+            <div class="card-icon"><i class="bi bi-people-fill"></i></div>
+            <div class="card-info">
+              <h2>{{ nombrePatients }}</h2>
+              <span>Patients</span>
             </div>
-
-            <!-- Symptômes -->
-            <div class="card symptome">
-                <div class="card-icon"><i class="bi bi-clipboard2-pulse-fill"></i></div>
-                <div class="card-info">
-                    <h2>{{ nombreSymptomes }}</h2>
-                    <span>Symptômes</span>
-                </div>
+          </div>
+          <div class="card symptome">
+            <div class="card-icon"><i class="bi bi-clipboard2-pulse-fill"></i></div>
+            <div class="card-info">
+              <h2>{{ nombreSymptomes }}</h2>
+              <span>Symptômes</span>
             </div>
-
-            <!-- Maladies -->
-            <div class="card maladie">
-                <div class="card-icon"><i class="bi bi-heart-pulse-fill"></i></div>
-                <div class="card-info">
-                    <h2>{{ nombreMaladies }}</h2>
-                    <span>Maladies</span>
-                </div>
+          </div>
+          <div class="card maladie">
+            <div class="card-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+            <div class="card-info">
+              <h2>{{ nombreMaladies }}</h2>
+              <span>Maladies</span>
             </div>
-
-            <!-- Traitements -->
-            <div class="card traitement">
-                <div class="card-icon"><i class="bi bi-capsule-pill"></i></div>
-                <div class="card-info">
-                    <h2>{{ nombreTraitements }}</h2>
-                    <span>Traitements</span>
-                </div>
+          </div>
+          <div class="card traitement">
+            <div class="card-icon"><i class="bi bi-capsule-pill"></i></div>
+            <div class="card-info">
+              <h2>{{ nombreTraitements }}</h2>
+              <span>Traitements</span>
             </div>
+          </div>
         </div>
 
-        <!-- Bas du dashboard -->
+        <!-- 2. Zone du bas (2 colonnes) -->
         <div class="dashboard-bottom">
 
-            <!-- Derniers patients -->
-            <div class="patients-panel">
-                <div class="panel-header">
-                    <h3>Derniers patients enregistrés</h3>
-                    <!--  Clic lié à la fonction de redirection -->
-                    <button class="btn-voir" (click)="voirPlus()">
-                        Voir plus
-                    </button>
-                </div>
-
-                <!-- NETTOYAGE : Utilisation exclusive du @for moderne d'Angular, plus de doublons ! -->
-                @for (patient of derniersPatients; track $index) {
-                    <div class="patient-item">
-                        <div class="patient-left">
-                            <div class="patient-avatar">
-                                <i class="bi bi-person-circle"></i>
-                            </div>
-                            <div class="patient-info">
-                                <strong>{{ patient.nom }} {{ patient.prenom }}</strong>
-                                <span>{{ patient.age }} ans</span>
-                            </div>
-                        </div>
-                        <span class="patient-sexe">{{ patient.sexe }}</span>
-                    </div>
-                }
+          <!-- Colonne gauche : Derniers patients -->
+          <div class="patients-panel">
+            <div class="panel-header">
+              <h3>Derniers patients enregistrés</h3>
+              <button class="btn-voir" (click)="voirPlus()">Voir plus</button>
             </div>
 
-            <!-- Partie droite -->
-            <div class="right-panel">
-
-                <!-- Répartition par sexe -->
-                <div class="gender-panel">
-                    <h3>Répartition par sexe</h3>
-                    <div class="gender-chart">
-                        <!--  DYNAMISATION DU CERCLE : Le fond évolue en fonction des pourcentages réels -->
-                        <div class="chart-placeholder" 
-                             [style.background]="'conic-gradient(#00796B ' + pourcentageHommes + '%, #E91E63 ' + pourcentageHommes + '%)'">
-                            <div class="chart-inner-text">
-                                {{ pourcentageHommes }}%
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="gender-info">
-                        <div class="gender-item">
-                            <span class="female-color"></span>
-                            <span>Femmes : {{ pourcentageFemmes }} %</span>
-                        </div>
-                        <div class="gender-item">
-                            <span class="male-color"></span>
-                            <span>Hommes : {{ pourcentageHommes }} %</span>
-                        </div>
-                    </div>
+            @for (patient of derniersPatients; track $index) {
+              <div class="patient-item">
+                <div class="patient-left">
+                  <div class="patient-avatar">
+                    <i class="bi bi-person-circle"></i>
+                  </div>
+                  <div class="patient-info">
+                    <strong>{{ patient.nom }} {{ patient.prenom }}</strong>
+                    <span>{{ patient.age }} ans</span>
+                  </div>
                 </div>
+                <span class="patient-sexe">{{ patient.sexe }}</span>
+              </div>
+            }
+          </div>
 
-                <!-- Top symptômes -->
-               <!-- Top symptômes -->
-             <div class="symptomes-panel">
-                <div class="panel-header">
+          <!-- Colonne droite : Genre + Symptômes -->
+          <div class="right-panel">
+
+            <!-- Répartition par sexe -->
+            <div class="gender-panel">
+              <h3>Répartition par sexe</h3>
+              <div class="gender-chart">
+                <div class="chart-placeholder" 
+                     [style.background]="'conic-gradient(#16423C ' + pourcentageHommes + '%, #E91E63 ' + pourcentageHommes + '%)'">
+                  <div class="chart-inner-text">
+                    {{ pourcentageHommes }}%
+                  </div>
+                </div>
+              </div>
+              <div class="gender-info">
+                <div class="gender-item">
+                  <span class="female-color"></span>
+                  <span>Femmes : {{ pourcentageFemmes }} %</span>
+                </div>
+                <div class="gender-item">
+                  <span class="male-color"></span>
+                  <span>Hommes : {{ pourcentageHommes }} %</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top symptômes -->
+            <div class="symptomes-panel">
+              <div class="panel-header">
                 <h3>Top symptômes signalés</h3>
-            </div>
-    
+              </div>
               @for (symptome of topSymptomes; track $index) {
                 <div class="symptome-item">
-            <!-- Nom du symptôme -->
-            <span class="symptome-nom">{{ symptome.nom }}</span>
-            
-            <!-- Nombre de cas (ex: 23 cas) -->
-            <span class="symptome-count">{{ symptome.nombreCas || symptome.count || 0 }} cas</span>
-        </div>
-    }
-</div>
-
+                  <span class="symptome-nom">{{ symptome.nom }}</span>
+                  <span class="symptome-count">{{ symptome.nombreCas || symptome.count || 0 }} cas</span>
+                </div>
+              }
             </div>
-        </div>
+
+          </div> <!-- Fin de right-panel -->
+
+        </div> <!-- Fin de dashboard-bottom -->
+
+      </div> <!-- Fin de dashboard-content -->
 
     </div>
+  </div>
 </div>

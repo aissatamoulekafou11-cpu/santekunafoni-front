@@ -4,20 +4,20 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100%;
+  overflow: hidden;
   font-family: 'Poppins', sans-serif;
-  background-color: #f4f6f4;
 }
 
-/* Layout avec sidebar */
 .app-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .main-content {
   flex-grow: 1;
-  padding: 30px;
   overflow-y: auto;
-  background-color: #f4f6f4;
+  background-color: #E9EFEC;
 }

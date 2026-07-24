@@ -1,70 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { Patient } from '../Models/patient.model'; 
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root' 
+  providedIn: 'root'
 })
-export class AuthService { 
+export class AuthService {
 
-  private baseUrl = 'http://localhost:8080/api/auth';
-  
-  // Ajout de l'URL spécifique pour l'API des patients
-  private patientsUrl = 'http://localhost:8080/api/patients';
+  // L'adresse locale de ton backend Spring Boot
+  private baseUrl = 'http://localhost:8080/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
-   * 1. Inscription d'un Patient
-   * CORRIGÉ : On envoie désormais la requête sur /api/patients au lieu de /api/auth/inscription
+   * Envoie les données du nouveau patient au backend
+   * @param patientData Objet contenant les infos conformes au PatientDTO
    */
-  inscriptionPatient(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(this.patientsUrl, patient);
+  inscriptionPatient(patientData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/patients`, patientData);
   }
 
   /**
-   * 2. Connexion (Patient, Agent, Admin)
-   * Reste sur l'URL d'authentification globale : /api/auth/connexion
+   * Envoie les identifiants pour l'authentification personnalisée
+   * @param credentials Objet avec le téléphone et le mot de passe
    */
-  connexion(tel: string, motpass: string): Observable<any> {
-    const identifiants = { tel, motpass };
-    
-    return this.http.post<any>(`${this.baseUrl}/login`, identifiants).pipe(
-      tap(reponse => {
-        // IMPORTANT : Sauvegarde automatique du Token JWT retourné par le backend
-        if (reponse && reponse.token) {
-          localStorage.setItem('santekunafoni_token', reponse.token);
-          
-          if (reponse.role) {
-            localStorage.setItem('user_role', reponse.role);
-          }
-        }
-      })
-    );
+  connexion(credentials: { tel: string; motpass: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/custom-auth/connexion`, credentials);
   }
 
   /**
-   * 3. Récupérer le token stocké
-   * Utile pour l'intercepteur HTTP qui va l'envoyer au backend
+   * Sauvegarde les informations de l'utilisateur connecté dans le navigateur
    */
-  getToken(): string | null {
-    return localStorage.getItem('santekunafoni_token');
-  }
-
-  /**
-   * 4. Déconnexion
-   * Supprime le token du navigateur
-   */
-  deconnexion(): void {
-    localStorage.removeItem('santekunafoni_token');
-    localStorage.removeItem('user_role');
-  }
-
-  /**
-   * 5. Vérifier si un utilisateur est actuellement connecté
-   */
-  estConnecte(): boolean {
-    return !!this.getToken(); // Renvoie true si le token existe, false sinon
+  sauvegarderSession(user: any): void {
+    localStorage.setItem('currentUser', JSON.stringify(user));
   }
 }
