@@ -39,7 +39,7 @@ export class AgentDashboard implements OnInit {
     this.chargerDonneesDashboard();
   }
 
-  // Méthode de redirection pour le bouton "Voir tout"
+  // Méthode de redirection pour le bouton "Voir plus"
   voirPlus(): void {
     this.router.navigate(['/patients']); 
   }

@@ -67,9 +67,7 @@
     font-size: 15px;
 }
 
-/* ===========================
-   Bas du Dashboard
-=========================== */
+/* Bas du Dashboard*/
 .dashboard-bottom {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -78,9 +76,7 @@
     align-items: start;
 }
 
-/* ===========================
-   Derniers patients
-=========================== */
+/*Derniers patients*/
 .patients-panel {
     background: #ffffff;
     border-radius: 15px;
@@ -160,9 +156,7 @@
     color: #555;
 }
 
-/* ===========================
-   Partie droite
-=========================== */
+/*Partie droite*/
 .right-panel {
     display: flex;
     flex-direction: column;

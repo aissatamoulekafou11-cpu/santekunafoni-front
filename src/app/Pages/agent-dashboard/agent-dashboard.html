@@ -51,7 +51,7 @@
                     <h3>Derniers patients enregistrés</h3>
                     <!--  Clic lié à la fonction de redirection -->
                     <button class="btn-voir" (click)="voirPlus()">
-                        Voir tout
+                        Voir plus
                     </button>
                 </div>
 
@@ -101,16 +101,22 @@
                 </div>
 
                 <!-- Top symptômes -->
-                <div class="symptomes-panel">
-                    <div class="panel-header">
-                        <h3>Top symptômes signalés</h3>
-                    </div>
-                    @for (symptome of topSymptomes; track $index) {
-                        <div class="symptome-item">
-                            <span>{{ symptome.nom }}</span>
-                        </div>
-                    }
-                </div>
+               <!-- Top symptômes -->
+             <div class="symptomes-panel">
+                <div class="panel-header">
+                <h3>Top symptômes signalés</h3>
+            </div>
+    
+              @for (symptome of topSymptomes; track $index) {
+                <div class="symptome-item">
+            <!-- Nom du symptôme -->
+            <span class="symptome-nom">{{ symptome.nom }}</span>
+            
+            <!-- Nombre de cas (ex: 23 cas) -->
+            <span class="symptome-count">{{ symptome.nombreCas || symptome.count || 0 }} cas</span>
+        </div>
+    }
+</div>
 
             </div>
         </div>
