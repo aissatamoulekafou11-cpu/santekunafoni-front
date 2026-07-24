@@ -27,6 +27,7 @@ import { ModifierTraitementComponent } from './Pages/modifier-traitement-compone
 
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { Connexion } from './Pages/connexion/connexion';
+import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 
 
 
@@ -56,6 +57,7 @@ export const routes: Routes = [
   { path: 'modifier-traitement', component: ModifierTraitementComponent},
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'notifications', component: ListNotificationsComponent },
+  { path: 'list-maladies', component: ListeMaladieComponent},
 
   //DICKO
   { path: 'dashboard', component: DashboardPatient },
