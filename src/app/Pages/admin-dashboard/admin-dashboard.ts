@@ -1,4 +1,4 @@
-import { AfterViewInit,Component, OnInit } from '@angular/core';
+import { AfterViewInit,ChangeDetectorRef,Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { Sidebar } from '../../Component/sidebar/sidebar';
 import { Header } from '../../Component/header/header';
@@ -19,11 +19,14 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
   stats: DashboardStats={
     totalAgentsSante:0,
     totalPatients:0,
-    totalAlertes: 0
+    totalNotifications: 0,
   };
 
   // Injection du service dans le constructeur
-  constructor(private dashboardService: AdminDashboardService){}
+  constructor(
+    private dashboardService: AdminDashboardService,
+    private cdr : ChangeDetectorRef
+  ){}
 
 
   // 1. Appel du service HTTP dès le chargement de la page
@@ -40,7 +43,10 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
   private chargerStatistiques(): void {
     this.dashboardService.getDashboardStats().subscribe({
       next: (donnees) => {
-        this.stats = donnees; // On met à jour les compteurs
+        this.stats = {...donnees}; 
+      
+        this.cdr.detectChanges();
+
       },
       error: (erreur) => {
         console.error('Erreur lors de la récupération des données du dashboard :', erreur);
