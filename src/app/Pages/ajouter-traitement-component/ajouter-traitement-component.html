@@ -6,6 +6,19 @@
             <h1 class="titre">Ajouter un traitement</h1>
         </div>
 
+        <!-- BANDEAUX DE CONFIRMATION / ERREUR -->
+        @if (messageSucces) {
+            <div class="alert alert-success" style="padding: 12px; background-color: #d4edda; color: #155724; border-radius: 6px; margin-bottom: 15px;">
+                <i class="fa-solid fa-circle-check"></i> {{ messageSucces }}
+            </div>
+        }
+
+        @if (messageErreur) {
+            <div class="alert alert-danger" style="padding: 12px; background-color: #f8d7da; color: #721c24; border-radius: 6px; margin-bottom: 15px;">
+                <i class="fa-solid fa-triangle-exclamation"></i> {{ messageErreur }}
+            </div>
+        }
+
         <div class="titre2">
             <h2>Veuillez remplir les informations ci-dessous pour prescrire un traitement à un patient !</h2>
         </div>
@@ -38,7 +51,7 @@
             </form>
         </div>
 
-        <!-- INFORMATIONS DU TRAITEMENT (Le formulaire principal de soumission) -->
+        <!-- INFORMATIONS DU TRAITEMENT -->
         <div class="card-form select-traitemet">
             <h2>Informations du traitement</h2>
             <form id="formbutton" class="form-grid" (ngSubmit)="onSubmit()">
@@ -68,7 +81,7 @@
                 <select id="id_agent" [(ngModel)]="traitement.id_agent_sante" name="id_agent">
                     <option value="0" disabled>-- Sélectionnez un agent --</option>
                     @for (idenAgent of idAgent(); track $index) {
-                        <option [value]="idenAgent.idUtilisateur">{{ idenAgent.nom }}</option>
+                        <option [value]="idenAgent.idUtilisateur">{{ idenAgent.idUtilisateur }} {{ idenAgent.prenom }} {{ idenAgent.nom }}</option>
                     }
                 </select>
             </form>
