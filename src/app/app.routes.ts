@@ -60,7 +60,7 @@ export const routes: Routes = [
   { path: 'traitements', component: ListeTraitement },
   { path: 'liste-traitement', component: ListeTraitement }, // Conservé pour rétrocompatibilité
   { path: 'ajouter-tratement', component: AjouterTraitementComponent },
-  { path: 'modifier-traitement/:id', component: ModifierTraitementComponent },
+  { path: 'modifier-traitement/:id', component: ModifierTraitementComponent },  
 
   // Profil et Déconnexion
   { path: 'deconnexion', component: Connexion }

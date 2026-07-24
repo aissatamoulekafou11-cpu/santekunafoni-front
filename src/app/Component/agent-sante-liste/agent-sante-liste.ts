@@ -46,9 +46,9 @@ export class AgentSanteListe {
   addAgentForm = this.fb.group({
     nom: ['', [Validators.required]],
     prenom: ['', [Validators.required]],
-    telephone: ['', [Validators.required]],
+    tel: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+    motpass: ['', Validators.required],
     specialite: ['', [Validators.required]],
     centre: ['', [Validators.required]]
   });
@@ -79,9 +79,9 @@ export class AgentSanteListe {
   editAgentForm = this.fb.group({
     nom: ['', [Validators.required]],
     prenom: ['', [Validators.required]],
-    telephone: ['', [Validators.required]],
+    tel: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+    motpass: ['', Validators.required],
     specialite: ['', [Validators.required]],
     centre: ['', [Validators.required]]
   });
@@ -92,9 +92,9 @@ export class AgentSanteListe {
   infoAgentForm = this.fb.group({
     nom: ['', [Validators.required]],
     prenom: ['', [Validators.required]],
-    telephone: ['', [Validators.required]],
+    tel: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
+    motpass: ['', Validators.required],
     specialite: ['', [Validators.required]],
     centre: ['', [Validators.required]]
   });
@@ -106,9 +106,9 @@ export class AgentSanteListe {
         this.infoAgentForm.patchValue({
           nom: data.nom,
           prenom: data.prenom,
-          telephone: data.tel,
+          tel: data.tel,
           email: data.email,
-          password: data.motpass,
+          motpass: data.motpass,
           specialite: data.specialite,
           centre:data.centre
         });
