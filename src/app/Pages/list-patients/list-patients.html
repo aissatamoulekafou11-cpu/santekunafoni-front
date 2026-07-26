@@ -1,0 +1,291 @@
+<div class="patients-container">
+
+  <!-- Header -->
+  <header class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">BIENVENUE Dr Aly SY</h4>
+    <div class="d-flex align-items-center gap-2">
+      <div class="avatar-photo"></div>
+      <div>
+        <div class="fw-bold">Dr Aly SY</div>
+        <small class="text-muted">Agent de santé</small>
+      </div>
+    </div>
+  </header>
+
+  <h3 class="titre-page text-center mb-4">Patients</h3>
+
+  <!-- Actions & Recherche -->
+  <div class="d-flex align-items-center gap-3 mb-3 flex-wrap">
+    <button class="btn btn-vert" (click)="ouvrirAjout()">Ajouter un patient</button>
+
+    <div class="input-group barre-recherche flex-grow-1">
+      <input type="text" class="form-control"
+             placeholder="Rechercher un patient"
+             [(ngModel)]="recherche">
+      <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+    </div>
+
+    <button class="btn btn-outline-dark">
+      Filtre <i class="bi bi-funnel ms-1"></i>
+    </button>
+  </div>
+
+  <!-- État de chargement & Erreurs -->
+  @if (chargement) {
+    <div class="text-center my-4">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Chargement...</span>
+      </div>
+    </div>
+  }
+
+  @if (erreur) {
+    <div class="alert alert-danger d-flex justify-content-between align-items-center">
+      {{ erreur }}
+      <button class="btn btn-sm btn-outline-danger" (click)="chargerPatients()">Réessayer</button>
+    </div>
+  }
+
+  <!-- Tableau des patients -->
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr class="entete-tableau">
+          <th>Id</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Localité</th>
+          <th>État</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (patient of patients; track patient.idUtilisateur; let pair = $even) {
+          <tr [class.ligne-grise]="pair">
+            <td>{{ patient.idUtilisateur }}</td>
+            <td class="fw-semibold">{{ patient.nom }}</td>
+            <td>{{ patient.prenom }}</td>
+            <td>{{ patient.localite }}</td>
+            <td><span [class]="classeEtat(patient.etat)">{{ patient.etat }}</span></td>
+            <td class="text-end actions">
+              <i class="bi bi-info-circle text-success" title="Détails"
+                 (click)="ouvrirDetails(patient)"></i>
+              <i class="bi bi-pencil text-warning" title="Modifier"
+                 (click)="ouvrirModification(patient)"></i>
+              <i class="bi bi-trash text-danger" title="Supprimer"
+                 (click)="supprimerPatient(patient)"></i>
+            </td>
+          </tr>
+        } @empty {
+          @if (!chargement) {
+            <tr><td colspan="6" class="text-center text-muted py-4">Aucun patient trouvé.</td></tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ===== MODAL : AJOUTER UN PATIENT ===== -->
+  @if (modalOuvert === 'ajouter') {
+    <div class="modal fade show d-block" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content carte-modal p-4">
+          <h4 class="titre-page text-center mb-3">Ajouter un patient</h4>
+          <hr class="mt-0">
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="label-champ">Nom</label>
+              <input class="form-control champ" [(ngModel)]="formulaire.nom">
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Prénom</label>
+              <input class="form-control champ" [(ngModel)]="formulaire.prenom">
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Âge</label>
+              <input type="number" class="form-control champ" [(ngModel)]="formulaire.age">
+            </div>
+
+            <div class="col-md-4">
+              <label class="label-champ">Sexe</label>
+              <select class="form-select champ" [(ngModel)]="formulaire.sexe">
+                <option value="">--</option>
+                <option value="M">M</option>
+                <option value="F">F</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Mot de passe</label>
+              <input type="password" class="form-control champ" [(ngModel)]="formulaire.motpass">
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Téléphone</label>
+              <input class="form-control champ" [(ngModel)]="formulaire.tel">
+            </div>
+
+            <div class="col-md-4">
+              <label class="label-champ">Période</label>
+              <input type="datetime-local" class="form-control champ" [(ngModel)]="formulaire.periode">
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">État</label>
+              <select class="form-select champ" [(ngModel)]="formulaire.etat">
+                @for (etat of etatsDisponibles; track etat) {
+                  <option [value]="etat">{{ etat }}</option>
+                }
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Localité</label>
+              <input class="form-control champ" [(ngModel)]="formulaire.localite">
+            </div>
+          </div>
+
+          <hr>
+          <div class="d-flex justify-content-between gap-3">
+            <button class="btn btn-outline-dark px-5" (click)="fermerModal()">Annuler</button>
+            <button class="btn btn-vert px-5" (click)="enregistrerAjout()">Enregistrer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+  }
+
+
+  <!-- ===== MODAL : DÉTAILS PATIENT ===== -->
+  @if (modalOuvert === 'details' && patientSelectionne) {
+    <div class="modal fade show d-block" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content carte-modal p-4 position-relative">
+          <h4 class="titre-page text-center mb-3">Détails patient</h4>
+          <hr class="mt-0">
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="label-champ">Nom</label>
+              <div class="form-control champ champ-lecture">{{ patientSelectionne.nom }}</div>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Prénom</label>
+              <div class="form-control champ champ-lecture">{{ patientSelectionne.prenom }}</div>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Âge</label>
+              <div class="form-control champ champ-lecture">{{ patientSelectionne.age }}</div>
+            </div>
+
+            <div class="col-md-4">
+              <label class="label-champ">Sexe</label>
+              <div class="form-control champ champ-lecture">{{ patientSelectionne.sexe }}</div>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Mot de passe</label>
+              <div class="form-control champ champ-lecture">********</div>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Téléphone</label>
+              <div class="form-control champ champ-lecture">{{ patientSelectionne.tel }}</div>
+            </div>
+
+            <div class="col-md-4">
+              <label class="label-champ">Période</label>
+              <div class="form-control champ champ-lecture">{{ patientSelectionne.periode }}</div>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">État</label>
+              <div class="form-control champ champ-lecture">{{ patientSelectionne.etat }}</div>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Localité</label>
+              <div class="form-control champ champ-lecture">{{ patientSelectionne.localite }}</div>
+            </div>
+          </div>
+
+          <hr>
+          <div class="d-flex justify-content-between gap-3">
+            <button class="btn btn-outline-danger px-4"
+                    (click)="supprimerPatient(patientSelectionne)">Supprimer patient</button>
+            <button class="btn btn-vert px-4"
+                    (click)="ouvrirModification(patientSelectionne)">Modifier patient</button>
+          </div>
+
+          <button type="button" class="btn-close position-absolute top-0 end-0 m-3"
+                  (click)="fermerModal()"></button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+  }
+
+
+  <!-- ===== MODAL : MODIFIER PATIENT ===== -->
+  @if (modalOuvert === 'modifier') {
+    <div class="modal fade show d-block" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content carte-modal p-4">
+          <h4 class="titre-page text-center mb-3">Modifier patient</h4>
+          <hr class="mt-0">
+
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="label-champ">Nom</label>
+              <input class="form-control champ" [(ngModel)]="formulaire.nom">
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Prénom</label>
+              <input class="form-control champ" [(ngModel)]="formulaire.prenom">
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Âge</label>
+              <input type="number" class="form-control champ" [(ngModel)]="formulaire.age">
+            </div>
+
+            <div class="col-md-4">
+              <label class="label-champ">Sexe</label>
+              <select class="form-select champ" [(ngModel)]="formulaire.sexe">
+                <option value="M">M</option>
+                <option value="F">F</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Mot de passe</label>
+              <input type="password" class="form-control champ" [(ngModel)]="formulaire.motpass">
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Téléphone</label>
+              <input class="form-control champ" [(ngModel)]="formulaire.tel">
+            </div>
+
+            <div class="col-md-4">
+              <label class="label-champ">Période</label>
+              <input type="datetime-local" class="form-control champ" [(ngModel)]="formulaire.periode">
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">État</label>
+              <select class="form-select champ" [(ngModel)]="formulaire.etat">
+                @for (etat of etatsDisponibles; track etat) {
+                  <option [value]="etat">{{ etat }}</option>
+                }
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="label-champ">Localité</label>
+              <input class="form-control champ" [(ngModel)]="formulaire.localite">
+            </div>
+          </div>
+
+          <hr>
+          <div class="d-flex justify-content-between gap-3">
+            <button class="btn btn-outline-dark px-5" (click)="fermerModal()">Annuler</button>
+            <button class="btn btn-vert px-5" (click)="enregistrerModification()">Enregistrer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+  }
+
+</div>

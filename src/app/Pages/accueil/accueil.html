@@ -1,0 +1,58 @@
+<div class="hero-section">
+  <div class="hero-overlay"></div>
+
+  <!-- Logo seul, agrandi, en haut à gauche -->
+  <div class="header-logo">
+    <img src="logo.png" alt="Logo Santé Kunafoni">
+  </div>
+
+  <div class="hero-content container">
+    <div class="row align-items-center">
+
+      <!-- Colonne gauche : boutons remontés au niveau du titre -->
+      <div class="col-md-4 d-flex flex-column gap-3">
+        <button class="btn-action" (click)="allerInscription()">
+          <span>Inscription</span>
+          <span class="icon-circle"><i class="fa-solid fa-user-plus fa-float"></i></span>
+        </button>
+
+        <button class="btn-action" (click)="allerConnexion()">
+          <span>Connexion</span>
+          <span class="icon-circle"><i class="fa-solid fa-arrow-right-from-bracket fa-float"></i></span>
+        </button>
+      </div>
+
+      <!-- Colonne droite : texte rapproché du bord gauche -->
+      <div class="col-md-9">
+        <h1 class="hero-title">SANTE KUNAFONI</h1>
+        <p class="hero-subtitle">Votre allié santé, à portée de main</p>
+
+        <p class="hero-text">
+          Santé Kunafoni est une plateforme numérique dédiée à la santé,
+          conçue pour simplifier l'accès à l'information médicale et
+          faciliter le suivi de votre bien-être au quotidien.
+        </p>
+
+        <h5 class="mt-4">Pourquoi choisir Santé Kunafoni ?</h5>
+        <ul class="hero-list">
+          <li>
+            
+            <strong>Accès rapide :</strong> trouvez facilement des alertes et des ressources essentielles.
+          </li>
+          <li>
+           
+            <strong>Suivi personnalisé :</strong> bénéficiez d'outils modernes pour surveiller votre santé.
+          </li>
+          <li>
+            <strong>Interface épurée :</strong> conçue pour une expérience simple et efficace.
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <svg class="diagonal-shape" viewBox="0 0 1440 200" preserveAspectRatio="none">
+    <polygon points="0,0 1440,200 0,200" fill="#0f3d33"/>
+  </svg>
+</div>

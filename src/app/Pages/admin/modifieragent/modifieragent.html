@@ -1,0 +1,136 @@
+<!-- <app-sidebar></app-sidebar>
+
+<app-header></app-header> -->
+
+<div class="page-container">
+
+    <div class="form-container">
+
+        <h2 class="title">
+            Modifier un agent de santé
+        </h2>
+
+        <form [formGroup]="editAgentForm">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Nom
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="nom">
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Prénom
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="prenom">
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Téléphone
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="tel">
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        formControlName="email">
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Mot de passe
+                    </label>
+
+                    <input
+                        type="password"
+                        class="form-control"
+                        formControlName="motpass">
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Spécialité
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="specialite">
+
+                </div>
+
+                <div class="col-md-12 mb-4">
+
+                    <label class="form-label">
+                        Centre
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="centre">
+
+                </div>
+
+            </div>
+
+            <div class="buttons">
+
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary"
+                    (click)="annuler()">
+
+                    Annuler
+
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-success"
+                    (click)="enregistrer()">
+
+                    Enregistrer
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,189 @@
+/* --- CONFIGURATION GLOBALE --- */
+.body {
+    background-color: #E9EFEC;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+/* Zone d'affichage décalée de la barre latérale sur grand écran */
+.content-wrapper {
+    margin-left: 20px; /* S'aligne parfaitement sur ta sidebar de 260px */
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #E9EFEC;
+    min-height: 100vh;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1100px; /* Largeur max pour un confort visuel sur grand écran */
+    margin: 0 auto;
+}
+
+/* --- HEADER --- */
+.top {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.titre {
+    font-size: 28px;
+    text-align: center;
+    margin: 0;
+    color: #16423C;
+}
+
+.titre2 {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    
+    h2 {
+        text-align: center;
+        font-size: 15px;
+        margin: 0;
+        color: #666;
+        line-height: 1.4;
+    }
+}
+
+/* --- FORMAT DE TOUTES LES CARTES DE FORMULAIRE --- */
+.card-form {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 25px 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+    h2 {
+        font-size: 16px;
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #16423C;
+        border-bottom: 2px solid #E9EFEC;
+        padding-bottom: 8px;
+    }
+
+    label {
+        font-weight: 500;
+        font-size: 14px;
+        color: #333;
+    }
+
+    select, input {
+        width: 100%;
+        max-width: 450px; /* Saisie ergonomique */
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 0 10px;
+        margin-top: 8px;
+        box-sizing: border-box;
+        font-size: 14px;
+        outline: none;
+        background-color: #fff;
+    }
+    
+    select:focus, input:focus {
+        border-color: #16423C;
+    }
+}
+
+/* --- GRILLE POUR LA SECTION INFORMATIONS (DEUX COLONNES SUR PC) --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.form-group-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    input {
+        max-width: 100%; /* Remplit sa moitié d'écran de manière fluide */
+    }
+}
+
+/* --- SECTION BOUTONS --- */
+.btn1 {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn1 button {
+    padding: 10px 30px;
+    min-width: 150px;
+    height: 48px;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.ajouter {
+    background-color: #16423C;
+    color: #ffffff;
+}
+
+.ajouter:hover {
+    background-color: #0d2925;
+}
+
+.annuler {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ccc !important;
+}
+
+.annuler:hover {
+    background-color: #f5f5f5;
+}
+
+
+/* --- 📱 RESPONSIVE DESIGN (Écrans de téléphones et tablettes < 992px) --- */
+@media (max-width: 992px) {
+    .content-wrapper {
+        margin-left: 0; /* Plus de décalage car la sidebar se met en bas sur mobile */
+        padding: 15px;
+        padding-bottom: 100px; /* Évite que le bas de page passe sous la barre mobile */
+    }
+
+    .titre {
+        font-size: 22px;
+    }
+
+    .card-form {
+        padding: 20px;
+        
+        select, input {
+            max-width: 100%; /* Largeur complète sur mobile */
+        }
+    }
+
+    /* Le formulaire d'infos passe sur une seule colonne verticale */
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* Boutons en colonne et faciles à cliquer au doigt */
+    .btn1 {
+        flex-direction: column-reverse; /* Annuler en bas, Ajouter en premier */
+        gap: 10px;
+    }
+
+    .btn1 button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,76 @@
+
+
+<!-- Conteneur principal pour appliquer les marges proprement -->
+<div class="content-wrapper">
+    
+    <!-- BARRE DE RECHERCHE & BOUTON AJOUTER -->
+    <div class="b">
+        <input type="search" name="search" id="search" placeholder="Rechercher un traitement" [(ngModel)]="searchTerm" (input)="filtrer()">
+        <a routerLink="/ajouter-tratement" class="b-ajout">Ajouter</a>
+    </div>
+
+    <!-- TABLEAU DES TRAITEMENTS -->
+    <div class="tableau table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom du traitement</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- 🟢 On utilise la liste découpée pour la pagination -->
+                @for (t of traitementsPagines; track t.idTraitement) {
+                    <tr>
+                        <td>{{ t.idTraitement }}</td>
+                        <td>{{ t.nomTraitement }}</td>
+                        <td>{{ t.description }}</td>
+                        <td>{{ t.datefin }}</td>
+                        <td>
+                            <span class="modiff">
+                                <a [routerLink]="['/modifier-traitement', t.idTraitement]">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                            </span>
+                            <span class="supp">
+                                <a href="javascript:void(0)" (click)="supprimerTraitement(t.idTraitement)">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="5" class="no-result" style="text-align: center;">
+                            <i class="fa-solid fa-circle-info"></i> Aucun traitement ne correspond à votre recherche.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- PAGINATION - Conservation exacte de tes classes d'origine -->
+        <nav aria-label="Pagination des traitements">
+            <ul class="pagination ms-auto">
+                <li class="page-item">
+                    <a href="javascript:void(0)" class="page-link" (click)="pagePrecedente()">Précédent</a>
+                </li>
+
+                <!-- 🟢 Génération automatique de TES puces de page -->
+                @for (p of pages; track p) {
+                    <li class="page-item" [class.active]="currentPage === p">
+                        <a href="javascript:void(0)" class="page-link" (click)="changerPage(p)">{{ p }}</a>
+                    </li>
+                }
+
+                <li class="page-item">
+                    <a href="javascript:void(0)" class="page-link" (click)="pageSuivante()">Suivant</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

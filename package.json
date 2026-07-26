@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  
   "private": true,
   "packageManager": "npm@11.16.0",
   "dependencies": {
@@ -17,6 +18,9 @@
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
     "@angular/router": "^22.0.0",
+    "@fortawesome/angular-fontawesome": "^5.1.0",
+    "@fortawesome/fontawesome-svg-core": "^7.3.0",
+    "@fortawesome/free-solid-svg-icons": "^7.3.0",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "rxjs": "~7.8.0",
@@ -38,4 +42,5 @@
     "lmdb@3.5.4": true,
     "msgpackr-extract@3.0.4": true
   }
+  
 }
