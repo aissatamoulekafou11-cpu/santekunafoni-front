@@ -23,7 +23,4 @@ export class AdminDashboardService {
     return this.http.get<DashboardStats>(this.apiUrl);
     
   }
-  ajouterAdmin(admin: Administrateur): Observable<Administrateur> {
-    return this.http.post<Administrateur>(this.apiUrl, admin);
-  }
 }

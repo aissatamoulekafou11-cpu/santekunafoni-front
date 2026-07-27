@@ -1,8 +1,7 @@
 import { FormsModule } from '@angular/forms'; 
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { Administrateur } from '../../../Models/administrateur.model';
-import { AdminDashboardService } from '../../../Services/admin-dashboard.service'; // 👈 Vérifiez le chemin relatif
-
+import { AdministrateurService } from '../../../Services/administrateur';
 @Component({
   selector: 'app-admin-ajouter',
   imports: [FormsModule],
@@ -10,15 +9,38 @@ import { AdminDashboardService } from '../../../Services/admin-dashboard.service
   styleUrl: './admin-ajouter.css',
 })
 export class AdminAjouter {
-  @Output() adminAjoute = new EventEmitter<void>();
+   nouvelAdmin: Administrateur = {
+  nom: '',
+  prenom: '',
+  email: '',
+  motpass:''
+};
 
-  nouvelAdmin: Administrateur = {
-    nom: '',
-    prenom: '',
-    email: '',
-    motDePasse: ''
-  };
+  constructor(private administrateurService: AdministrateurService) {}
+
+  onSubmit(): void {
+
+console.log("Données envoyées :", this.nouvelAdmin);
 
 
+this.administrateurService
+.ajouterAdmin(this.nouvelAdmin)
+.subscribe({
+
+ next:(response)=>{
+
+   console.log("Administrateur ajouté :", response);
+
+ },
+
+ error:(error)=>{
+
+   console.log("STATUT :", error.status);
+   console.log("MESSAGE :", error.message);
+   console.log("ERREUR SERVEUR :", error.error);
+
+ }
+
+});
+  }
 }
-  

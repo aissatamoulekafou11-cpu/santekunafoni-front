@@ -1,10 +1,10 @@
 import { Role } from './role.enum';
 
 export interface Utilisateur {
-  idUtilisateur: number;
+  idUtilisateur?: number;
   nom: string;
   prenom: string;
-  tel: string;      
+  tel?: string;      
   motpass: string;   
   role?: Role;       
 }
