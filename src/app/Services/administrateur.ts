@@ -18,4 +18,11 @@ export class AdministrateurService {
   ajouterAdmin(admin: Administrateur): Observable<Administrateur> {
     return this.http.post<Administrateur>(this.apiUrl, admin);
   }
-}
+
+   getAdministrateurs(): Observable<Administrateur[]> {
+    return this.http.get<Administrateur[]>(this.apiUrl);
+  }
+
+  deleteAdministrateur(idUtilisateur: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${idUtilisateur}`);
+  }}
