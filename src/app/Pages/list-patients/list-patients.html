@@ -1,3 +1,4 @@
+<app-sidebar></app-sidebar>
 <div class="patients-container">
 
   <!-- Header -->
@@ -31,7 +32,7 @@
   </div>
 
   <!-- État de chargement & Erreurs -->
-  @if (chargement) {
+  @if (chargement()) {
     <div class="text-center my-4">
       <div class="spinner-border text-success" role="status">
         <span class="visually-hidden">Chargement...</span>
@@ -39,7 +40,7 @@
     </div>
   }
 
-  @if (erreur) {
+  @if (erreur()) {
     <div class="alert alert-danger d-flex justify-content-between align-items-center">
       {{ erreur }}
       <button class="btn btn-sm btn-outline-danger" (click)="chargerPatients()">Réessayer</button>
@@ -56,6 +57,7 @@
           <th>Prénom</th>
           <th>Localité</th>
           <th>État</th>
+          <th>Maladies</th>
           <th></th>
         </tr>
       </thead>
@@ -67,6 +69,7 @@
             <td>{{ patient.prenom }}</td>
             <td>{{ patient.localite }}</td>
             <td><span [class]="classeEtat(patient.etat)">{{ patient.etat }}</span></td>
+            <td>{{ nomsMaladies(patient) }}</td>
             <td class="text-end actions">
               <i class="bi bi-info-circle text-success" title="Détails"
                  (click)="ouvrirDetails(patient)"></i>
@@ -78,7 +81,7 @@
           </tr>
         } @empty {
           @if (!chargement) {
-            <tr><td colspan="6" class="text-center text-muted py-4">Aucun patient trouvé.</td></tr>
+            <tr><td colspan="7" class="text-center text-muted py-4">Aucun patient trouvé.</td></tr>
           }
         }
       </tbody>
@@ -112,8 +115,8 @@
               <label class="label-champ">Sexe</label>
               <select class="form-select champ" [(ngModel)]="formulaire.sexe">
                 <option value="">--</option>
-                <option value="M">M</option>
-                <option value="F">F</option>
+                <option value="M">Masculin</option>
+                <option value="F">Feminin</option>
               </select>
             </div>
             <div class="col-md-4">
@@ -140,6 +143,23 @@
             <div class="col-md-4">
               <label class="label-champ">Localité</label>
               <input class="form-control champ" [(ngModel)]="formulaire.localite">
+            </div>
+
+            <div class="col-12">
+              <label class="label-champ">Maladies</label>
+              <div class="d-flex flex-wrap gap-3">
+                @for (maladie of maladieService.Maladies(); track maladie.idMaladie) {
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                           [id]="'maladie-add-' + maladie.idMaladie"
+                           [checked]="maladieEstCochee(maladie.idMaladie!)"
+                           (change)="toggleMaladie(maladie.idMaladie!, $event)">
+                    <label class="form-check-label" [for]="'maladie-add-' + maladie.idMaladie">
+                      {{ maladie.nom }}
+                    </label>
+                  </div>
+                }
+              </div>
             </div>
           </div>
 
@@ -201,6 +221,10 @@
             <div class="col-md-4">
               <label class="label-champ">Localité</label>
               <div class="form-control champ champ-lecture">{{ patientSelectionne.localite }}</div>
+            </div>
+            <div class="col-md-8">
+              <label class="label-champ">Maladies</label>
+              <div class="form-control champ champ-lecture">{{ nomsMaladies(patientSelectionne) }}</div>
             </div>
           </div>
 
@@ -274,6 +298,23 @@
             <div class="col-md-4">
               <label class="label-champ">Localité</label>
               <input class="form-control champ" [(ngModel)]="formulaire.localite">
+            </div>
+
+            <div class="col-12">
+              <label class="label-champ">Maladies</label>
+              <div class="d-flex flex-wrap gap-3">
+                @for (maladie of maladieService.Maladies(); track maladie.idMaladie) {
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                           [id]="'maladie-edit-' + maladie.idMaladie"
+                           [checked]="maladieEstCochee(maladie.idMaladie!)"
+                           (change)="toggleMaladie(maladie.idMaladie!, $event)">
+                    <label class="form-check-label" [for]="'maladie-edit-' + maladie.idMaladie">
+                      {{ maladie.nom }}
+                    </label>
+                  </div>
+                }
+              </div>
             </div>
           </div>
 
