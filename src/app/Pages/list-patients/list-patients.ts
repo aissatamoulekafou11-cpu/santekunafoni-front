@@ -1,7 +1,8 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Patient, EtatPatient } from '../../Models/patient';
 import { PatientService } from '../../Services/patient';
+import { MaladieService } from '../../Services/maladie.service';
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
 
 @Component({
@@ -12,6 +13,8 @@ import { SidebarComponent } from '../sidebar-component/sidebar-component';
 })
 export class ListPatients implements OnInit {
   private patientService = inject(PatientService);
+  maladieService = inject(MaladieService);
+  private cdr = inject(ChangeDetectorRef);
 
   recherche = '';
   etatsDisponibles: EtatPatient[] = ['Stable', 'Instable', 'Critique', 'Grave'];
@@ -24,9 +27,12 @@ export class ListPatients implements OnInit {
   listePatients = signal<Patient[]>([]);
   chargement = signal(false);
   erreur = signal('');
-
+  // ═══ NOUVEAU : la copie locale + les états d'attente ═══
+                  
   ngOnInit() {
     this.chargerPatients();
+    this.maladieService.getMaladies();
+
   }
 
   chargerPatients() {
@@ -36,6 +42,7 @@ export class ListPatients implements OnInit {
       next: (data) => {
         this.listePatients.set(data);
         this.chargement.set(false);     // ← éteint le spinner, l'écran suit tout seul
+        
       },
       error: (err) => {
         console.error('Erreur API :', err);
@@ -55,7 +62,24 @@ export class ListPatients implements OnInit {
       p.etat.toLowerCase().includes(terme)
     );
   }
+   nomsMaladies(patient: Patient): string {
+    if (!patient.maladies || patient.maladies.length === 0) return '—';
+    return patient.maladies.map(m => m.nom).join(', ');
+  }
 
+  toggleMaladie(idMaladie: number, event: Event) {
+    const coche = (event.target as HTMLInputElement).checked;
+    if (!this.formulaire.idMaladies) this.formulaire.idMaladies = [];
+    if (coche) {
+      this.formulaire.idMaladies.push(idMaladie);
+    } else {
+      this.formulaire.idMaladies = this.formulaire.idMaladies.filter(id => id !== idMaladie);
+    }
+  }
+
+  maladieEstCochee(idMaladie: number): boolean {
+    return this.formulaire.idMaladies?.includes(idMaladie) ?? false;
+  }
   classeEtat(etat: EtatPatient): string {
     switch (etat) {
       case 'Stable':   return 'etat-stable';
@@ -79,7 +103,8 @@ export class ListPatients implements OnInit {
     this.patientSelectionne = patient;
     this.formulaire = {
       ...patient,
-      periode: patient.periode ? patient.periode.substring(0, 16) : ''
+      periode: patient.periode ? patient.periode.substring(0, 16) : '',
+     idMaladies: patient.maladies ? patient.maladies.map(m => m.idMaladie!).filter(id => id !== undefined) : []
     };
     this.modalOuvert = 'modifier';
   }
@@ -117,6 +142,7 @@ export class ListPatients implements OnInit {
       nom: '', prenom: '', tel: '', motpass: '',
       age: null, sexe: '', periode: '',
       etat: 'Stable', localite: 'Bamako'
+     , idMaladies: []
     };
   }
 }

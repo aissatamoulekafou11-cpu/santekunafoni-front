@@ -8,11 +8,19 @@
   box-sizing: border-box;
 }
 
-/* Conteneur principal centré */
-.maladies-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
+/* Zone centrale contenant le contenu de la page */
+.page-content {
+  margin-left: 25px;
+  /* Laisse un espace vide de 250px à gauche pour ne pas chevaucher la Sidebar */
+  padding: 30px;
+  /* Ajoute de l'espace d'aération tout autour du contenu */
+
+
+  /* SOLUTION ANTI-HEADER CACHÉ : 
+     On ajoute une marge interne en haut pour repousser tout le contenu 
+     vers le bas et éviter qu'il ne passe sous votre <app-header> fixe. */
+
+  padding-top: 140px;
 }
 
 .title-maladies {
@@ -34,13 +42,13 @@
   color: #ffffff;
   border: none;
   height: 42px;
-  border-radius: 8px;
+  border-radius: 5px;
   transition: background-color 0.2s ease;
 }
 
 .btn-vert:hover {
-  background-color: #0d2623;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #16423C;
 }
 
 /* Barre de recherche */
@@ -168,3 +176,4 @@ input:focus, textarea:focus {
   box-shadow: none !important;
   border-color: #16423C !important;
 }
+

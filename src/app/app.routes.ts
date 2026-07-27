@@ -8,7 +8,6 @@ import { Connexion } from './Pages/connexion/connexion';
 import { Inscription } from './Pages/inscription/inscription';
 
 /* Dashboards */
-import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { AgentDashboard } from './Pages/agent-dashboard/agent-dashboard';
 import { DashboardPatient } from './Pages/dashboard-patient/dashboard-patient';
 
@@ -16,7 +15,6 @@ import { DashboardPatient } from './Pages/dashboard-patient/dashboard-patient';
 import { ListPatients } from './Pages/list-patients/list-patients';
 import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
 import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
-import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
 
 /* Traitements */
@@ -24,11 +22,24 @@ import { ListeTraitement } from './Pages/traitementListeComponent/traitement-com
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
 
+import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
+import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
+
+
+
 export const routes: Routes = [
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
+
+  { path: 'maladies', component: ListeMaladieComponent },
+  {
+    path: 'liste-traitement', component: ListeTraitement
+  },
+  {
+    path: 'ajouter-tratement', component: AjouterTraitementComponent
+  },
 
   // Dashboards
   { path: 'admin-dashboard', component: AdminDashboard },
@@ -43,6 +54,7 @@ export const routes: Routes = [
   { path: 'symptomes', component: ListSymptomesComponent },
   { path: 'maladies', component: ListeMaladieComponent },
   { path: 'notifications', component: ListNotificationsComponent },
+  { path: 'list-maladies', component: ListeMaladieComponent},
 
   // Traitements
   { path: 'traitements', component: ListeTraitement },

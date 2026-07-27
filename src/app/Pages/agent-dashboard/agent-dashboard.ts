@@ -39,7 +39,7 @@ export class AgentDashboard implements OnInit {
     this.chargerDonneesDashboard();
   }
 
-  // Méthode de redirection pour le bouton "Voir tout"
+  // Méthode de redirection pour le bouton "Voir plus"
   voirPlus(): void {
     this.router.navigate(['/patients']); 
   }
@@ -73,7 +73,7 @@ export class AgentDashboard implements OnInit {
 
         // 3. Gestion des derniers patients (Limité à 5 pour l'affichage)
         if (Array.isArray(res.derniers)) {
-          this.derniersPatients = res.derniers.slice(0, 5);
+          this.derniersPatients = res.derniers.slice(0, 6);
         } else {
           this.derniersPatients = [];
         }
