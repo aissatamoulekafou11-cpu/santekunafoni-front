@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AgentSanteService } from '../../Services/agent-sante';
 import { Header } from '../header/header';
-import { Sidebar } from '../sidebar/sidebar';
 import { FormBuilder, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { AgentSante } from '../../Models/agent-sante.model';
 
 @Component({
   selector: 'app-agent-sante-liste',
-  imports: [Header, CommonModule, Sidebar, ReactiveFormsModule, FormsModule],
+  imports: [Header, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './agent-sante-liste.html',
   styleUrl: './agent-sante-liste.css',
 })
