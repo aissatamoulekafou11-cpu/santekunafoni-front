@@ -34,4 +34,13 @@ export class AuthService {
   sauvegarderSession(user: any): void {
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
+
+  /**
+   * Relit les informations de l'utilisateur connecté depuis le navigateur.
+   * Retourne null si personne n'est connecté.
+   */
+  getUtilisateurConnecte(): any | null {
+    const data = localStorage.getItem('currentUser');
+    return data ? JSON.parse(data) : null;
+  }
 }

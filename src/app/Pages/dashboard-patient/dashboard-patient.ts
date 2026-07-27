@@ -1,6 +1,8 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ElementRef, ViewChild, ChangeDetectorRef, inject } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
+import { AuthService } from '../../Services/auth';
+import { PatientService } from '../../Services/patient';
 
 @Component({
   selector: 'app-dashboard-patient',
@@ -8,14 +10,17 @@ import { SidebarComponent } from '../sidebar-component/sidebar-component';
   templateUrl: './dashboard-patient.html',
   styleUrl: './dashboard-patient.css'
 })
-export class DashboardPatient implements AfterViewInit {
+export class DashboardPatient implements OnInit, AfterViewInit {
+  private authService = inject(AuthService);
+  private patientService = inject(PatientService);
+  private cdr = inject(ChangeDetectorRef);
 
   utilisateur = { prenom: 'Awa', region: 'Bamako' };
   dateDuJour = new Date().toLocaleDateString('fr-FR', {
     weekday: 'long', day: 'numeric', month: 'long'
   });
 
-  nbMaladies = 3;
+  nbMaladies = 0;
   nbSymptomes = 5;
 
   villes = [
@@ -27,6 +32,36 @@ export class DashboardPatient implements AfterViewInit {
   ];
 
   @ViewChild('graphEpidemies') graphEpidemies!: ElementRef<HTMLCanvasElement>;
+
+  ngOnInit() {
+    const user = this.authService.getUtilisateurConnecte();
+    console.log('Utilisateur trouvé dans localStorage :', user);
+
+    if (!user) {
+      console.warn('Aucun utilisateur connecté trouvé dans localStorage.');
+      return;
+    }
+
+    const id = user.idUtilisateur ?? user.id ?? user.idPatient ?? user.patientId;
+
+    if (!id) {
+      console.warn('Aucun ID reconnu dans l\'objet utilisateur :', user);
+      return;
+    }
+
+    this.patientService.getPatientById(id).subscribe({
+      next: (patient) => {
+        console.log('Patient chargé :', patient);
+        this.nbMaladies = patient.maladies?.length ?? 0;
+        this.utilisateur = {
+          prenom: patient.prenom,
+          region: patient.localite
+        };
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Erreur chargement patient connecté :', err)
+    });
+  }
 
   ngAfterViewInit() {
     new Chart(this.graphEpidemies.nativeElement, {
