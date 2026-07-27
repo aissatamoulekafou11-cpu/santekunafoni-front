@@ -9,7 +9,7 @@
   justify-content: space-between;
 }
 
-/* Conteneur principal centré (identique aux autres pages) */
+/* Conteneur principal centré */
 .agents-container {
   position: relative;
   display: flex;
@@ -95,7 +95,7 @@
   align-items: start;
 }
 
-/* Panel Patients */
+/* Panel Patients, Gender & Symptomes */
 .patients-panel,
 .gender-panel,
 .symptomes-panel {
