@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed } from '@angular/core'; // <-- Ajout de computed
+import { Component, OnInit, signal, computed, ChangeDetectorRef, inject } from '@angular/core'; // <-- Ajout de computed
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -31,6 +31,8 @@ export class ListeTraitement implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5; // Modifie cette valeur pour afficher plus/moins d'éléments par page
 
+  private cdr = inject(ChangeDetectorRef);
+
   constructor(
     private serviceTraitement: ServiceTraitement,
     // private router: Router
@@ -46,6 +48,7 @@ export class ListeTraitement implements OnInit {
         const listeData = Array.isArray(donnees) ? donnees : [];
         this.traitements.set(listeData); 
         this.traitementsFiltres = [...listeData];
+        this.cdr.detectChanges();//detection changements
       },
       error: (err) => {
         console.error("Erreur d'appel API :", err);
