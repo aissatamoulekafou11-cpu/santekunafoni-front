@@ -7,13 +7,7 @@ import { AuthService } from '../../Services/auth';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    RouterLink,
-    RouterLinkActive,
-    FontAwesomeModule
-  ],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
 })
