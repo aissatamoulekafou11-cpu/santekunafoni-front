@@ -28,7 +28,6 @@ export class ListeTraitement implements OnInit {
   
   searchTerm: string = '';
 
-  // 🟢 VARIABLES DE PAGINATION
   currentPage: number = 1;
   itemsPerPage: number = 5; // Modifie cette valeur pour afficher plus/moins d'éléments par page
 
@@ -69,23 +68,23 @@ export class ListeTraitement implements OnInit {
     }
   }
 
-  // 🟢 GETTER : Découpe la liste filtrée pour n'afficher que la page courante dans le HTML
+  //  GETTER : Découpe la liste filtrée pour n'afficher que la page courante dans le HTML
   get traitementsPagines(): Traitement[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     return this.traitementsFiltres.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  // 🟢 GETTER : Calcule le nombre total de pages nécessaires
+  // GETTER : Calcule le nombre total de pages nécessaires
   get totalPages(): number {
     return Math.ceil(this.traitementsFiltres.length / this.itemsPerPage) || 1;
   }
 
-  // 🟢 GETTER : Génère le tableau des numéros de pages [1, 2, 3...]
+  //  GETTER : Génère le tableau des numéros de pages [1, 2, 3...]
   get pages(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  // 🟢 METHODES POUR CHANGER DE PAGE
+  //  METHODES POUR CHANGER DE PAGE
   changerPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
