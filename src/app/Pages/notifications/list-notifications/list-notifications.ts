@@ -9,7 +9,9 @@ import {
   faCheck,
   faEnvelope,
   faMagnifyingGlass,
-  faClock
+  faClock,
+  faRotateRight,      // ✅ AJOUTÉ : icône rafraîchir
+  faXmark             // ✅ AJOUTÉ : icône fermer
 } from '@fortawesome/free-solid-svg-icons';
 import { NotificationService } from '../../../Services/notification.service';
 import { Notification, NotificationRequestDto } from '../../../Models/notification.model';
@@ -24,6 +26,7 @@ import { Sidebar } from "../../../Component/sidebar/sidebar";
 })
 export class ListNotificationsComponent implements OnInit {
 
+  // ==================== ICÔNES ====================
   faBell = faBell;
   faTriangleExclamation = faTriangleExclamation;
   faPlus = faPlus;
@@ -31,9 +34,13 @@ export class ListNotificationsComponent implements OnInit {
   faEnvelope = faEnvelope;
   faMagnifyingGlass = faMagnifyingGlass;
   faClock = faClock;
+  faRotateRight = faRotateRight;   // ✅ AJOUTÉ
+  faXmark = faXmark;               // ✅ AJOUTÉ
 
-  private cdr = inject(ChangeDetectorRef)
+  // ==================== INJECTIONS ====================
+  private cdr = inject(ChangeDetectorRef);
 
+  // ==================== DONNÉES ====================
   notifications: Notification[] = [];
   notificationsFiltrees: Notification[] = [];
   notificationsPaginees: Notification[] = [];
@@ -60,12 +67,15 @@ export class ListNotificationsComponent implements OnInit {
   totalPages = 1;
   pages: number[] = [];
 
+  // ==================== CONSTRUCTEUR ====================
   constructor(private notificationService: NotificationService) {}
 
+  // ==================== INIT ====================
   ngOnInit(): void {
     this.chargerNotifications();
   }
 
+  // ==================== CHARGEMENT ====================
   chargerNotifications(): void {
     this.isLoading = true;
     this.notificationService.getAllNotifications().subscribe({
@@ -74,21 +84,23 @@ export class ListNotificationsComponent implements OnInit {
         this.appliquerFiltres();
         this.mettreAJourStatistiques();
         this.isLoading = false;
-        this.cdr.detectChanges()
+        this.cdr.detectChanges();
       },
       error: () => {
         this.errorMessage = 'Impossible de charger les notifications.';
         this.isLoading = false;
-        this.cdr.detectChanges()
+        this.cdr.detectChanges();
       }
     });
   }
 
+  // ==================== STATISTIQUES ====================
   mettreAJourStatistiques(): void {
     this.nombreNonLues = this.notifications.filter(n => !n.lue).length;
     this.nombreAlertes = this.notifications.filter(n => this.estAlerte(n)).length;
   }
 
+  // ==================== FILTRES ====================
   appliquerFiltres(): void {
     this.notificationsFiltrees = this.notifications.filter(n => {
       const correspondTexte = !this.filtreTexte ||
@@ -106,6 +118,7 @@ export class ListNotificationsComponent implements OnInit {
     this.calculerPagination();
   }
 
+  // ==================== PAGINATION ====================
   calculerPagination(): void {
     this.totalPages = Math.ceil(this.notificationsFiltrees.length / this.taillePage);
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
@@ -124,6 +137,7 @@ export class ListNotificationsComponent implements OnInit {
     }
   }
 
+  // ==================== FORMULAIRES ====================
   toggleFormulaire(): void {
     this.showFormulaire = !this.showFormulaire;
     if (this.showFormulaire) this.showVerifEpidemie = false;
@@ -135,6 +149,11 @@ export class ListNotificationsComponent implements OnInit {
     if (this.showVerifEpidemie) this.showFormulaire = false;
   }
 
+  // ==================== ENVOYER UNE NOTIFICATION ====================
+  /**
+   * ✅ CORRECTION : Recharge automatiquement après l'envoi
+   * pour que la nouvelle notification apparaisse immédiatement
+   */
   envoyerNotification(): void {
     if (!this.nouvelleNotification.titre || !this.nouvelleNotification.message) {
       this.errorMessage = 'Le titre et le message sont obligatoires.';
@@ -142,42 +161,46 @@ export class ListNotificationsComponent implements OnInit {
     }
 
     this.isLoading = true;
-    this.notificationService.envoyerNotification(this.nouvelleNotification ).subscribe({
-      next: (nouvelle) => {
-        console.log("##############################",nouvelle)
-        this.notifications.unshift(nouvelle);
-        this.appliquerFiltres();
-        this.mettreAJourStatistiques();
-        this.successMessage = 'Notification envoyee avec succes !';
+    this.notificationService.envoyerNotification(this.nouvelleNotification).subscribe({
+      next: () => {
+        // ✅ Recharger depuis le backend pour avoir les données complètes
+        this.chargerNotifications();
+        
+        this.successMessage = 'Notification envoyée avec succès !';
         this.nouvelleNotification = { titre: '', message: '' };
         this.showFormulaire = false;
         this.isLoading = false;
+        
         setTimeout(() => this.successMessage = '', 4000);
       },
-      error: () => {
-        this.errorMessage = 'Erreur lors de l envoi. Verifiez que le serveur est accessible.';
+      error: (err) => {
+        console.error('Erreur lors de l\'envoi:', err);
+        this.errorMessage = 'Erreur lors de l\'envoi. Vérifiez que le serveur est accessible.';
         this.isLoading = false;
       }
     });
   }
 
+  // ==================== VÉRIFICATION ÉPIDÉMIE ====================
   verifierEpidemie(): void {
     this.isLoading = true;
     this.notificationService.verifierEpidemie(this.idMaladieVerif).subscribe({
       next: (msg: string) => {
-        this.successMessage = msg || 'Verification effectuee. Aucune alerte.';
+        this.successMessage = msg || 'Vérification effectuée. Aucune alerte.';
+        // ✅ Recharger automatiquement après la vérification
         this.chargerNotifications();
         this.showVerifEpidemie = false;
         this.isLoading = false;
         setTimeout(() => this.successMessage = '', 4000);
       },
       error: () => {
-        this.errorMessage = 'Erreur lors de la verification epidemie.';
+        this.errorMessage = 'Erreur lors de la vérification épidémie.';
         this.isLoading = false;
       }
     });
   }
 
+  // ==================== MARQUER COMME LUE ====================
   marquerLue(id: number): void {
     this.notificationService.marquerCommeLue(id).subscribe({
       next: () => {
@@ -189,14 +212,26 @@ export class ListNotificationsComponent implements OnInit {
         }
       },
       error: () => {
-        this.errorMessage = 'Erreur lors de la mise a jour.';
+        this.errorMessage = 'Erreur lors de la mise à jour.';
       }
     });
   }
 
+  // ==================== UTILITAIRES ====================
   estAlerte(notif: Notification): boolean {
     return notif.titre.toLowerCase().includes('alerte') ||
            notif.message.toLowerCase().includes('epidemie') ||
            notif.message.toLowerCase().includes('urgent');
   }
+
+  // ==================== RAFRAÎCHIR MANUEL ====================
+  /**
+   * ✅ AJOUTÉ : Bouton pour rafraîchir manuellement les notifications
+   */
+  rafraichir(): void {
+    this.chargerNotifications();
+    this.successMessage = 'Notifications rafraîchies !';
+    setTimeout(() => this.successMessage = '', 2000);
+  }
+
 }
