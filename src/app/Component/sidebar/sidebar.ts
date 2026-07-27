@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { Component } from '@angular/core';
 // import { RouterLink, RouterLinkActive } from '@angular/router';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -21,10 +22,17 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+=======
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, RouterLink, RouterLinkActive } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+>>>>>>> 7c4e2e98cc406e24ac445f82d22b66b84eb09a4b
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
+<<<<<<< HEAD
   imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
@@ -54,3 +62,17 @@ export class Sidebar implements OnInit {
     return this.role === 'PATIENT';
   }
 }
+=======
+  imports: [
+    CommonModule,
+    RouterModule,
+    RouterLink,
+    RouterLinkActive,
+    FontAwesomeModule
+  ],
+  templateUrl: './sidebar.html',
+  styleUrl: './sidebar.css'
+})
+export class Sidebar {
+}
+>>>>>>> 7c4e2e98cc406e24ac445f82d22b66b84eb09a4b

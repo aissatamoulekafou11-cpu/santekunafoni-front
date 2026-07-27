@@ -151,7 +151,7 @@ export class Inscription implements OnInit {
 
       tel: this.inscriptionForm.value.tel,
 
-      motPass: motpass,
+      motpass: motpass,
 
       localite: this.inscriptionForm.value.localite,
 
@@ -177,6 +177,7 @@ export class Inscription implements OnInit {
 
 
     this.errorMessage = "";
+    console.log("inscriptipn: ", patientDTO)
 
 
     this.authService.inscriptionPatient(patientDTO)

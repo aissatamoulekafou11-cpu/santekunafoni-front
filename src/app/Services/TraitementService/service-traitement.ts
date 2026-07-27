@@ -1,16 +1,15 @@
-import { Injectable, Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Traitement } from '../../Models/traitement.model';
 import { Observable } from 'rxjs';
 import { Maladie } from '../../Models/maladie.model';
-
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceTraitement {
   private apiUrl = 'http://localhost:8080/api/traitements';
   private apiUrl2 = 'http://localhost:8080/api/maladies';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}  
 
   ajouterTraitement(traitement: Traitement): Observable<Traitement> {
     return this.http.post<Traitement>(`${this.apiUrl}/add`, traitement);

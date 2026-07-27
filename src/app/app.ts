@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
-import { Sidebar } from './Component/sidebar/sidebar';
 import { CommonModule } from '@angular/common';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+
+import { Sidebar } from './Component/sidebar/sidebar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Sidebar, CommonModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    Sidebar
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -21,7 +26,11 @@ export class AppComponent {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.showSidebar = !this.pagesWithoutSidebar.includes(event.urlAfterRedirects);
+      // Normalisation du chemin d'accès actuel
+      const currentUrl = event.urlAfterRedirects.split('?')[0].replace(/\/$/, '') || '/';
+      
+      // Affiche la sidebar sur TOUTES les pages sauf les pages publiques
+      this.showSidebar = !this.pagesWithoutSidebar.includes(currentUrl);
     });
   }
 }
