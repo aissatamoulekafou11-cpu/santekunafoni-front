@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthService } from '../../Services/auth';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,5 +17,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
 })
-export class Sidebar {
+// export class Sidebar {
+//   constructor(public authService: AuthService) {}
+// }
+
+export class Sidebar implements OnInit {
+  constructor(public authService: AuthService) {}
+
+  ngOnInit() {
+    console.log("Rôle actuel détecté par la Sidebar :", this.authService.getUserRole());
+  }
 }
