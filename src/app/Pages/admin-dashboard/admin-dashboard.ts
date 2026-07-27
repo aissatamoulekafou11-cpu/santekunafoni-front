@@ -1,6 +1,5 @@
 import { AfterViewInit,ChangeDetectorRef,Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { Sidebar } from '../../Component/sidebar/sidebar';
 import { Header } from '../../Component/header/header';
 import { Chart } from 'chart.js/auto';
 import { DashboardStats } from '../../Models/dashboard-stats.model';
@@ -99,7 +98,7 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
 private initMap(): void {
 
   const maliBounds = L.latLngBounds(
-    [100, -12.5],   // Sud-Ouest du Mali
+    [10, -12.5],   // Sud-Ouest du Mali
     [25.5, 4.5]      // Nord-Est du Mali
   );
 
