@@ -46,18 +46,18 @@ export class Connexion implements OnInit {
         
         // 3. Sauvegarde des infos de l'utilisateur dans le localStorage
         this.authService.sauvegarderSession(reponse);
-        console.log('Utilisateur sauvegardé en session ! ✅');
+        console.log('Utilisateur sauvegardé en session !');
 
         // 4. Redirection intelligente alignée avec les paths de app.routes.ts
-        if (reponse.role === 'ADMIN') {
-          this.router.navigate(['/admin-dashboard']);
+         if (reponse.role === 'ADMIN') {
+          window.location.href = '/admin-dashboard';
         } else if (reponse.role === 'AGENT_SANTE') {
-          this.router.navigate(['/agent-dashboard']);
+          window.location.href = '/agent-dashboard';
         } else {
-          // Correction de 'patient/accueil' vers '/dashboard' (DashboardPatient)
-          this.router.navigate(['/dashboard']);
+          window.location.href = '/dashboard';
         }
       },
+
       error: (err) => {
         console.error('Erreur de connexion détaillée :', err);
         this.errorMessage = "Téléphone ou mot de passe incorrect.";

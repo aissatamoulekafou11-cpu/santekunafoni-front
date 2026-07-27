@@ -35,12 +35,41 @@ export class AuthService {
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
+
+  // ==========================================
+  // AJOUTS POUR GÉRER LES RÔLES ET LA SIDEBAR
+  // ==========================================
+
   /**
-   * Relit les informations de l'utilisateur connecté depuis le navigateur.
-   * Retourne null si personne n'est connecté.
+   * Récupère l'objet utilisateur stocké dans le localStorage
    */
-  getUtilisateurConnecte(): any | null {
-    const data = localStorage.getItem('currentUser');
-    return data ? JSON.parse(data) : null;
+  getUtilisateurConnecte(): any {
+    const userJson = localStorage.getItem('currentUser');
+    return userJson ? JSON.parse(userJson) : null;
   }
+
+  /**
+   * Retourne le rôle de l'utilisateur connecté (ex: 'PATIENT', 'AGENT_SANTE', 'ADMIN')
+   */
+  getUserRole(): string {
+    const user = this.getUtilisateurConnecte();
+    // 'role' correspond au champ renvoyé par votre CustomLoginResponse du back-end
+    return user ? user.role : ''; 
+  }
+
+  /**
+   * Vérifie si l'utilisateur possède l'un des rôles autorisés
+   */
+  hasAnyRole(allowedRoles: string[]): boolean {
+    const currentRole = this.getUserRole();
+    return allowedRoles.includes(currentRole);
+  }
+
+  /**
+   * Déconnexion : supprime les données de session
+   */
+  deconnecter(): void {
+    localStorage.removeItem('currentUser');
+  }
+
 }
