@@ -24,6 +24,8 @@ import { ModifierTraitementComponent } from './Pages/modifier-traitement-compone
 
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
+import { AdminAjouter } from './Pages/admin-dashboard/admin-ajouter/admin-ajouter';
+import { AdminListe } from './Pages/admin-dashboard/admin-liste/admin-liste';
 
 
 
@@ -43,6 +45,8 @@ export const routes: Routes = [
 
   // Dashboards
   { path: 'admin-dashboard', component: AdminDashboard },
+  {path:'admin-ajouter', component:AdminAjouter},
+  {path:'admin-liste', component:AdminListe},
   { path: 'agent-dashboard', component: AgentDashboard },
   { path: 'dashboard', component: DashboardPatient },
 

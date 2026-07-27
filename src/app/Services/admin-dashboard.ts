@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DashboardStats } from '../Models/dashboard-stats.model';
 import { environment } from '../../environment/environment.development';
+import { Administrateur } from '../Models/administrateur.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AdminDashboardService {
 
   // URL de ton endpoint Spring Boot qui fournit les stats
   
-  private apiUrl = `${environment.apiUrl}/administrateurs/dashboard-stats`;
+  private apiUrl = `${environment.apiUrl}/administrateurs`;
 
   constructor(private http: HttpClient) { }
 
@@ -21,5 +22,8 @@ export class AdminDashboardService {
    
     return this.http.get<DashboardStats>(this.apiUrl);
     
+  }
+  ajouterAdmin(admin: Administrateur): Observable<Administrateur> {
+    return this.http.post<Administrateur>(this.apiUrl, admin);
   }
 }
