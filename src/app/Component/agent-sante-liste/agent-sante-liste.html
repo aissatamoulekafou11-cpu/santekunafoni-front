@@ -3,11 +3,20 @@
     
     <div class="agents-container">
       <app-header></app-header>
-      
+      <div class="d-flex justify-content-start align-items-center mb-3 gap-3">
       <!-- Bouton Action -->
       <button class="add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Ajouter un agent
       </button>
+
+      <!-- Champ de recherche en direct -->
+      <input 
+        type="text" 
+        class="form-control w-50" 
+        placeholder="Rechercher un agent..." 
+        [(ngModel)]="searchTerm"
+      />
+      </div>
 
       <!-- Tableau d'affichage -->
       <table class="table table-hover">
@@ -23,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let agent of listAgent; let i = index">
+          <tr *ngFor="let agent of agentsFiltres; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ agent.nom }}</td>
             <td>{{ agent.prenom }}</td>

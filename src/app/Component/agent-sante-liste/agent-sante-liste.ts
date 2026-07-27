@@ -3,19 +3,22 @@ import { AgentSanteService } from '../../Services/agent-sante';
 import { Header } from '../header/header';
 import { CommonModule } from '@angular/common';
 import { Sidebar } from '../sidebar/sidebar';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { AgentSante } from '../../Models/agent-sante.model';
 
 @Component({
   selector: 'app-agent-sante-liste',
-  imports: [Header, CommonModule, Sidebar, ReactiveFormsModule],
+  imports: [Header, CommonModule, Sidebar, ReactiveFormsModule, FormsModule],
   templateUrl: './agent-sante-liste.html',
   styleUrl: './agent-sante-liste.css',
 })
 export class AgentSanteListe {
   listAgent: AgentSante[] = []; // Un tableau vide pour stocker les agents de santé
-  agent!:AgentSante
+  agent!:AgentSante;
   idAgent!: number;
+
+  //La variable qui retient le texte tapé
+  searchTerm: string = '';
   
   // Injection du service AgentSanteService
   private agentService = inject(AgentSanteService);
@@ -55,6 +58,20 @@ export class AgentSanteListe {
     specialite: ['', [Validators.required]],
     centre: ['', [Validators.required]]
   });
+
+  // Fontion de filtrage
+  get agentsFiltres(): AgentSante[] {
+    if (!this.searchTerm.trim()) {
+      return this.listAgent;
+    }
+
+    const recherche = this.searchTerm.toLowerCase();
+    return this.listAgent.filter(agent =>
+      agent.nom.toLowerCase().includes(recherche)||
+      agent.prenom.toLowerCase().includes(recherche)||
+      agent.specialite.toLowerCase().includes(recherche)
+    )
+  }
 
    ajoutAgent() {
     console.log(this.addAgentForm.value);
