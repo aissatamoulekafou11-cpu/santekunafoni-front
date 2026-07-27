@@ -22,16 +22,20 @@ import { ListeTraitement } from './Pages/traitementListeComponent/traitement-com
 import { AjouterTraitementComponent } from './Pages/ajouter-traitement-component/ajouter-traitement-component';
 import { ModifierTraitementComponent } from './Pages/modifier-traitement-component/modifier-traitement-component';
 
+<<<<<<< HEAD
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 
 
 
+=======
+>>>>>>> 565c14614b21c4fc79e4ad5f98af35f2f88128ef
 export const routes: Routes = [
   { path: '', redirectTo: 'accueil', pathMatch: 'full' },
   { path: 'accueil', component: AccueilComponent },
   { path: 'connexion', component: Connexion },
   { path: 'inscription', component: Inscription },
+<<<<<<< HEAD
 
   { path: 'maladies', component: ListeMaladieComponent },
   {
@@ -40,6 +44,8 @@ export const routes: Routes = [
   {
     path: 'ajouter-tratement', component: AjouterTraitementComponent
   },
+=======
+>>>>>>> 565c14614b21c4fc79e4ad5f98af35f2f88128ef
 
   // Dashboards
   { path: 'admin-dashboard', component: AdminDashboard },
@@ -63,5 +69,8 @@ export const routes: Routes = [
   { path: 'modifier-traitement/:id', component: ModifierTraitementComponent },
 
   // Profil et Déconnexion
-  { path: 'deconnexion', component: Connexion }
+  { path: 'deconnexion', component: Connexion },
+   
+    { path: 'maladies', component: ListeMaladieComponent },
+
 ];
