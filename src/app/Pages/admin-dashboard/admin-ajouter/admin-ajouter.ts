@@ -30,6 +30,12 @@ this.administrateurService
  next:(response)=>{
 
    console.log("Administrateur ajouté :", response);
+   const boutonFermer = document.getElementById('fermerModal');
+
+        if(boutonFermer){
+          boutonFermer.click();
+        }
+   
 
  },
 
