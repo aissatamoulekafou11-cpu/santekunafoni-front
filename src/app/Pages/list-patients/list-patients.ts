@@ -2,6 +2,7 @@ import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Patient, EtatPatient } from '../../Models/patient';
 import { PatientService } from '../../Services/patient';
+import { MaladieService } from '../../Services/maladie.service';
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
 
 @Component({
@@ -12,6 +13,7 @@ import { SidebarComponent } from '../sidebar-component/sidebar-component';
 })
 export class ListPatients implements OnInit {
   private patientService = inject(PatientService);
+  maladieService = inject(MaladieService);
   private cdr = inject(ChangeDetectorRef);
 
   recherche = '';
@@ -23,12 +25,14 @@ export class ListPatients implements OnInit {
 
   // ═══ NOUVEAU : la copie locale + les états d'attente ═══
   listePatients: Patient[] = [];   // ce que l'API nous a envoyé
-  chargement = false;              // true pendant qu'on attend la réponse
+  chargement = true;              // true pendant qu'on attend la réponse
   erreur = '';                     // message si l'API est injoignable
 
   /** Au démarrage du composant : premier chargement depuis MySQL */
   ngOnInit() {
     this.chargerPatients();
+    this.maladieService.getMaladies();
+
   }
 
   /** LA méthode centrale : commande la liste et s'abonne à la réponse */
@@ -38,8 +42,9 @@ export class ListPatients implements OnInit {
     this.patientService.getPatients().subscribe({
       next: (data) => {                     // ✅ les données sont arrivées
         this.listePatients = data;
-        this.cdr.detectChanges();
         this.chargement = false;
+        this.cdr.detectChanges();
+        
       },
       error: (err) => {                     // ❌ l'API n'a pas répondu
         console.error('Erreur API :', err);
@@ -60,7 +65,24 @@ export class ListPatients implements OnInit {
       p.etat.toLowerCase().includes(terme)
     );
   }
+   nomsMaladies(patient: Patient): string {
+    if (!patient.maladies || patient.maladies.length === 0) return '—';
+    return patient.maladies.map(m => m.nom).join(', ');
+  }
 
+  toggleMaladie(idMaladie: number, event: Event) {
+    const coche = (event.target as HTMLInputElement).checked;
+    if (!this.formulaire.idMaladies) this.formulaire.idMaladies = [];
+    if (coche) {
+      this.formulaire.idMaladies.push(idMaladie);
+    } else {
+      this.formulaire.idMaladies = this.formulaire.idMaladies.filter(id => id !== idMaladie);
+    }
+  }
+
+  maladieEstCochee(idMaladie: number): boolean {
+    return this.formulaire.idMaladies?.includes(idMaladie) ?? false;
+  }
   classeEtat(etat: EtatPatient): string {
     switch (etat) {
       case 'Stable':   return 'etat-stable';
@@ -84,10 +106,10 @@ export class ListPatients implements OnInit {
 
   ouvrirModification(patient: Patient) {
     this.patientSelectionne = patient;
-    // Copie du patient + periode tronquée au format que l'input datetime-local accepte
     this.formulaire = {
       ...patient,
-      periode: patient.periode ? patient.periode.substring(0, 16) : ''
+      periode: patient.periode ? patient.periode.substring(0, 16) : '',
+     idMaladies: patient.maladies ? patient.maladies.map(m => m.idMaladie!).filter(id => id !== undefined) : []
     };
     this.modalOuvert = 'modifier';
   }
@@ -148,7 +170,7 @@ export class ListPatients implements OnInit {
     return {
       nom: '', prenom: '', tel: '', motpass: '',
       age: null, sexe: '', periode: '',
-      etat: 'Stable', localite: ''
+      etat: 'Stable', localite: '', idMaladies: []
     };
   }
 }
