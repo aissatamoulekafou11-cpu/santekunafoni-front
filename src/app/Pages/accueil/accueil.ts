@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-// Import des modules nécessaires
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { 
   faUserPlus, 
@@ -13,7 +12,6 @@ import {
 @Component({
   selector: 'app-accueil',
   standalone: true,
-  // Ajout du module FontAwesome dans les imports
   imports: [FontAwesomeModule],
   templateUrl: './accueil.html',
   styleUrls: ['./accueil.css']

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, inject,ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AgentSanteService } from '../../Services/agent-sante';
@@ -128,9 +128,9 @@ export class AgentSanteListe {
         next:() =>  {
           console.log("Agent supprimer avec succès")
           // On laisse l'animation Bootstrap se terminer avant de rafraîchir
-          setTimeout(() => {
-            this.toutLesAgents();
-          }, 100);
+          // setTimeout(() => {
+          //   this.toutLesAgents();
+          // }, 100);
 
           this.cdr.detectChanges();
         },

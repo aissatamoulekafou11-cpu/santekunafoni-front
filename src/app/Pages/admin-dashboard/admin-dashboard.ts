@@ -1,6 +1,5 @@
 import { AfterViewInit,ChangeDetectorRef,Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
-import { Sidebar } from '../../Component/sidebar/sidebar';
 import { Header } from '../../Component/header/header';
 import { Chart } from 'chart.js/auto';
 import { DashboardStats } from '../../Models/dashboard-stats.model';
