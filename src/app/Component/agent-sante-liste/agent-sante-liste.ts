@@ -1,26 +1,30 @@
 import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { AgentSanteService } from '../../Services/agent-sante';
 import { Header } from '../header/header';
+import { FormBuilder, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { AgentSante } from '../../Models/agent-sante.model';
 
 @Component({
   selector: 'app-agent-sante-liste',
-  standalone: true,
-  imports: [
-    Header, 
-    CommonModule, 
-    ReactiveFormsModule
-  ],
+  imports: [Header, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './agent-sante-liste.html',
   styleUrl: './agent-sante-liste.css',
 })
-export class AgentSanteListe implements OnInit {
-  listAgent: AgentSante[] = [];
-  agent!: AgentSante;
+export class AgentSanteListe {
+  listAgent: AgentSante[] = []; // Un tableau vide pour stocker les agents de santé
+  agent!:AgentSante;
+  idAgent!: number;
+
+  //La variable qui retient le texte tapé
+  searchTerm: string = '';
+
+  // Les variables de pagination
+    // au chargement de la page, je suis sur la page numéro 1
+  currentPage: number = 1;
+    //Je veux afficher 5 agents par page
+  agentsPerPage: number = 5;
   
   private agentService = inject(AgentSanteService);
   private fb = inject(FormBuilder);
@@ -34,7 +38,11 @@ export class AgentSanteListe implements OnInit {
   toutLesAgents(): void {
     this.agentService.getAllAgents().subscribe({
       next: (data) => {
-        this.listAgent = data;
+        //this.listAgent = data; // On stocke les agents reçus de l'API
+        // L'opérateur [...] crée une copie propre et force Angular à rafraîchir le DOM
+        this.listAgent = [...data];
+        // console.log('Chargement effectué ! ');
+        // console.log(data);
         this.cdr.detectChanges();
       },
       error: (erreur) => {
@@ -53,7 +61,51 @@ export class AgentSanteListe implements OnInit {
     centre: ['', [Validators.required]]
   });
 
-  ajoutAgent(): void {
+  // Fontion de filtrage
+  get agentsFiltres(): AgentSante[] {
+    if (!this.searchTerm.trim()) {
+      return this.listAgent;
+    }
+
+    // Mettre le texte recherché en minuscules
+  const recherche = this.searchTerm.toLowerCase();
+
+  // Filtrer les agents
+  return this.listAgent.filter(agent =>
+    (agent.nom ?? '').toLowerCase().includes(recherche) ||
+    (agent.prenom ?? '').toLowerCase().includes(recherche) ||
+    (agent.specialite ?? '').toLowerCase().includes(recherche)
+  );
+  }
+
+  //Fonctions pour la pagination
+  get agentsPagines(): AgentSante[]{
+    const startIndex = (this.currentPage - 1) * this.agentsPerPage;
+    const endIndex = startIndex + this.agentsPerPage;
+    return this.agentsFiltres.slice(startIndex, endIndex)
+  }
+
+  //Calculer le nombre total de pages
+  get totalPages(): number {
+    return Math.ceil(this.agentsFiltres.length / this.agentsPerPage);
+  }
+
+  nextPage(): void{
+    if (this.currentPage < this.totalPages){
+      this.currentPage++
+    }
+  }
+
+  previousPage(): void{
+    if(this.currentPage > 1){
+      this.currentPage--
+    }
+  }
+
+
+
+   ajoutAgent() {
+    console.log(this.addAgentForm.value);
     this.agent = this.addAgentForm.value as AgentSante;
     this.agentService.addagent(this.agent).subscribe({
       next: (data) => {
@@ -100,16 +152,24 @@ export class AgentSanteListe implements OnInit {
     });
   }
 
-  supprimerAgent(id: number): void {
-    this.agentService.deleteAgent(id).subscribe({
-      next: () => {
-        console.log("Agent supprimé avec succès");
-        this.toutLesAgents();
-        this.cdr.detectChanges();
+  //supprimer un agent de santé
+  preparerSuppression(id: number): void{
+    this.idAgent = id;
+  }
+
+  supprimerAgent(): void{
+    if (this.idAgent) {
+      this.agentService.deleteAgent(this.idAgent).subscribe({
+        next:() =>  {
+          console.log("Agent supprimer avec succès")
+            this.toutLesAgents();
+
+          //this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.log("Erreur lors de la suppression de l'agent", err);
       },
-      error: (err) => {
-        console.error("Erreur lors de la suppression de l'agent", err);
-      }
-    });
+      });
+    }
   }
 }

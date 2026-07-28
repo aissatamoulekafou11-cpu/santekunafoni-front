@@ -3,11 +3,20 @@
     
     <div class="agents-container">
       <app-header></app-header>
-      
+      <div class="d-flex justify-content-start align-items-center mb-3 gap-3">
       <!-- Bouton Action -->
       <button class="add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Ajouter un agent
       </button>
+
+      <!-- Champ de recherche en direct -->
+      <input 
+        type="text" 
+        class="form-control w-50" 
+        placeholder="Rechercher un agent..." 
+        [(ngModel)]="searchTerm"
+      />
+      </div>
 
       <!-- Tableau d'affichage -->
       <table class="table table-hover">
@@ -23,31 +32,84 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let agent of listAgent; let i = index">
-            <td>{{ i + 1 }}</td>
+          <tr *ngFor="let agent of agentsPagines; let i = index">
+            <td>{{ ((currentPage - 1) * agentsPerPage) + i + 1 }}</td>
             <td>{{ agent.nom }}</td>
             <td>{{ agent.prenom }}</td>
             <td>{{ agent.specialite }}</td>
             <td>
               <button
     class="btn edit"
-    (click)="modifierAgent(agent.idUtilisateur)">
+    (click)="agent.idUtilisateur && modifierAgent(agent.idUtilisateur)">
     <i class="bi bi-pencil-fill"></i>
 </button>
             </td>
             <td>
-              <button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="infoAgent(agent.idUtilisateur)">
+              <button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="agent.idUtilisateur && infoAgent(agent.idUtilisateur)">
                 <i class="bi bi-info-circle"></i>
               </button>
             </td>
             <td>
-              <button class="btn del" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="supprimerAgent(agent.idUtilisateur)">
+              <button class="btn del" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="preparerSuppression(agent.idUtilisateur)">
                 <i class="bi bi-trash3"></i>
               </button>
             </td>
           </tr>
+          
         </tbody>
       </table>
+      <nav>
+  <ul class="pagination justify-content-center">
+
+
+    <!-- Bouton précédent -->
+    <li 
+      class="page-item"
+      [class.disabled]="currentPage === 1">
+
+      <button 
+        class="page-link"
+        (click)="previousPage()">
+
+        Précédent
+
+      </button>
+
+    </li>
+
+
+
+    <!-- Information page actuelle -->
+    <li class="page-item disabled">
+
+      <span class="page-link">
+
+        Page {{currentPage}} / {{totalPages}}
+
+      </span>
+
+    </li>
+
+
+
+    <!-- Bouton suivant -->
+    <li 
+      class="page-item"
+      [class.disabled]="currentPage === totalPages">
+
+      <button 
+        class="page-link"
+        (click)="nextPage()">
+
+        Suivant
+
+      </button>
+
+    </li>
+
+
+  </ul>
+</nav>
 
       <!-- ── MODAL : AJOUT D'UN AGENT ───────────────────────────────────── -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -224,7 +286,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Supprimer</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="supprimerAgent()">Supprimer</button>
             </div>
           </div>
         </div>
