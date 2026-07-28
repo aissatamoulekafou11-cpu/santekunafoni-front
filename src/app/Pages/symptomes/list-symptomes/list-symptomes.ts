@@ -10,7 +10,7 @@ type ModalMode = 'none' | 'form' | 'info' | 'delete';
 @Component({
   selector: 'app-list-symptomes',
   standalone: true,
-  imports: [CommonModule, FormsModule, Sidebar],
+  imports: [CommonModule, FormsModule],
   templateUrl: './list-symptomes.html',
   styleUrl: './list-symptomes.css'
 })

@@ -2,9 +2,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
+    right: 20%;
     width: 80%;
-    height: 99px;
+    height: 85px;
     background-color: #ffffff;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
     display: flex;
@@ -14,8 +14,8 @@
     padding: 0 50px;
     border-radius: 5;
     border: 2 solid #E9EFEC;
-    margin-top: 0.3%;
-    margin-left: 20.2%;
+    margin-top: 0%;
+    margin-left: 19.1%;
 }
 
 .navbar{
@@ -25,4 +25,11 @@
         margin-bottom: 0;
     }
     
+}
+.profile-trigger.dropdown-toggle::after {
+  display: none;
+}
+
+.profile-trigger {
+  user-select: none;
 }
