@@ -19,7 +19,12 @@ export class AgentSanteListe {
 
   //La variable qui retient le texte tapé
   searchTerm: string = '';
-[x: string]: any;
+
+  // Les variables de pagination
+    // au chargement de la page, je suis sur la page numéro 1
+  currentPage: number = 1;
+    //Je veux afficher 5 agents par page
+  agentsPerPage: number = 5;
   
   private agentService = inject(AgentSanteService);
   private fb = inject(FormBuilder);
@@ -62,13 +67,42 @@ export class AgentSanteListe {
       return this.listAgent;
     }
 
-    const recherche = this.searchTerm.toLowerCase();
-    return this.listAgent.filter(agent =>
-      agent.nom.toLowerCase().includes(recherche)||
-      agent.prenom.toLowerCase().includes(recherche)||
-      agent.specialite.toLowerCase().includes(recherche)
-    )
+    // Mettre le texte recherché en minuscules
+  const recherche = this.searchTerm.toLowerCase();
+
+  // Filtrer les agents
+  return this.listAgent.filter(agent =>
+    (agent.nom ?? '').toLowerCase().includes(recherche) ||
+    (agent.prenom ?? '').toLowerCase().includes(recherche) ||
+    (agent.specialite ?? '').toLowerCase().includes(recherche)
+  );
   }
+
+  //Fonctions pour la pagination
+  get agentsPagines(): AgentSante[]{
+    const startIndex = (this.currentPage - 1) * this.agentsPerPage;
+    const endIndex = startIndex + this.agentsPerPage;
+    return this.agentsFiltres.slice(startIndex, endIndex)
+  }
+
+  //Calculer le nombre total de pages
+  get totalPages(): number {
+    return Math.ceil(this.agentsFiltres.length / this.agentsPerPage);
+  }
+
+  nextPage(): void{
+    if (this.currentPage < this.totalPages){
+      this.currentPage++
+    }
+  }
+
+  previousPage(): void{
+    if(this.currentPage > 1){
+      this.currentPage--
+    }
+  }
+
+
 
    ajoutAgent() {
     console.log(this.addAgentForm.value);
@@ -128,12 +162,9 @@ export class AgentSanteListe {
       this.agentService.deleteAgent(this.idAgent).subscribe({
         next:() =>  {
           console.log("Agent supprimer avec succès")
-          // On laisse l'animation Bootstrap se terminer avant de rafraîchir
-          setTimeout(() => {
             this.toutLesAgents();
-          }, 100);
 
-          this.cdr.detectChanges();
+          //this.cdr.detectChanges();
         },
         error: (err) => {
           console.log("Erreur lors de la suppression de l'agent", err);
