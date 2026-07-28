@@ -53,4 +53,10 @@ export class NotificationService {
   verifierEpidemie(idMaladie: number): Observable<string> {
     return this.http.post(`${this.apiUrl}/verifier-epidemie/${idMaladie}`, {}, { responseType: 'text' });
   }
+
+    // DELETE /api/notification/{id}
+supprimerNotification(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/${id}`, { responseType: 'text' as 'json' });
+}
+
 }

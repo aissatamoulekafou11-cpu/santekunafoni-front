@@ -67,5 +67,8 @@ export const routes: Routes = [
   { path: 'modifier-traitement/:id', component: ModifierTraitementComponent },
 
   // Profil et Déconnexion
-  { path: 'deconnexion', component: Connexion }
+  { path: 'deconnexion', component: Connexion },
+   
+    { path: 'maladies', component: ListeMaladieComponent },
+
 ];
