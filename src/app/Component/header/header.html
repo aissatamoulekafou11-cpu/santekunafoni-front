@@ -1,6 +1,29 @@
 <nav class="admin-navbar">
+  
+  <div class="navbar dropdown">
+    
+    
     <div class="navbar">
-        <h1 class="name"> Awa </h1>
-        <span class="role"> Administrateur </span>
+        <h1 class="name">{{ userName }}</h1>
+        <span class="role">{{ userRole }}</span>
     </div>
+
+    
+    <ul class="dropdown-menu dropdown-menu-end shadow">
+      <li>
+        <a class="dropdown-item d-flex align-items-center gap-2 " data-bs-toggle="modal" 
+           data-bs-target="#ajouterAdminModal" 
+           style="cursor: pointer;" >
+          <i class="fa-solid fa-user-plus"></i> Ajouter Admin
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/admin-liste">
+          <i class="fa-solid fa-users"></i> Liste Admin
+        </a>
+      </li>
+    </ul>
+
+  </div>
 </nav>
+<app-admin-ajouter></app-admin-ajouter>

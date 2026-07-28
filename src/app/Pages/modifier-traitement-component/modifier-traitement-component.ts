@@ -3,13 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ServiceTraitement } from '../../Services/TraitementService/service-traitement';
-import { SidebarComponent } from "../sidebar-component/sidebar-component";
 import { Traitement } from '../../Models/traitement.model';
 
 @Component({
   selector: 'app-modifier-traitement-component',
   standalone: true,
-  imports: [FormsModule, CommonModule, SidebarComponent],
+  imports: [FormsModule, CommonModule],
   templateUrl: './modifier-traitement-component.html',
   styleUrl: './modifier-traitement-component.css',
 })

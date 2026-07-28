@@ -1,0 +1,60 @@
+
+<div class="modal fade" id="ajouterMaladies" tabindex="-1">
+    <div class=" modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Ajouter une maladie</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+             <div class="modal-body">
+
+        <form [formGroup]="maladieForm" (ngSubmit)="ajouter()">
+
+  <div class="mb-3">
+    <label class="form-label">Nom de la maladie</label>
+    <input
+      type="text"
+      class="form-control"
+      formControlName="nom">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea
+      class="form-control"
+      rows="3"
+      formControlName="description">
+    </textarea>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Date de déclaration</label>
+    <input
+      type="date"
+      class="form-control"
+      formControlName="dateDeclaration">
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-bs-dismiss="modal">
+      Annuler
+    </button>
+
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="maladieForm.invalid">
+      Ajouter
+    </button>
+
+  </div>
+
+</form>
+            </div>
+        </div>
+    </div>
+</div>

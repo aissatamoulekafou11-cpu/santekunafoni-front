@@ -18,13 +18,13 @@
     </a>
 
     <!-- 3. Dashboard Agent (Visible uniquement pour l'AGENT_SANTE) -->
-    <a *ngIf="authService.hasAnyRole(['AGENT_SANTE'])" routerLink="/agent-dashboard" routerLinkActive="active-menu" class="nav-link">
+    <a *ngIf="authService.hasAnyRole(['AGENT_SANTE'])" routerLink="/agent-sante-liste" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-solid fa-user-doctor"></i>
       <span>Dashboard Agent</span>
     </a>
 
-    <!-- 4. Agents de santé (Visible uniquement pour l'ADMIN) -->
-    <a *ngIf="authService.hasAnyRole(['ADMIN'])" routerLink="/agent-sante" routerLinkActive="active-menu" class="nav-link">
+    <!-- 4. Agents de santé (Visible uniquement par l'ADMIN) -->
+    <a *ngIf="authService.hasAnyRole(['ADMIN'])" routerLink="/agent-sante-liste" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-solid fa-user-nurse"></i>
       <span>Agents de santé</span>
     </a>
@@ -60,12 +60,13 @@
     </a>
 
     <!-- 10. Profil (Visible par tout le monde) -->
-    <a *ngIf="authService.hasAnyRole(['PATIENT', 'AGENT_SANTE', 'ADMIN'])" routerLink="/profil" routerLinkActive="active-menu" class="nav-link">
+    <!-- <a *ngIf="authService.hasAnyRole(['PATIENT', 'AGENT_SANTE', 'ADMIN'])" routerLink="/profil" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-solid fa-user-gear"></i>
       <span>Profil</span>
-    </a>
+    </a> -->
 
     <!-- ── DÉCONNEXION ───────────────────────── -->
+
     <div class="logout-container">
       <a routerLink="/connexion" routerLinkActive="active-menu" class="nav-link">
         <i class="fa-solid fa-right-from-bracket"></i>
