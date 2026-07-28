@@ -40,12 +40,12 @@
             <td>
               <button
     class="btn edit"
-    (click)="modifierAgent(agent.idUtilisateur)">
+    (click)="agent.idUtilisateur && modifierAgent(agent.idUtilisateur)">
     <i class="bi bi-pencil-fill"></i>
 </button>
             </td>
             <td>
-              <button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="infoAgent(agent.idUtilisateur)">
+              <button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="agent.idUtilisateur && infoAgent(agent.idUtilisateur)">
                 <i class="bi bi-info-circle"></i>
               </button>
             </td>

@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ListeTraitement } from './traitement-component'; // Assurez-vous du bon chemin
 
-describe('ListeTraitement', () => {
-  let component: ListeTraitement;
-  let fixture: ComponentFixture<ListeTraitement>;
+import { AdminListe } from './admin-liste';
+
+describe('AdminListe', () => {
+  let component: AdminListe;
+  let fixture: ComponentFixture<AdminListe>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ListeTraitement],
+      imports: [AdminListe],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ListeTraitement);
+    fixture = TestBed.createComponent(AdminListe);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
