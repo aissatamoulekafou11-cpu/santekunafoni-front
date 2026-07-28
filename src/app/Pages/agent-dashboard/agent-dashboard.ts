@@ -10,9 +10,7 @@ import { forkJoin } from 'rxjs';
   selector: 'app-agent-dashboard',
   standalone: true,
   imports: [
-    CommonModule, 
-    Header //  Ajouté pour résoudre l'erreur NG8001 (<app-header>)
-  ],
+    CommonModule  ],
   templateUrl: './agent-dashboard.html',
   styleUrl: './agent-dashboard.css'
 })
@@ -39,7 +37,7 @@ export class AgentDashboard implements OnInit {
     this.chargerDonneesDashboard();
   }
 
-  // Méthode de redirection pour le bouton "Voir tout"
+  // Méthode de redirection pour le bouton "Voir plus"
   voirPlus(): void {
     this.router.navigate(['/patients']); 
   }
@@ -73,7 +71,7 @@ export class AgentDashboard implements OnInit {
 
         // 3. Gestion des derniers patients (Limité à 5 pour l'affichage)
         if (Array.isArray(res.derniers)) {
-          this.derniersPatients = res.derniers.slice(0, 5);
+          this.derniersPatients = res.derniers.slice(0, 6);
         } else {
           this.derniersPatients = [];
         }

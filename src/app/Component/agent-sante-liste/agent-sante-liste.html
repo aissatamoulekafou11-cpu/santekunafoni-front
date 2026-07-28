@@ -3,11 +3,20 @@
     
     <div class="agents-container">
       <app-header></app-header>
-      
+      <div class="d-flex justify-content-start align-items-center mb-3 gap-3">
       <!-- Bouton Action -->
       <button class="add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Ajouter un agent
       </button>
+
+      <!-- Champ de recherche en direct -->
+      <input 
+        type="text" 
+        class="form-control w-50" 
+        placeholder="Rechercher un agent..." 
+        [(ngModel)]="searchTerm"
+      />
+      </div>
 
       <!-- Tableau d'affichage -->
       <table class="table table-hover">
@@ -23,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let agent of listAgent; let i = index">
+          <tr *ngFor="let agent of agentsFiltres; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ agent.nom }}</td>
             <td>{{ agent.prenom }}</td>
@@ -31,17 +40,17 @@
             <td>
               <button
     class="btn edit"
-    (click)="modifierAgent(agent.idUtilisateur)">
+    (click)="agent.idUtilisateur && modifierAgent(agent.idUtilisateur)">
     <i class="bi bi-pencil-fill"></i>
 </button>
             </td>
             <td>
-              <button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="infoAgent(agent.idUtilisateur)">
+              <button class="btn info" data-bs-toggle="modal" data-bs-target="#infoModal" (click)="agent.idUtilisateur && infoAgent(agent.idUtilisateur)">
                 <i class="bi bi-info-circle"></i>
               </button>
             </td>
             <td>
-              <button class="btn del" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="supprimerAgent(agent.idUtilisateur)">
+              <button class="btn del" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="agent.idUtilisateur &&(agent.idUtilisateur)">
                 <i class="bi bi-trash3"></i>
               </button>
             </td>
@@ -71,8 +80,8 @@
                 </div>
                 <div class="row p-2">
                   <div class="col">
-                    <label for="telephone">Téléphone</label>
-                    <input type="tel" id="telephone" class="form-control" formControlName="telephone">
+                    <label for="tel">Téléphone</label>
+                    <input type="tel" id="tel" class="form-control" formControlName="tel">
                   </div>
                   <div class="col">
                     <label for="email">Email</label>
@@ -81,8 +90,8 @@
                 </div>
                 <div class="row g-3 p-2">
                   <div class="col-sm-4">
-                    <label for="password">Mot de passe</label>
-                    <input type="password" id="password" class="form-control" formControlName="password">
+                    <label for="motpass">Mot de passe</label>
+                    <input type="motpass" id="motpass" class="form-control" formControlName="motpass">
                   </div>
                   <div class="col-sm-4">
                     <label for="specialite">Spécialité</label>
@@ -125,8 +134,8 @@
                 </div>
                 <div class="row p-2">
                   <div class="col">
-                    <label for="telephoneModif">Téléphone</label>
-                    <input type="tel" id="telephoneModif" class="form-control" formControlName="telephone">
+                    <label for="telModif">Téléphone</label>
+                    <input type="tel" id="telModif" class="form-control" formControlName="tel">
                   </div>
                   <div class="col">
                     <label for="emailModif">Email</label>
@@ -135,8 +144,8 @@
                 </div>
                 <div class="row g-3 p-2">
                   <div class="col-sm-4">
-                    <label for="passwordModif">Mot de passe</label>
-                    <input type="password" id="passwordModif" class="form-control" formControlName="password">
+                    <label for="motpassModif">Mot de passe</label>
+                    <input type="password" id="motpassModif" class="form-control" formControlName="motpass">
                   </div>
                   <div class="col-sm-4">
                     <label for="specialiteModif">Spécialité</label>
@@ -179,8 +188,8 @@
                 </div>
                 <div class="row p-2">
                   <div class="col">
-                    <label for="telephoneInfo">Téléphone</label>
-                    <input type="tel" id="telephoneInfo" class="form-control" formControlName="telephone" readonly>
+                    <label for="telInfo">Téléphone</label>
+                    <input type="tel" id="telInfo" class="form-control" formControlName="tel" readonly>
                   </div>
                   <div class="col">
                     <label for="emailInfo">Email</label>
@@ -189,8 +198,8 @@
                 </div>
                 <div class="row g-3 p-2">
                   <div class="col-sm-4">
-                    <label for="passwordInfo">Mot de passe</label>
-                    <input type="password" id="passwordInfo" class="form-control" formControlName="password" readonly>
+                    <label for="motpassInfo">Mot de passe</label>
+                    <input type="motpass" id="motpassInfo" class="form-control" formControlName="motpass" readonly>
                   </div>
                   <div class="col-sm-4">
                     <label for="specialiteInfo">Spécialité</label>

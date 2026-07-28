@@ -20,7 +20,7 @@ export class AppComponent {
   title = 'santekunafoni-front';
   showSidebar = false;
 
-  pagesWithoutSidebar = ['/accueil', '/connexion', '/inscription', '/'];
+  pagesWithoutSidebar = ['/accueil', '/connexion', '/inscription', '/','/admin-liste'];
 
   constructor(private router: Router) {
     this.router.events.pipe(
