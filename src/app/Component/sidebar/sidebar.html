@@ -18,13 +18,13 @@
     </a>
 
     <!-- 3. Dashboard Agent (Visible uniquement pour l'AGENT_SANTE) -->
-    <a *ngIf="authService.hasAnyRole(['AGENT_SANTE'])" routerLink="/agent-dashboard" routerLinkActive="active-menu" class="nav-link">
+    <a *ngIf="authService.hasAnyRole(['AGENT_SANTE'])" routerLink="/agent-sante-liste" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-solid fa-user-doctor"></i>
       <span>Dashboard Agent</span>
     </a>
 
-    <!-- 4. Agents de santé (Visible uniquement pour l'ADMIN) -->
-    <a *ngIf="authService.hasAnyRole(['ADMIN'])" routerLink="/agent-sante" routerLinkActive="active-menu" class="nav-link">
+    <!-- 4. Agents de santé (Visible uniquement par l'ADMIN) -->
+    <a *ngIf="authService.hasAnyRole(['ADMIN'])" routerLink="/agent-sante-liste" routerLinkActive="active-menu" class="nav-link">
       <i class="fa-solid fa-user-nurse"></i>
       <span>Agents de santé</span>
     </a>

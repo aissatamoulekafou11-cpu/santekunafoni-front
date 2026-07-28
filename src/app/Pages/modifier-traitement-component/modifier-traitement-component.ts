@@ -9,7 +9,7 @@ import { Traitement } from '../../Models/traitement.model';
 @Component({
   selector: 'app-modifier-traitement-component',
   standalone: true,
-  imports: [FormsModule, CommonModule, SidebarComponent],
+  imports: [FormsModule, CommonModule],
   templateUrl: './modifier-traitement-component.html',
   styleUrl: './modifier-traitement-component.css',
 })
