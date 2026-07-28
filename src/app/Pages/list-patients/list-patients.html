@@ -161,15 +161,7 @@
                         {{ maladie.nom }}
                       </label>
                     </div>
-                    @if (maladieEstCochee(maladie.idMaladie!)) {
-                      <select class="form-select form-select-sm mt-1"
-                              (change)="choisirTraitement(maladie.idMaladie!, $event)">
-                        <option value="">-- Choisir un traitement --</option>
-                        @for (t of traitementsDisponiblesPourMaladie(maladie.idMaladie!); track t.idTraitement) {
-                          <option [value]="t.idTraitement">{{ t.nomTraitement }}</option>
-                        }
-                      </select>
-                    }
+                   
                   </div>
                 }
               </div>
