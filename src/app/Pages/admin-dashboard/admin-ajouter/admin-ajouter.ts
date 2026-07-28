@@ -13,6 +13,7 @@ export class AdminAjouter {
   nom: '',
   prenom: '',
   email: '',
+  tel:'',
   motpass:''
 };
 
