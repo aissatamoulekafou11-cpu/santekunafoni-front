@@ -42,7 +42,7 @@
 
   @if (erreur()) {
     <div class="alert alert-danger d-flex justify-content-between align-items-center">
-      {{ erreur }}
+      {{ erreur ()}}
       <button class="btn btn-sm btn-outline-danger" (click)="chargerPatients()">Réessayer</button>
     </div>
   }
@@ -58,6 +58,7 @@
           <th>Localité</th>
           <th>État</th>
           <th>Maladies</th>
+          <th>Traitements</th>
           <th></th>
         </tr>
       </thead>
@@ -70,6 +71,7 @@
             <td>{{ patient.localite }}</td>
             <td><span [class]="classeEtat(patient.etat)">{{ patient.etat }}</span></td>
             <td>{{ nomsMaladies(patient) }}</td>
+            <td>{{ nomsTraitements(patient) }}</td>
             <td class="text-end actions">
               <i class="bi bi-info-circle text-success" title="Détails"
                  (click)="ouvrirDetails(patient)"></i>
@@ -81,7 +83,7 @@
           </tr>
         } @empty {
           @if (!chargement) {
-            <tr><td colspan="7" class="text-center text-muted py-4">Aucun patient trouvé.</td></tr>
+            <tr><td colspan="8" class="text-center text-muted py-4">Aucun patient trouvé.</td></tr>
           }
         }
       </tbody>
@@ -146,17 +148,28 @@
             </div>
 
             <div class="col-12">
-              <label class="label-champ">Maladies</label>
-              <div class="d-flex flex-wrap gap-3">
+              <label class="label-champ">Maladies et traitements</label>
+              <div class="d-flex flex-column gap-2">
                 @for (maladie of maladieService.Maladies(); track maladie.idMaladie) {
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox"
-                           [id]="'maladie-add-' + maladie.idMaladie"
-                           [checked]="maladieEstCochee(maladie.idMaladie!)"
-                           (change)="toggleMaladie(maladie.idMaladie!, $event)">
-                    <label class="form-check-label" [for]="'maladie-add-' + maladie.idMaladie">
-                      {{ maladie.nom }}
-                    </label>
+                  <div class="border rounded p-2">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox"
+                             [id]="'maladie-add-' + maladie.idMaladie"
+                             [checked]="maladieEstCochee(maladie.idMaladie!)"
+                             (change)="toggleMaladie(maladie.idMaladie!, $event)">
+                      <label class="form-check-label fw-semibold" [for]="'maladie-add-' + maladie.idMaladie">
+                        {{ maladie.nom }}
+                      </label>
+                    </div>
+                    @if (maladieEstCochee(maladie.idMaladie!)) {
+                      <select class="form-select form-select-sm mt-1"
+                              (change)="choisirTraitement(maladie.idMaladie!, $event)">
+                        <option value="">-- Choisir un traitement --</option>
+                        @for (t of traitementsDisponiblesPourMaladie(maladie.idMaladie!); track t.idTraitement) {
+                          <option [value]="t.idTraitement">{{ t.nomTraitement }}</option>
+                        }
+                      </select>
+                    }
                   </div>
                 }
               </div>

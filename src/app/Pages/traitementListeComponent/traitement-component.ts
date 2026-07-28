@@ -44,13 +44,13 @@ export class ListeTraitement implements OnInit {
 
   loadTraitement() {
     this.serviceTraitement.getAllTraitement().subscribe({
-      next: (donnees) => {
+      next: (donnees: Traitement[]) => {
         const listeData = Array.isArray(donnees) ? donnees : [];
         this.traitements.set(listeData); 
         this.traitementsFiltres = [...listeData];
         this.cdr.detectChanges();//detection changements
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error("Erreur d'appel API :", err);
       }
     });

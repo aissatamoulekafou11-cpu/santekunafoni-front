@@ -3,6 +3,7 @@ import Chart from 'chart.js/auto';
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
 import { AuthService } from '../../Services/auth';
 import { PatientService } from '../../Services/patient';
+import { ServiceTraitement } from '../../Services/TraitementService/service-traitement';
 
 @Component({
   selector: 'app-dashboard-patient',
@@ -13,6 +14,7 @@ import { PatientService } from '../../Services/patient';
 export class DashboardPatient implements OnInit, AfterViewInit {
   private authService = inject(AuthService);
   private patientService = inject(PatientService);
+  private traitementService = inject(ServiceTraitement);
   private cdr = inject(ChangeDetectorRef);
 
   utilisateur = { prenom: 'Awa', region: 'Bamako' };
@@ -21,7 +23,7 @@ export class DashboardPatient implements OnInit, AfterViewInit {
   });
 
   nbMaladies = 0;
-  nbSymptomes = 5;
+  nbTraitements = 0;
 
   villes = [
     { nom: 'Bamako',   x: 38, y: 68, couleur: '#E8862D', taille: 14 },
@@ -49,7 +51,7 @@ export class DashboardPatient implements OnInit, AfterViewInit {
       return;
     }
 
-    this.patientService.getPatientById(id).subscribe({
+   this.patientService.getPatientById(id).subscribe({
       next: (patient) => {
         console.log('Patient chargé :', patient);
         this.nbMaladies = patient.maladies?.length ?? 0;
@@ -58,6 +60,16 @@ export class DashboardPatient implements OnInit, AfterViewInit {
           region: patient.localite
         };
         this.cdr.detectChanges();
+
+        this.traitementService.getAllTraitementsAvecRelations().subscribe({
+          next: (traitements) => {
+            this.nbTraitements = traitements.filter(
+              t => t.patient?.idUtilisateur === id
+            ).length;
+            this.cdr.detectChanges();
+          },
+          error: (err) => console.error('Erreur chargement traitements :', err)
+        });
       },
       error: (err) => console.error('Erreur chargement patient connecté :', err)
     });
