@@ -33,7 +33,7 @@ input[type="search"] {
     justify-content: center;
     width: 150px;
     height: 38px;
-    background-color: #2273EE;
+    background-color: #16423C;
     border-radius: 5px;
     color: #ffffff;
     text-decoration: none;
@@ -42,8 +42,9 @@ input[type="search"] {
 }
 
 .b-ajout:hover {
-    background-color: #1a5ec7;
-    color: #ffffff;
+    color: #16423C;
+    background-color: #ffffff;
+    border: 1px black solid;
 }
 
 .tableau {
