@@ -4,14 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Traitement } from '../../Models/traitement.model';
 import { ServiceTraitement } from '../../Services/TraitementService/service-traitement';
-import { SidebarComponent } from '../sidebar-component/sidebar-component';
 
 @Component({
   selector: 'app-traitement',
   standalone: true,
   imports: [
     RouterLink, 
-    SidebarComponent, 
     CommonModule,
     FormsModule
   ],
