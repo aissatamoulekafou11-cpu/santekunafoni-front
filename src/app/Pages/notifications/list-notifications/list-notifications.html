@@ -156,7 +156,8 @@
          }">
       <div class="card-body p-4">
         <div class="d-flex justify-content-between align-items-start">
-          <div>
+          <!-- ── CONTENU GAUCHE ── -->
+          <div class="flex-grow-1">
             <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
               <span *ngIf="estAlerte(notif)" class="badge bg-danger rounded-pill text-white">
                 <fa-icon [icon]="faTriangleExclamation"></fa-icon> Alerte épidémie
@@ -184,11 +185,23 @@
             </small>
           </div>
 
-          <button *ngIf="!notif.lue"
-                  class="btn btn-sm btn-outline-success rounded-pill px-3 py-1 align-self-start"
-                  (click)="marquerLue(notif.id!)">
-            <fa-icon [icon]="faCheck"></fa-icon> Marquer lue
-          </button>
+          <!-- ── ACTIONS (BOUTONS) ── -->
+          <div class="d-flex flex-column align-items-end gap-2 ms-3">
+            <!-- Bouton Marquer comme lue -->
+            <button *ngIf="!notif.lue"
+                    class="btn btn-sm btn-outline-success rounded-pill px-3 py-1"
+                    (click)="marquerLue(notif.id!)"
+                    title="Marquer comme lue">
+              <fa-icon [icon]="faCheck"></fa-icon> Marquer lue
+            </button>
+
+            <!-- Bouton Supprimer -->
+            <button class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1"
+                    (click)="supprimerNotification(notif.id!, notif.titre)"
+                    title="Supprimer">
+              <fa-icon [icon]="faXmark"></fa-icon> Supprimer
+            </button>
+          </div>
         </div>
       </div>
     </div>

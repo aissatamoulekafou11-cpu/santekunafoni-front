@@ -2,52 +2,61 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Notification, NotificationRequestDto } from '../Models/notification.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  // Correspond exactement à @RequestMapping("/api/notification")
-  private apiUrl = 'http://localhost:8080/api/notification';
+  // Correspond exactement à @RequestMapping("/api/notification") dans Spring Boot
+  private apiUrl = `${environment.apiUrl}/notification`;
 
   constructor(private http: HttpClient) {}
 
-  // GET /api/notification
+  /**
+   * Récupérer toutes les notifications
+   * GET /api/notification
+   */
   getAllNotifications(): Observable<Notification[]> {
     return this.http.get<Notification[]>(this.apiUrl);
   }
 
-  // GET /api/notification/utilisateur/{userId}
+  /**
+   * Récupérer les notifications associées à un utilisateur spécifique
+   * GET /api/notification/utilisateur/{userId}
+   */
   getByUtilisateur(userId: number): Observable<Notification[]> {
-    return this.http.get<Notification[]>(
-      `${this.apiUrl}/utilisateur/${userId}`
-    );
+    return this.http.get<Notification[]>(`${this.apiUrl}/utilisateur/${userId}`);
   }
 
-  // POST /api/notification
-  // Notification ordinaire — envoyée manuellement
+  /**
+   * Envoyer une notification manuellement
+   * POST /api/notification
+   */
   envoyerNotification(notification: NotificationRequestDto): Observable<Notification> {
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$",notification)
     return this.http.post<Notification>(this.apiUrl, notification);
   }
 
-  // PUT /api/notification/{id}/lue
+  /**
+   * Marquer une notification comme lue
+   * PUT /api/notification/{id}/lue
+   */
   marquerCommeLue(id: number): Observable<string> {
-    return this.http.put(
-      `${this.apiUrl}/${id}/lue`,
-      {},
-      { responseType: 'text' }
-    );
+    return this.http.put(`${this.apiUrl}/${id}/lue`, {}, { responseType: 'text' });
   }
 
-  // POST /api/notification/verifier-epidemie/{idMaladie}
-  // Notification automatique — créée par Spring Boot si seuil dépassé
+  /**
+   * Vérifier le seuil épidémique et créer une notification automatique
+   * POST /api/notification/verifier-epidemie/{idMaladie}
+   */
   verifierEpidemie(idMaladie: number): Observable<string> {
-    return this.http.post(
-      `${this.apiUrl}/verifier-epidemie/${idMaladie}`,
-      {},
-      { responseType: 'text' }
-    );
+    return this.http.post(`${this.apiUrl}/verifier-epidemie/${idMaladie}`, {}, { responseType: 'text' });
   }
+
+    // DELETE /api/notification/{id}
+supprimerNotification(id: number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/${id}`, { responseType: 'text' as 'json' });
+}
+
 }
