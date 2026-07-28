@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+imports: [FormsModule, SidebarComponent];
 import { Patient, EtatPatient } from '../../Models/patient';
 import { PatientService } from '../../Services/patient';
 import { MaladieService } from '../../Services/maladie.service';
@@ -10,7 +11,7 @@ import { AuthService } from '../../Services/auth';
 
 @Component({
   selector: 'app-list-patients',
-  imports: [FormsModule, SidebarComponent],
+  imports: [FormsModule],
   templateUrl: './list-patients.html',
   styleUrl: './list-patients.css'
 })

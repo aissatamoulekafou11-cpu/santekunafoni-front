@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { AdminDashboard } from '../Pages/admin-dashboard/admin-dashboard';
 
+import { Administrateur } from './administrateur';
 
-describe('AdminDashboard', () => {
-  let service: AdminDashboard;
+describe('Administrateur', () => {
+  let service: Administrateur;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AdminDashboard);
+    service = TestBed.inject(Administrateur);
   });
 
   it('should be created', () => {

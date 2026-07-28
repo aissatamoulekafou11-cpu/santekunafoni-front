@@ -10,9 +10,7 @@ import { forkJoin } from 'rxjs';
   selector: 'app-agent-dashboard',
   standalone: true,
   imports: [
-    CommonModule, 
-    Header //  Ajouté pour résoudre l'erreur NG8001 (<app-header>)
-  ],
+    CommonModule  ],
   templateUrl: './agent-dashboard.html',
   styleUrl: './agent-dashboard.css'
 })
