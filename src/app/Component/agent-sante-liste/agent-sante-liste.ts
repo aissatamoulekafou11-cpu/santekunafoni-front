@@ -19,6 +19,7 @@ export class AgentSanteListe {
 
   //La variable qui retient le texte tapé
   searchTerm: string = '';
+[x: string]: any;
   
   private agentService = inject(AgentSanteService);
   private fb = inject(FormBuilder);

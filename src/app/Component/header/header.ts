@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { AdminAjouter } from '../../Pages/admin-dashboard/admin-ajouter/admin-ajouter';
 import { AuthService } from '../../Services/auth';
 
 @Component({
   selector: 'app-header',
     standalone: true,
-  imports: [],
+  imports: [RouterLink, AdminAjouter],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

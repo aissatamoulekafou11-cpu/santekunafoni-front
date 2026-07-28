@@ -26,3 +26,10 @@
     }
     
 }
+.profile-trigger.dropdown-toggle::after {
+  display: none;
+}
+
+.profile-trigger {
+  user-select: none;
+}
