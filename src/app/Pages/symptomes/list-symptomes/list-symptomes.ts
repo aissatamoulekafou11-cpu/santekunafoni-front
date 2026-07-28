@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Symptome } from '../../../Models/symptome.model';
 import { SymptomeService } from '../../../Services/symptome.service';
-import { Sidebar } from "../../../Component/sidebar/sidebar";
 
 type ModalMode = 'none' | 'form' | 'info' | 'delete';
 

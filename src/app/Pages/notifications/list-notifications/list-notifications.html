@@ -18,13 +18,17 @@
     </div>
 
     <div class="d-flex gap-2">
-      <button class="btn text-white rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2"
+      <!-- AJOUT : Masquer le bouton "Nouvelle notification" pour les patients -->
+      <button *ngIf="!estPatient" 
+              class="btn text-white rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2"
               style="background-color: #2F80ED; border: none; height: 45px;"
               (click)="toggleFormulaire()">
         <fa-icon [icon]="faPlus"></fa-icon> Nouvelle notification
       </button>
 
-      <button class="btn btn-warning text-dark rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2"
+      <!-- AJOUT : Masquer le bouton "Vérifier épidémie" pour les patients -->
+      <button *ngIf="!estPatient" 
+              class="btn btn-warning text-dark rounded-pill px-4 fw-bold shadow-sm d-flex align-items-center gap-2"
               style="border: none; height: 45px;"
               (click)="toggleVerifEpidemie()">
         <fa-icon [icon]="faTriangleExclamation"></fa-icon> Vérifier épidémie
@@ -169,7 +173,7 @@
               </span>
               <span class="badge rounded-pill text-dark"
                     [ngClass]="notif.lue ? 'bg-secondary bg-opacity-25' : 'bg-success bg-opacity-25 text-success'">
-                {{ notif.lue ? '✔ Lue' : '● Non lue' }}
+                {{ notif.lue ? '✔ Lue' : 'Non lue' }}
               </span>
             </div>
 
