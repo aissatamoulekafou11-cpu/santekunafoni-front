@@ -23,7 +23,7 @@
             </thead>
 
             <tbody>
-                <!-- 🟢 On utilise la liste découpée pour la pagination -->
+                <!-- On utilise la liste découpée pour la pagination -->
                 @for (t of traitementsPagines; track t.idTraitement) {
                     <tr>
                         <td>{{ t.idTraitement }}</td>
@@ -60,7 +60,7 @@
                     <a href="javascript:void(0)" class="page-link" (click)="pagePrecedente()">Précédent</a>
                 </li>
 
-                <!-- 🟢 Génération automatique de TES puces de page -->
+                <!--  Génération automatique de TES puces de page -->
                 @for (p of pages; track p) {
                     <li class="page-item" [class.active]="currentPage === p">
                         <a href="javascript:void(0)" class="page-link" (click)="changerPage(p)">{{ p }}</a>

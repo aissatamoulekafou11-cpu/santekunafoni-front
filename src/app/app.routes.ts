@@ -69,6 +69,8 @@ export const routes: Routes = [
   // Profil et Déconnexion
   { path: 'deconnexion', component: Connexion },
    
-    { path: 'maladies', component: ListeMaladieComponent },
+  { path: 'maladies', component: ListeMaladieComponent },
+  { path: 'agent-sante-liste', component: AgentSanteListe },
+
 
 ];
