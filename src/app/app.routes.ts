@@ -16,6 +16,8 @@ import { ListPatients } from './Pages/list-patients/list-patients';
 import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
 import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
 import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
+import { Modifieragent } from './Pages/admin/modifieragent/modifieragent';
+
 
 /* Traitements */
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
@@ -24,7 +26,8 @@ import { ModifierTraitementComponent } from './Pages/modifier-traitement-compone
 
 import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
-
+import { AdminAjouter } from './Pages/admin-dashboard/admin-ajouter/admin-ajouter';
+import { AdminListe } from './Pages/admin-dashboard/admin-liste/admin-liste';
 
 
 export const routes: Routes = [
@@ -43,12 +46,15 @@ export const routes: Routes = [
 
   // Dashboards
   { path: 'admin-dashboard', component: AdminDashboard },
+  {path:'admin-ajouter', component:AdminAjouter},
+  {path:'admin-liste', component:AdminListe},
   { path: 'agent-dashboard', component: AgentDashboard },
   { path: 'dashboard', component: DashboardPatient },
 
   // Patient & Agent
   { path: 'patients', component: ListPatients },
   { path: 'agents', component: AgentSanteListe },
+  { path: 'modifieragent/:id', component: Modifieragent },
 
   // Santé & Diagnostic
   { path: 'symptomes', component: ListSymptomesComponent },
@@ -65,6 +71,8 @@ export const routes: Routes = [
   // Profil et Déconnexion
   { path: 'deconnexion', component: Connexion },
    
-    { path: 'maladies', component: ListeMaladieComponent },
+  { path: 'maladies', component: ListeMaladieComponent },
+  { path: 'agent-sante-liste', component: AgentSanteListe },
+
 
 ];
