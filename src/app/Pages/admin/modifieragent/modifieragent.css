@@ -1,76 +1,104 @@
-.page-container{
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 
-    margin-left:260px;
-    margin-top:110px;
+    /* Occupe tout l'espace restant sous le header */
+    height: calc(100vh - 85px);
 
-    padding:30px;
+    /* Le contenu commence sous le header */
+    margin-top: 85px;
 
-    background:#E9EFEC;
+    /* Scroll uniquement dans cette page */
+    overflow-y: auto;
 
-    min-height:100vh;
+    padding: 40px;
 
+    background: #E9EFEC;
 }
 
-.form-container{
+.form-container {
+    width: 100%;
+    max-width: 850px;
 
-    background:white;
+    background: #ffffff;
 
-    padding:35px;
+    padding: 35px;
 
-    border-radius:12px;
+    margin-bottom: 40px;
 
-    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    border-radius: 12px;
 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
 }
 
-.title{
+.title {
+    color: #16423C;
 
-    color:#16423C;
+    font-size: 32px;
+    font-weight: bold;
 
-    font-size:32px;
+    text-align: center;
 
-    font-weight:bold;
-
-    margin-bottom:30px;
-
-    text-align:center;
-
+    margin-bottom: 35px;
 }
 
-.form-label{
+.form-label {
+    display: block;
 
-    font-weight:600;
+    margin-bottom: 8px;
 
-    color:#16423C;
+    font-weight: 600;
 
+    color: #16423C;
 }
 
-.form-control{
+.form-control {
+    height: 48px;
 
-    height:48px;
-
-    border-radius:8px;
-
+    border-radius: 8px;
 }
 
-.buttons{
+.form-control:focus {
+    border-color: #16423C;
 
-    display:flex;
-
-    justify-content:flex-end;
-
-    gap:15px;
-
-    margin-top:30px;
-
+    box-shadow: 0 0 0 .2rem rgba(22,66,60,.15);
 }
 
-.btn{
+.buttons {
+    display: flex;
 
-    min-width:170px;
+    justify-content: flex-end;
 
-    height:45px;
+    gap: 15px;
 
-    font-weight:600;
+    margin-top: 35px;
+}
 
+.btn {
+    min-width: 170px;
+
+    height: 45px;
+
+    font-weight: 600;
+
+    border-radius: 8px;
+}
+
+.btn-success {
+    background: #198754;
+
+    border-color: #198754;
+}
+
+.btn-success:hover {
+    background: #157347;
+
+    border-color: #146c43;
+}
+
+.btn-outline-secondary:hover {
+    background: #6c757d;
+
+    color: white;
 }

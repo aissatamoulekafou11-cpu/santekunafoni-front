@@ -2,7 +2,7 @@ import { AfterViewInit,ChangeDetectorRef,Component, OnInit } from '@angular/core
 import * as L from 'leaflet';
 import { Header } from '../../Component/header/header';
 import { Chart } from 'chart.js/auto';
-import { DashboardStats } from '../../Models/dashboard-stats.model';
+import { DashboardStats, ChartDataDTO } from '../../Models/dashboard-stats.model';
 import { AdminDashboardService } from '../../Services/admin-dashboard';
 
 @Component({
@@ -13,6 +13,9 @@ import { AdminDashboardService } from '../../Services/admin-dashboard';
   styleUrl: './admin-dashboard.css',
 })
 export class AdminDashboard  implements OnInit, AfterViewInit {
+    
+  //Stocker la référence de l'instance Chart.js
+  private alertChart!: Chart;
 
   // stocker les compteurs de nos 3 cartes
   stats: DashboardStats={
@@ -34,7 +37,7 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
   }
   // 2. Initialisation des visuels (Graphe & Carte) une fois la vue chargée
   ngAfterViewInit(): void {
-    this.initChart();
+    this.initGrapheAlertes();
     this.initMap();
   } 
 
@@ -44,8 +47,12 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
       next: (donnees) => {
         this.stats = {...donnees}; 
       
-        this.cdr.detectChanges();
+       // 3. Si Spring Boot envoie les données du graphe, on les injecte
+        if (donnees.grapheAlertes) {
+          this.mettreAJourGrapheAlertes(donnees.grapheAlertes);
+        }
 
+        this.cdr.detectChanges();
       },
       error: (erreur) => {
         console.error('Erreur lors de la récupération des données du dashboard :', erreur);
@@ -54,45 +61,51 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
   }
   
 // Configuration du Graphique Chart.js
-  private initChart():void {
-    new Chart('dashboardChart', {
-  type: 'bar',
-
-  data: {
-    labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-
-    datasets: [
-      {
-        label: 'Cas enregistrés',
-        data: [12, 25, 18, 32, 20, 40],
-        backgroundColor: '#174B45',
+  private initGrapheAlertes(): void {
+    this.alertChart = new Chart('dashboardChart', {
+      type: 'bar',
+      data: {
+        labels: [], // Initialement vide
+        datasets: [
+          {
+            label: 'Alertes enregistrées',
+            data: [], // Initialement vide
+           backgroundColor: '#174B45',
         borderColor: '#0F3632',
         borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1 // Affiche des entiers (pas de demi-alertes)
+            }
+          }
+        }
       }
-    ]
-  },
+    });
+  }
 
-  options: {
-    responsive: true,
-
-    maintainAspectRatio: false,
-
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top'
-      }
-    },
-
-    scales: {
-      y: {
-        beginAtZero: true
-      }
+  // Mise à jour des données du graphique à la réception de la réponse HTTP
+  private mettreAJourGrapheAlertes(grapheData: ChartDataDTO): void {
+    if (this.alertChart) {
+      this.alertChart.data.labels = grapheData.labels;
+      this.alertChart.data.datasets[0].data = grapheData.donnees;
+      this.alertChart.update(); // Redessine le graphique avec une animation fluide
     }
   }
 
-});
-}
 
 // Configuration de la Carte Leaflet pour le Mali
 private initMap(): void {
