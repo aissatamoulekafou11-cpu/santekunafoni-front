@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Administrateur } from '../../../Models/administrateur.model';
 import { AdministrateurService } from '../../../Services/administrateur';
 import { CommonModule } from '@angular/common';
@@ -13,16 +13,22 @@ import { CommonModule } from '@angular/common';
 export class AdminListe implements OnInit {
     administrateurs: Administrateur[] = [];
 
-  constructor(private administrateurService: AdministrateurService) {}
+  constructor(private administrateurService: AdministrateurService,
+      private cd: ChangeDetectorRef
+
+  ) {}
 
   ngOnInit(): void {
+    console.log("AdminListe chargé");
     this.chargerAdministrateurs();
   }
 
   chargerAdministrateurs(): void {
     this.administrateurService.getAdministrateurs().subscribe({
       next: (data) => {
+        console.log("Données reçues :", data);
         this.administrateurs = data;
+        this.cd.detectChanges();
       },
       error: (err) => {
         console.error("Erreur :", err);
@@ -30,25 +36,24 @@ export class AdminListe implements OnInit {
     });
 }
 
-supprimerAdministrateur(idUtilisateur: number | undefined): void {
-    if (!idUtilisateur) {
-      console.warn("L'ID de l'administrateur est invalide.");
-      return;
-    }
+adminSelectionne!: Administrateur;
+showEditModal = false;
+showDeleteModal = false;
 
-    if (confirm('Voulez-vous vraiment supprimer cet administrateur ?')) {
-      this.administrateurService.deleteAdministrateur(idUtilisateur).subscribe({
-        next: () => {
-          // 3. Mise à jour de la liste locale pour retirer l'admin sans recharger tout depuis le backend
-          this.administrateurs = this.administrateurs.filter(
-            (admin) => admin.idUtilisateur !== idUtilisateur
-          );
-        },
-        error: (err) => {
-          console.error('Erreur lors de la suppression :', err);
-        },
-      });
-    }
+
+openEditModal(admin: Administrateur) {
+
+  this.adminSelectionne = admin;
+  this.showEditModal = true;
+
 }
+
+openDeleteModal(admin: Administrateur) {
+
+  this.adminSelectionne = admin;
+  this.showDeleteModal = true;
+
+}
+
 
 }
