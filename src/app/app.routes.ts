@@ -16,6 +16,8 @@ import { ListPatients } from './Pages/list-patients/list-patients';
 import { AgentSanteListe } from './Component/agent-sante-liste/agent-sante-liste';
 import { ListSymptomesComponent } from './Pages/symptomes/list-symptomes/list-symptomes';
 import { ListNotificationsComponent } from './Pages/notifications/list-notifications/list-notifications';
+import { Modifieragent } from './Pages/admin/modifieragent/modifieragent';
+
 
 /* Traitements */
 import { ListeTraitement } from './Pages/traitementListeComponent/traitement-component';
@@ -26,7 +28,6 @@ import { AdminDashboard } from './Pages/admin-dashboard/admin-dashboard';
 import { ListeMaladieComponent } from './Pages/maladies/liste-maladie/liste-maladie';
 import { AdminAjouter } from './Pages/admin-dashboard/admin-ajouter/admin-ajouter';
 import { AdminListe } from './Pages/admin-dashboard/admin-liste/admin-liste';
-
 
 
 export const routes: Routes = [
@@ -53,6 +54,7 @@ export const routes: Routes = [
   // Patient & Agent
   { path: 'patients', component: ListPatients },
   { path: 'agents', component: AgentSanteListe },
+  { path: 'modifieragent/:id', component: Modifieragent },
 
   // Santé & Diagnostic
   { path: 'symptomes', component: ListSymptomesComponent },

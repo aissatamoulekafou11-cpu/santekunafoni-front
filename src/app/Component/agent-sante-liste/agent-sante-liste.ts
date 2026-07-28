@@ -15,7 +15,7 @@ import { AgentSante } from '../../Models/agent-sante.model';
 export class AgentSanteListe {
   listAgent: AgentSante[] = []; // Un tableau vide pour stocker les agents de santé
   agent!:AgentSante;
-  idAgent!: number;
+  idAgent!: number |  undefined;
 
   //La variable qui retient le texte tapé
   searchTerm: string = '';
@@ -153,7 +153,7 @@ export class AgentSanteListe {
   }
 
   //supprimer un agent de santé
-  preparerSuppression(id: number): void{
+  preparerSuppression(id: number | undefined): void{
     this.idAgent = id;
   }
 
