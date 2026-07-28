@@ -20,7 +20,7 @@ import { Sidebar } from "../../../Component/sidebar/sidebar";
 @Component({
   selector: 'app-list-notifications',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule, Sidebar],
+  imports: [CommonModule, FormsModule, FontAwesomeModule],
   templateUrl: './list-notifications.html',
   styleUrl: './list-notifications.css'
 })

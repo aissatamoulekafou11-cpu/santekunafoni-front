@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DashboardStats } from '../Models/dashboard-stats.model';
-import { environment } from '../../environment/environment.development';
-import { Administrateur } from '../Models/administrateur.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

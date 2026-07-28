@@ -3,11 +3,10 @@ import { FormsModule } from '@angular/forms';
 import { Patient, EtatPatient } from '../../Models/patient';
 import { PatientService } from '../../Services/patient';
 import { MaladieService } from '../../Services/maladie.service';
-import { SidebarComponent } from '../sidebar-component/sidebar-component';
 
 @Component({
   selector: 'app-list-patients',
-  imports: [FormsModule, SidebarComponent],
+  imports: [FormsModule],
   templateUrl: './list-patients.html',
   styleUrl: './list-patients.css'
 })
