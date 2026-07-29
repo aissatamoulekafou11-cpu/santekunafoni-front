@@ -4,10 +4,11 @@ import Chart from 'chart.js/auto';
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
 import { AuthService } from '../../Services/auth';
 import { PatientService } from '../../Services/patient';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard-patient',
-  imports: [SidebarComponent],
+  imports: [SidebarComponent, RouterLink],
   templateUrl: './dashboard-patient.html',
   styleUrl: './dashboard-patient.css'
 })
