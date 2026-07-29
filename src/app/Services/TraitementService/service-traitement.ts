@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Traitement } from '../../Models/traitement.model';
+import { Traitement, TraitementAffichage } from '../../Models/traitement.model';
 import { Observable } from 'rxjs';
 import { Maladie } from '../../Models/maladie.model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,8 +16,12 @@ export class ServiceTraitement {
     return this.http.post<Traitement>(`${this.apiUrl}/add`, traitement);
   }
 
-  getAllTraitement() : Observable<Traitement[]>{
-    return this.http.get<Traitement[]>(this.apiUrl)
+  getAllTraitement(): Observable<Traitement[]> {
+    return this.http.get<Traitement[]>(this.apiUrl);
+  }
+
+ getAllTraitementsAvecRelations(): Observable<TraitementAffichage[]> {
+    return this.http.get<TraitementAffichage[]>(this.apiUrl);
   }
 
   getTraitementById(id_traitement : number ) : Observable<Traitement>{

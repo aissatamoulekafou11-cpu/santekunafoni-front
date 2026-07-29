@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Router } from '@angular/router'; 
+import { AuthService } from '../../Services/auth';
 import { Header } from '../../Component/header/header'; //  Import du composant Header
 import { AgentDashboardService } from '../../Services/agent-dashboard.service';
 import { Patient } from '../../Models/patient.model'; 
@@ -18,6 +19,9 @@ export class AgentDashboard implements OnInit {
   private dashboardService = inject(AgentDashboardService);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef); // Injecté pour forcer l'affichage immédiat des données
+  private authService = inject(AuthService);
+
+  utilisateurConnecte: any = null;
 
   // Cartes statistiques
   nombrePatients = 0;
@@ -34,6 +38,7 @@ export class AgentDashboard implements OnInit {
   topSymptomes: any[] = []; 
 
   ngOnInit(): void {
+    this.utilisateurConnecte = this.authService.getUtilisateurConnecte();
     this.chargerDonneesDashboard();
   }
 

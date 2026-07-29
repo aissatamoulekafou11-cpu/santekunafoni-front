@@ -10,6 +10,8 @@
       </p>
     </div>
     <div class="d-flex align-items-center gap-3">
+      <i class="bi bi-bell-fill fs-4"></i>
+      <div class="avatar d-flex align-items-center justify-content-center">{{ initiales }}</div>
       <a routerLink="/notifications" style="color: #16423C;"><i class="bi bi-bell-fill fs-4"></i></a> <!--HEY HEY !!!-->
       <div class="avatar d-flex align-items-center justify-content-center">AD</div>
     </div>
@@ -33,17 +35,17 @@
   <!-- Statistiques -->
   <div class="row g-4 justify-content-center mb-4">
     <div class="col-md-6 col-lg-4">
-      <div class="stat-card text-center p-3">
-        <div class="fw-semibold"><i class="bi bi-people-fill me-2"></i>Mes Maladies</div>
+      <div class="stat-card text-center p-3" style="cursor: pointer;" (click)="ouvrirMaladiesModal()">
+        <div class="fw-semibold"><i class="bi bi-people-fill me-2"></i>Maladies</div>
         <div class="stat-nombre">{{ nbMaladies }}</div>
-        <div class="sous-titre">sont liées à vous</div>
+        <div class="sous-titre">Infectieuses sont liées à vous</div>
       </div>
     </div>
     <div class="col-md-6 col-lg-4">
-      <div class="stat-card text-center p-3">
-        <div class="fw-semibold"><i class="bi bi-virus me-2"></i>Mes symptômes</div>
-        <div class="stat-nombre">{{ nbSymptomes }}</div>
-        <div class="sous-titre">sont liés à vous</div>
+      <div class="stat-card text-center p-3" style="cursor: pointer;" (click)="ouvrirTraitementsModal()">
+        <div class="fw-semibold"><i class="bi bi-virus me-2"></i>Traitements</div>
+        <div class="stat-nombre">{{ nbTraitements }}</div>
+        <div class="sous-titre">Vous ont été prescris</div>
       </div>
     </div>
   </div>
@@ -76,5 +78,83 @@
     </div>
 
   </div>
+
+  <!-- ===== MODAL : MES MALADIES (NOUVEAU) ===== -->
+  @if (modalOuvert === 'maladies') {
+    <div class="modal fade show d-block" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content carte-modal p-4 position-relative">
+          <h4 class="titre-page text-center mb-3">Maladies</h4>
+          <hr class="mt-0">
+
+          @if (maladiesPatient.length > 0) {
+            <ul class="list-group">
+              @for (maladie of maladiesPatient; track maladie.idMaladie) {
+                <li class="list-group-item">
+                  <strong>{{ maladie.nom }}</strong>
+                  @if (maladie.description) {
+                    <br><small class="text-muted">{{ maladie.description }}</small>
+                  }
+                </li>
+              }
+            </ul>
+          } @else {
+            <div class="form-control champ champ-lecture">Aucune maladie enregistrée</div>
+          }
+
+          <hr>
+          <div class="d-flex justify-content-end gap-3">
+            <button class="btn btn-outline-dark px-5" (click)="fermerModal()">Fermer</button>
+          </div>
+
+          <button type="button" class="btn-close position-absolute top-0 end-0 m-3"
+                  (click)="fermerModal()"></button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+  }
+
+  <!-- ===== MODAL : MES TRAITEMENTS (NOUVEAU) ===== -->
+  @if (modalOuvert === 'traitements') {
+    <div class="modal fade show d-block" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content carte-modal p-4 position-relative">
+          <h4 class="titre-page text-center mb-3">Traitements</h4>
+          <hr class="mt-0">
+
+          @if (traitementsPatient.length > 0) {
+            <ul class="list-group">
+              @for (traitement of traitementsPatient; track traitement.idTraitement) {
+                <li class="list-group-item">
+                  <strong>{{ traitement.nomTraitement }}</strong>
+                  <span class="text-muted"> — {{ traitement.maladie?.nom }}</span>
+                  <br>
+                  <small class="text-muted">
+                    Du {{ traitement.datedebut }}
+                    @if (traitement.datefin) { au {{ traitement.datefin }} }
+                  </small>
+                  @if (traitement.description) {
+                    <br><small class="text-muted">{{ traitement.description }}</small>
+                  }
+                </li>
+              }
+            </ul>
+          } @else {
+            <div class="form-control champ champ-lecture">Aucun traitement enregistré</div>
+          }
+
+          <hr>
+          <div class="d-flex justify-content-end gap-3">
+            <button class="btn btn-outline-dark px-5" (click)="fermerModal()">Fermer</button>
+          </div>
+
+          <button type="button" class="btn-close position-absolute top-0 end-0 m-3"
+                  (click)="fermerModal()"></button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+  }
 
 </div>
