@@ -86,7 +86,7 @@
             </td>
           </tr>
         } @empty {
-          @if (!chargement) {
+          @if (!chargement()) {
             <tr><td colspan="8" class="text-center text-muted py-4">Aucun patient trouvé.</td></tr>
           }
         }

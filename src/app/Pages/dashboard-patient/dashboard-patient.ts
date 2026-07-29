@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, OnInit, ElementRef, ViewChild, ChangeDetectorRef, inject } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { SidebarComponent } from '../sidebar-component/sidebar-component';
+// import { SidebarComponent } from '../sidebar-component/sidebar-component';
 import { AuthService } from '../../Services/auth';
 import { PatientService } from '../../Services/patient';
 import { ServiceTraitement } from '../../Services/TraitementService/service-traitement';
@@ -9,7 +9,7 @@ import { TraitementAffichage } from '../../Models/traitement.model';
 
 @Component({
   selector: 'app-dashboard-patient',
-  imports: [SidebarComponent],
+  // imports: [SidebarComponent],
   templateUrl: './dashboard-patient.html',
   styleUrl: './dashboard-patient.css'
 })
@@ -26,6 +26,7 @@ export class DashboardPatient implements OnInit, AfterViewInit {
 
   nbMaladies = 0;
   nbTraitements = 0;
+  initiales = 'AD';
 
   // NOUVEAU : stocke la liste réelle pour les modals
   maladiesPatient: Maladie[] = [];
@@ -69,6 +70,7 @@ export class DashboardPatient implements OnInit, AfterViewInit {
           prenom: patient.prenom,
           region: patient.localite
         };
+        this.initiales = this.genererInitiales(patient.prenom, patient.nom);
         this.cdr.detectChanges();
 
         this.traitementService.getAllTraitementsAvecRelations().subscribe({
@@ -84,6 +86,13 @@ export class DashboardPatient implements OnInit, AfterViewInit {
       },
       error: (err) => console.error('Erreur chargement patient connecté :', err)
     });
+  }
+
+  /** NOUVEAU : construit les initiales (prénom + nom) du patient connecté */
+  private genererInitiales(prenom: string, nom: string): string {
+    const p = prenom?.charAt(0)?.toUpperCase() ?? '';
+    const n = nom?.charAt(0)?.toUpperCase() ?? '';
+    return (p + n) || 'AD';
   }
 
   /** NOUVEAU : ouvre le modal listant les maladies */
