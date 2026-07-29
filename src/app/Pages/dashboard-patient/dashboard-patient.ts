@@ -1,12 +1,14 @@
+// import Chart from 'chart.js/auto';
 import { Component, AfterViewInit, OnInit, ElementRef, ViewChild, ChangeDetectorRef, inject } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { SidebarComponent } from '../sidebar-component/sidebar-component';
 import { AuthService } from '../../Services/auth';
 import { PatientService } from '../../Services/patient';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard-patient',
-  imports: [SidebarComponent],
+  imports: [SidebarComponent, RouterLink],
   templateUrl: './dashboard-patient.html',
   styleUrl: './dashboard-patient.css'
 })
@@ -33,6 +35,26 @@ export class DashboardPatient implements OnInit, AfterViewInit {
 
   @ViewChild('graphEpidemies') graphEpidemies!: ElementRef<HTMLCanvasElement>;
 
+  ngAfterViewInit() {
+    new Chart(this.graphEpidemies.nativeElement, {
+      type: 'bar',
+      data: {
+        labels: ['Sikasso', 'Ségou', 'Koulikoro', 'Kayes', 'Mopti', 'Bamako'],
+        datasets: [
+          { label: 'Paludisme', data: [4200, 3800, 2900, 2600, 2400, 2100], backgroundColor: '#2E6FDB' },
+          { label: 'Choléra',   data: [800, 1300, 700, 900, 1100, 600],     backgroundColor: '#27AE60' },
+          { label: 'Rougeole',  data: [400, 500, 350, 300, 450, 380],       backgroundColor: '#F1C40F' },
+          { label: 'Méningite', data: [900, 700, 500, 600, 400, 850],       backgroundColor: '#D63031' },
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: { size: 10 } } } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  }
   ngOnInit() {
     const user = this.authService.getUtilisateurConnecte();
     console.log('Utilisateur trouvé dans localStorage :', user);
@@ -63,24 +85,24 @@ export class DashboardPatient implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    new Chart(this.graphEpidemies.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: ['Sikasso', 'Ségou', 'Koulikoro', 'Kayes', 'Mopti', 'Bamako'],
-        datasets: [
-          { label: 'Paludisme', data: [4200, 3800, 2900, 2600, 2400, 2100], backgroundColor: '#2E6FDB' },
-          { label: 'Choléra',   data: [800, 1300, 700, 900, 1100, 600],     backgroundColor: '#27AE60' },
-          { label: 'Rougeole',  data: [400, 500, 350, 300, 450, 380],       backgroundColor: '#F1C40F' },
-          { label: 'Méningite', data: [900, 700, 500, 600, 400, 850],       backgroundColor: '#D63031' },
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: { size: 10 } } } },
-        scales: { y: { beginAtZero: true } }
-      }
-    });
-  }
+  // ngAfterViewInit() {
+  //   new Chart(this.graphEpidemies.nativeElement, {
+  //     type: 'bar',
+  //     data: {
+  //       labels: ['Sikasso', 'Ségou', 'Koulikoro', 'Kayes', 'Mopti', 'Bamako'],
+  //       datasets: [
+  //         { label: 'Paludisme', data: [4200, 3800, 2900, 2600, 2400, 2100], backgroundColor: '#2E6FDB' },
+  //         { label: 'Choléra',   data: [800, 1300, 700, 900, 1100, 600],     backgroundColor: '#27AE60' },
+  //         { label: 'Rougeole',  data: [400, 500, 350, 300, 450, 380],       backgroundColor: '#F1C40F' },
+  //         { label: 'Méningite', data: [900, 700, 500, 600, 400, 850],       backgroundColor: '#D63031' },
+  //       ]
+  //     },
+  //     options: {
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //       plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: { size: 10 } } } },
+  //       scales: { y: { beginAtZero: true } }
+  //     }
+  //   });
+  // }
 }
