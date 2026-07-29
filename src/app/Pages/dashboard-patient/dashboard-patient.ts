@@ -4,6 +4,8 @@ import { SidebarComponent } from '../sidebar-component/sidebar-component';
 import { AuthService } from '../../Services/auth';
 import { PatientService } from '../../Services/patient';
 import { ServiceTraitement } from '../../Services/TraitementService/service-traitement';
+import { Maladie } from '../../Models/maladie.model';
+import { TraitementAffichage } from '../../Models/traitement.model';
 
 @Component({
   selector: 'app-dashboard-patient',
@@ -24,6 +26,13 @@ export class DashboardPatient implements OnInit, AfterViewInit {
 
   nbMaladies = 0;
   nbTraitements = 0;
+
+  // NOUVEAU : stocke la liste réelle pour les modals
+  maladiesPatient: Maladie[] = [];
+  traitementsPatient: TraitementAffichage[] = [];
+
+  // NOUVEAU : état d'ouverture des modals
+  modalOuvert: 'maladies' | 'traitements' | null = null;
 
   villes = [
     { nom: 'Bamako',   x: 38, y: 68, couleur: '#E8862D', taille: 14 },
@@ -55,6 +64,7 @@ export class DashboardPatient implements OnInit, AfterViewInit {
       next: (patient) => {
         console.log('Patient chargé :', patient);
         this.nbMaladies = patient.maladies?.length ?? 0;
+        this.maladiesPatient = patient.maladies ?? [];
         this.utilisateur = {
           prenom: patient.prenom,
           region: patient.localite
@@ -63,9 +73,10 @@ export class DashboardPatient implements OnInit, AfterViewInit {
 
         this.traitementService.getAllTraitementsAvecRelations().subscribe({
           next: (traitements) => {
-            this.nbTraitements = traitements.filter(
+            this.traitementsPatient = traitements.filter(
               t => t.patient?.idUtilisateur === id
-            ).length;
+            );
+            this.nbTraitements = this.traitementsPatient.length;
             this.cdr.detectChanges();
           },
           error: (err) => console.error('Erreur chargement traitements :', err)
@@ -75,23 +86,38 @@ export class DashboardPatient implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  /** NOUVEAU : ouvre le modal listant les maladies */
+  ouvrirMaladiesModal() {
+    this.modalOuvert = 'maladies';
+  }
+
+  /** NOUVEAU : ouvre le modal listant les traitements */
+  ouvrirTraitementsModal() {
+    this.modalOuvert = 'traitements';
+  }
+
+  /** NOUVEAU : ferme n'importe quel modal ouvert */
+  fermerModal() {
+    this.modalOuvert = null;
+  }
+
+ ngAfterViewInit() {
     new Chart(this.graphEpidemies.nativeElement, {
-      type: 'bar',
+      type: 'pie',
       data: {
         labels: ['Sikasso', 'Ségou', 'Koulikoro', 'Kayes', 'Mopti', 'Bamako'],
         datasets: [
-          { label: 'Paludisme', data: [4200, 3800, 2900, 2600, 2400, 2100], backgroundColor: '#2E6FDB' },
-          { label: 'Choléra',   data: [800, 1300, 700, 900, 1100, 600],     backgroundColor: '#27AE60' },
-          { label: 'Rougeole',  data: [400, 500, 350, 300, 450, 380],       backgroundColor: '#F1C40F' },
-          { label: 'Méningite', data: [900, 700, 500, 600, 400, 850],       backgroundColor: '#D63031' },
+          {
+            label: 'Cas totaux',
+            data: [6300, 6300, 4450, 4400, 4350, 3930],
+            backgroundColor: ['#2E6FDB', '#27AE60', '#F1C40F', '#D63031', '#9B59B6', '#E8862D']
+          }
         ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { position: 'top', labels: { boxWidth: 12, font: { size: 10 } } } },
-        scales: { y: { beginAtZero: true } }
+        plugins: { legend: { position: 'right', labels: { boxWidth: 12, font: { size: 11 } } } }
       }
     });
   }

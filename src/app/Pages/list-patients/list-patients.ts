@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-imports: [FormsModule, SidebarComponent];
 import { Patient, EtatPatient } from '../../Models/patient';
 import { PatientService } from '../../Services/patient';
 import { MaladieService } from '../../Services/maladie.service';
@@ -11,7 +10,7 @@ import { AuthService } from '../../Services/auth';
 
 @Component({
   selector: 'app-list-patients',
-  imports: [FormsModule],
+  imports: [FormsModule, SidebarComponent],
   templateUrl: './list-patients.html',
   styleUrl: './list-patients.css'
 })
@@ -22,10 +21,11 @@ export class ListPatients implements OnInit {
   private authService = inject(AuthService);
   private cdr = inject(ChangeDetectorRef);
 
+  utilisateurConnecte: any = null;
   recherche = '';
   etatsDisponibles: EtatPatient[] = ['Stable', 'Instable', 'Critique', 'Grave'];
 
-  modalOuvert: 'ajouter' | 'details' | 'modifier' | null = null;
+  modalOuvert: 'ajouter' | 'details' | 'modifier' | 'maladies' | 'traitements' | null = null;
   patientSelectionne: Patient | null = null;
   formulaire: Patient = this.formulaireVide();
 
@@ -36,8 +36,9 @@ export class ListPatients implements OnInit {
   chargement = signal(false);
   erreur = signal('');
   // ═══ NOUVEAU : la copie locale + les états d'attente ═══
-                  
+
   ngOnInit() {
+    this.utilisateurConnecte = this.authService.getUtilisateurConnecte();
     this.chargerPatients();
     this.maladieService.getMaladies();
     this.chargerTraitements();
@@ -56,7 +57,7 @@ export class ListPatients implements OnInit {
       next: (data) => {
         this.listePatients.set(data);
         this.chargement.set(false);     // ← éteint le spinner, l'écran suit tout seul
-        
+
       },
       error: (err) => {
         console.error('Erreur API :', err);
@@ -96,8 +97,7 @@ export class ListPatients implements OnInit {
     this.traitementsChoisis[idMaladie] = val ? +val : null;
   }
 
-   
-   nomsMaladies(patient: Patient): string {
+  nomsMaladies(patient: Patient): string {
     if (!patient.maladies || patient.maladies.length === 0) return '—';
     return patient.maladies.map(m => m.nom).join(', ');
   }
@@ -133,6 +133,18 @@ export class ListPatients implements OnInit {
   ouvrirDetails(patient: Patient) {
     this.patientSelectionne = patient;
     this.modalOuvert = 'details';
+  }
+
+  /** NOUVEAU : ouvre le modal listant uniquement les maladies du patient */
+  ouvrirMaladiesModal(patient: Patient) {
+    this.patientSelectionne = patient;
+    this.modalOuvert = 'maladies';
+  }
+
+  /** NOUVEAU : ouvre le modal listant uniquement les traitements du patient */
+  ouvrirTraitementsModal(patient: Patient) {
+    this.patientSelectionne = patient;
+    this.modalOuvert = 'traitements';
   }
 
   ouvrirModification(patient: Patient) {
