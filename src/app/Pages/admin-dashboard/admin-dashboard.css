@@ -101,7 +101,6 @@
 
 .chart-body {
   height: 350px;
-   height: 100% !important;
 }
 
 .chart-body canvas {
