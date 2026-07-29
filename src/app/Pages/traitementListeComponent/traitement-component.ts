@@ -33,14 +33,13 @@ export class ListeTraitement implements OnInit {
 
   constructor(
     private serviceTraitement: ServiceTraitement,
-    // private router: Router
   ) {}
 
   ngOnInit() {
-    this.loadTraitement();
+    this.recupTraitement();
   }
 
-  loadTraitement() {
+  recupTraitement() {
     this.serviceTraitement.getAllTraitement().subscribe({
       next: (donnees: Traitement[]) => {
         const listeData = Array.isArray(donnees) ? donnees : [];
@@ -69,6 +68,7 @@ export class ListeTraitement implements OnInit {
     }
   }
 
+  // GETTER : Découpe la liste filtrée pour n'afficher que la page courante dans le HTML
   //  GETTER : Découpe la liste filtrée pour n'afficher que la page courante dans le HTML
   get traitementsPagines(): Traitement[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -80,11 +80,13 @@ export class ListeTraitement implements OnInit {
     return Math.ceil(this.traitementsFiltres.length / this.itemsPerPage) || 1;
   }
 
+  // GETTER : Génère le tableau des numéros de pages [1, 2, 3...]
   //  GETTER : Génère le tableau des numéros de pages [1, 2, 3...]
   get pages(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
+  // METHODES POUR CHANGER DE PAGE
   //  METHODES POUR CHANGER DE PAGE
   changerPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {

@@ -16,11 +16,12 @@ import {
 import { NotificationService } from '../../../Services/notification.service';
 import { Notification, NotificationRequestDto } from '../../../Models/notification.model';
 import { Sidebar } from "../../../Component/sidebar/sidebar";
+import { AuthService } from '../../../Services/auth';
 
 @Component({
   selector: 'app-list-notifications',
   standalone: true,
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, FormsModule, FontAwesomeModule, Sidebar],
   templateUrl: './list-notifications.html',
   styleUrl: './list-notifications.css'
 })
@@ -39,7 +40,14 @@ export class ListNotificationsComponent implements OnInit, OnDestroy {
 
   // ==================== INJECTIONS ====================
   private cdr = inject(ChangeDetectorRef);
-  private intervalId: any;  // Pour stocker l'intervalle
+  private intervalId: any;
+
+  // AJOUT : Variables pour le contrôle des rôles
+  estPatient: boolean = false;
+  estAgentOuAdmin: boolean = false;
+
+  // AJOUT : Liste des IDs cachés par le patient
+  notificationsCachees: number[] = [];
 
   // ==================== DONNÉES ====================
   notifications: Notification[] = [];
@@ -69,21 +77,47 @@ export class ListNotificationsComponent implements OnInit, OnDestroy {
   pages: number[] = [];
 
   // ==================== CONSTRUCTEUR ====================
-  constructor(private notificationService: NotificationService) {}
+  constructor(
+    private notificationService: NotificationService,
+    private authService: AuthService
+  ) {}
 
   // ==================== INIT ====================
   ngOnInit(): void {
+    this.verifierRoleUtilisateur();
+    this.chargerNotificationsCachees();
     this.chargerNotifications();
     
-    // POLLING AUTOMATIQUE toutes les 10 secondes
     this.intervalId = setInterval(() => {
       this.chargerNotificationsSilencieusement();
-    }, 10000);  // 10 secondes
+    }, 10000);
+  }
+
+  // AJOUT : Charger les IDs cachés depuis localStorage
+  chargerNotificationsCachees(): void {
+    const cache = localStorage.getItem('notificationsCachees');
+    this.notificationsCachees = cache ? JSON.parse(cache) : [];
+  }
+
+  // AJOUT : Sauvegarder les IDs cachés dans localStorage
+  sauvegarderNotificationsCachees(): void {
+    localStorage.setItem('notificationsCachees', JSON.stringify(this.notificationsCachees));
+  }
+
+  // AJOUT : Méthode pour vérifier le rôle de l'utilisateur
+  verifierRoleUtilisateur(): void {
+    const user = this.authService.getUtilisateurConnecte();
+    const role = user?.role || '';
+    
+    this.estPatient = role === 'PATIENT';
+    this.estAgentOuAdmin = role === 'AGENT_SANTE' || role === 'ADMIN';
+    
+    console.log('Rôle utilisateur :', role);
+    console.log('Est patient :', this.estPatient);
   }
 
   // ==================== DESTRUCTION ====================
   ngOnDestroy(): void {
-    // Nettoyer l'intervalle pour éviter les fuites mémoire
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
@@ -94,7 +128,12 @@ export class ListNotificationsComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.notificationService.getAllNotifications().subscribe({
       next: (data: Notification[]) => {
-        this.notifications = this.trierNotifications(data);
+        // FILTRER : Retirer les notifications cachées par le patient
+        let notificationsFiltrees = data;
+        if (this.estPatient) {
+          notificationsFiltrees = data.filter(n => !this.notificationsCachees.includes(n.id!));
+        }
+        this.notifications = this.trierNotifications(notificationsFiltrees);
         this.appliquerFiltres();
         this.mettreAJourStatistiques();
         this.isLoading = false;
@@ -115,12 +154,17 @@ export class ListNotificationsComponent implements OnInit, OnDestroy {
         const ancienNombre = this.notifications.length;
         const anciennesNonLues = this.nombreNonLues;
 
-        this.notifications = this.trierNotifications(data);
+        // FILTRER : Retirer les notifications cachées par le patient
+        let notificationsFiltrees = data;
+        if (this.estPatient) {
+          notificationsFiltrees = data.filter(n => !this.notificationsCachees.includes(n.id!));
+        }
+
+        this.notifications = this.trierNotifications(notificationsFiltrees);
         this.appliquerFiltres();
         this.mettreAJourStatistiques();
         this.cdr.detectChanges();
 
-        // Détecter les NOUVELLES notifications
         const nouveauNombre = this.notifications.length;
         const nouvellesNonLues = this.nombreNonLues;
 
@@ -131,13 +175,11 @@ export class ListNotificationsComponent implements OnInit, OnDestroy {
         }
 
         if (nouvellesNonLues > anciennesNonLues) {
-          // Une nouvelle alerte non lue est arrivée !
           this.successMessage = 'Nouvelle alerte épidémie détectée !';
           setTimeout(() => this.successMessage = '', 5000);
         }
       },
       error: () => {
-        // Erreur silencieuse pour le polling
         console.debug('Polling des notifications : erreur');
       }
     });
@@ -148,7 +190,7 @@ export class ListNotificationsComponent implements OnInit, OnDestroy {
     return data.sort((a, b) => {
       const dateA = a.datePublication ? new Date(a.datePublication).getTime() : 0;
       const dateB = b.datePublication ? new Date(b.datePublication).getTime() : 0;
-      return dateB - dateA;  // Plus récente en premier
+      return dateB - dateA;
     });
   }
 
@@ -234,25 +276,37 @@ export class ListNotificationsComponent implements OnInit, OnDestroy {
 
   // ==================== SUPPRIMER UNE NOTIFICATION ====================
   supprimerNotification(id: number, titre: string): void {
-    // Confirmation avant suppression
     if (confirm(`Voulez-vous vraiment supprimer la notification "${titre}" ?`)) {
       
-      this.notificationService.supprimerNotification(id).subscribe({
-        next: () => {
-          // Retirer la notification de la liste locale
-          this.notifications = this.notifications.filter(n => n.id !== id);
-          this.appliquerFiltres();
-          this.mettreAJourStatistiques();
-          this.successMessage = 'Notification supprimée avec succès !';
-          this.cdr.detectChanges();
-          setTimeout(() => this.successMessage = '', 3000);
-        },
-        error: (err) => {
-          console.error('Erreur lors de la suppression:', err);
-          this.errorMessage = 'Erreur lors de la suppression. Vérifiez que le serveur est accessible.';
-          setTimeout(() => this.errorMessage = '', 3000);
-        }
-      });
+      if (this.estPatient) {
+        // PATIENT : Suppression UNIQUEMENT locale + sauvegarde en cache
+        this.notificationsCachees.push(id);
+        this.sauvegarderNotificationsCachees();
+        
+        this.notifications = this.notifications.filter(n => n.id !== id);
+        this.appliquerFiltres();
+        this.mettreAJourStatistiques();
+        this.successMessage = 'Notification retirée de votre affichage.';
+        this.cdr.detectChanges();
+        setTimeout(() => this.successMessage = '', 3000);
+      } else {
+        // ADMIN / AGENT : Suppression DÉFINITIVE dans la base
+        this.notificationService.supprimerNotification(id).subscribe({
+          next: () => {
+            this.notifications = this.notifications.filter(n => n.id !== id);
+            this.appliquerFiltres();
+            this.mettreAJourStatistiques();
+            this.successMessage = 'Notification supprimée définitivement.';
+            this.cdr.detectChanges();
+            setTimeout(() => this.successMessage = '', 3000);
+          },
+          error: (err) => {
+            console.error('Erreur lors de la suppression:', err);
+            this.errorMessage = 'Erreur lors de la suppression. Vérifiez que le serveur est accessible.';
+            setTimeout(() => this.errorMessage = '', 3000);
+          }
+        });
+      }
     }
   }
 

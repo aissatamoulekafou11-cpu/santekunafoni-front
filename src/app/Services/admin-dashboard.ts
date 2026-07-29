@@ -12,7 +12,7 @@ export class AdminDashboardService {
 
   // URL de ton endpoint Spring Boot qui fournit les stats
   
-  private apiUrl = `${environment.apiUrl}/administrateurs`;
+  private apiUrl = 'http://localhost:8080/api/administrateurs/dashboard-stats';
 
   constructor(private http: HttpClient) { }
 
