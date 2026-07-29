@@ -68,7 +68,7 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
 // Création de initGrapheAltertes
   private initGrapheAlertes(): void {
     this.alertChart = new Chart('dashboardChart', {
-      type: 'bar',
+      type: 'pie',
       data: {
         labels: [], // Initialement vide
         datasets: [
