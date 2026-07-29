@@ -33,6 +33,7 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
 
   // 1. Appel du service HTTP dès le chargement de la page
   ngOnInit():void{
+    console.log('--- ngOnInit exécuté ---');
     this.chargerStatistiques();
   }
   // 2. Initialisation des visuels (Graphe & Carte) une fois la vue chargée
@@ -42,13 +43,16 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
   } 
 
 // Méthode pour récupérer les données de Spring Boot
+// Création de  chargerStatistiques()
   private chargerStatistiques(): void {
+    console.log('--- Lancement de la requête HTTP ---');
     this.dashboardService.getDashboardStats().subscribe({
       next: (donnees) => {
-        this.stats = {...donnees}; 
+        console.log('--- Données reçues du Backend :', donnees);
+        this.stats = donnees; 
       
        // 3. Si Spring Boot envoie les données du graphe, on les injecte
-        if (donnees.grapheAlertes) {
+       if (donnees && donnees.grapheAlertes) {
           this.mettreAJourGrapheAlertes(donnees.grapheAlertes);
         }
 
@@ -61,6 +65,7 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
   }
   
 // Configuration du Graphique Chart.js
+// Création de initGrapheAltertes
   private initGrapheAlertes(): void {
     this.alertChart = new Chart('dashboardChart', {
       type: 'bar',
@@ -103,7 +108,9 @@ export class AdminDashboard  implements OnInit, AfterViewInit {
       this.alertChart.data.labels = grapheData.labels;
       this.alertChart.data.datasets[0].data = grapheData.donnees;
       this.alertChart.update(); // Redessine le graphique avec une animation fluide
-    }
+    }else {
+    console.warn('alertChart n\'est pas encore initialisé !');
+  }
   }
 
 
@@ -117,7 +124,8 @@ private initMap(): void {
 
   const map = L.map('map', {
     maxBounds: maliBounds,
-    maxBoundsViscosity: 1.0
+    maxBoundsViscosity: 0.5,
+     minZoom: 4
   }).setView([17.5707, -3.9962], 6);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

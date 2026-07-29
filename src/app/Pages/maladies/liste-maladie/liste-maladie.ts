@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Maladie } from '../../../Models/maladie.model';
 import { FormsModule } from '@angular/forms';
 import { MaladieService } from '../../../Services/maladie.service';
-import { Header } from "../../../Component/header/header";
 import { SidebarComponent } from "../../sidebar-component/sidebar-component";
-import { RouterOutlet } from "@angular/router";
-import { Sidebar } from '../../../Component/sidebar/sidebar';
+
 
 type ModalMode = 'none' | 'form' | 'info' | 'delete';
 
